@@ -1,0 +1,32 @@
+{
+  "name": "cyclejs-firebase",
+  "version": "0.0.1",
+  "description": "An example of using Cyclejs and Firebase with Webpack",
+  "main": "index.js",
+  "scripts": {
+    "dev": "node_modules/.bin/webpack-dev-server --content-base docs --watch-content-base",
+    "chrome": "open -a \"Google Chrome Canary\" \"http://localhost:8080\" -n --args --chrome-frame --profile-directory=\"Profile 1\" --remote-debugging-port=9222",
+    "chrome+dev": "npm run chrome && npm run dev-server",
+    "prod": "cross-env NODE_ENV=production node_modules/.bin/webpack --output-filename docs/bundle.js"
+  },
+  "devDependencies": {
+    "@cycle/dom": "^17.1.0",
+    "@cycle/isolate": "^2.1.0",
+    "@cycle/run": "^3.1.0",
+    "babel-core": "^6.24.1",
+    "babel-loader": "^6.4.1",
+    "babel-plugin-transform-object-rest-spread": "^6.23.0",
+    "babel-preset-env": "^1.4.0",
+    "cross-env": "^4.0.0",
+    "firebase": "^3.9.0",
+    "webpack": "^2.4.1",
+    "webpack-dev-server": "^2.4.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:vkammerer/cyclejs-firebase.git"
+  },
+  "keywords": [],
+  "author": "Vincent Kammerer <vkammerer@gmail.com> (http://vincent-kammerer.com)",
+  "license": "MIT"
+}
