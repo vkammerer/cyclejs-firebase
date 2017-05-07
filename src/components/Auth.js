@@ -17,14 +17,9 @@ const view = state$ =>
     return p([button(".login", "Log in")]);
   });
 
-const Auth = sources => {
-  const { logout, login } = intent(sources.DOM);
-  const DOM$ = view(sources.props);
-
-  return {
-    DOM: DOM$,
-    actions: { logout, login }
-  };
-};
+const Auth = sources => ({
+  DOM: view(sources.props),
+  actions: intent(sources.DOM)
+});
 
 export default Auth;

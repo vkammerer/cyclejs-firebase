@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 55);
+/******/ 	return __webpack_require__(__webpack_require__.s = 56);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -77,7 +77,7 @@ var __extends = (this && this.__extends) || function (d, b) {
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-var symbol_observable_1 = __webpack_require__(108);
+var symbol_observable_1 = __webpack_require__(112);
 var NO = {};
 exports.NO = NO;
 function noop() { }
@@ -1859,9 +1859,9 @@ module.exports = function (fn) {
 "use strict";
 
 
-var assign        = __webpack_require__(16)
+var assign        = __webpack_require__(15)
   , normalizeOpts = __webpack_require__(23)
-  , isCallable    = __webpack_require__(69)
+  , isCallable    = __webpack_require__(73)
   , contains      = __webpack_require__(26)
 
   , d;
@@ -2020,7 +2020,7 @@ exports.MainDOMSource = MainDOMSource_1.MainDOMSource;
  * VNode as input, and outputs the DOMSource object.
  * @function makeDOMDriver
  */
-var makeDOMDriver_1 = __webpack_require__(52);
+var makeDOMDriver_1 = __webpack_require__(53);
 exports.makeDOMDriver = makeDOMDriver_1.makeDOMDriver;
 /**
  * A factory function to create mocked DOMSource objects, for testing purposes.
@@ -2070,7 +2070,7 @@ exports.makeDOMDriver = makeDOMDriver_1.makeDOMDriver;
  *
  * @function mockDOMSource
  */
-var mockDOMSource_1 = __webpack_require__(53);
+var mockDOMSource_1 = __webpack_require__(54);
 exports.mockDOMSource = mockDOMSource_1.mockDOMSource;
 exports.MockedDOMSource = mockDOMSource_1.MockedDOMSource;
 /**
@@ -2115,7 +2115,7 @@ exports.MockedDOMSource = mockDOMSource_1.MockedDOMSource;
  */
 var h_1 = __webpack_require__(10);
 exports.h = h_1.h;
-var hyperscript_helpers_1 = __webpack_require__(50);
+var hyperscript_helpers_1 = __webpack_require__(51);
 exports.svg = hyperscript_helpers_1.default.svg;
 exports.a = hyperscript_helpers_1.default.a;
 exports.abbr = hyperscript_helpers_1.default.abbr;
@@ -2279,7 +2279,7 @@ exports.getSelectors = getSelectors;
 "use strict";
 
 
-module.exports = __webpack_require__(88)() ? Symbol : __webpack_require__(90);
+module.exports = __webpack_require__(92)() ? Symbol : __webpack_require__(94);
 
 
 /***/ }),
@@ -2394,187 +2394,6 @@ exports.default = vnode;
 
 "use strict";
 
-var index_1 = __webpack_require__(0);
-var NO = {};
-var SampleCombineListener = (function () {
-    function SampleCombineListener(i, p) {
-        this.i = i;
-        this.p = p;
-        p.ils[i] = this;
-    }
-    SampleCombineListener.prototype._n = function (t) {
-        var p = this.p;
-        if (p.out === NO)
-            return;
-        p.up(t, this.i);
-    };
-    SampleCombineListener.prototype._e = function (err) {
-        this.p._e(err);
-    };
-    SampleCombineListener.prototype._c = function () {
-        this.p.down(this.i, this);
-    };
-    return SampleCombineListener;
-}());
-exports.SampleCombineListener = SampleCombineListener;
-var SampleCombineOperator = (function () {
-    function SampleCombineOperator(ins, streams) {
-        this.type = 'sampleCombine';
-        this.ins = ins;
-        this.others = streams;
-        this.out = NO;
-        this.ils = [];
-        this.Nn = 0;
-        this.vals = [];
-    }
-    SampleCombineOperator.prototype._start = function (out) {
-        this.out = out;
-        var s = this.others;
-        var n = this.Nn = s.length;
-        var vals = this.vals = new Array(n);
-        for (var i = 0; i < n; i++) {
-            vals[i] = NO;
-            s[i]._add(new SampleCombineListener(i, this));
-        }
-        this.ins._add(this);
-    };
-    SampleCombineOperator.prototype._stop = function () {
-        var s = this.others;
-        var n = s.length;
-        var ils = this.ils;
-        this.ins._remove(this);
-        for (var i = 0; i < n; i++) {
-            s[i]._remove(ils[i]);
-        }
-        this.out = NO;
-        this.vals = [];
-        this.ils = [];
-    };
-    SampleCombineOperator.prototype._n = function (t) {
-        var out = this.out;
-        if (out === NO)
-            return;
-        if (this.Nn > 0)
-            return;
-        out._n([t].concat(this.vals));
-    };
-    SampleCombineOperator.prototype._e = function (err) {
-        var out = this.out;
-        if (out === NO)
-            return;
-        out._e(err);
-    };
-    SampleCombineOperator.prototype._c = function () {
-        var out = this.out;
-        if (out === NO)
-            return;
-        out._c();
-    };
-    SampleCombineOperator.prototype.up = function (t, i) {
-        var v = this.vals[i];
-        if (this.Nn > 0 && v === NO) {
-            this.Nn--;
-        }
-        this.vals[i] = t;
-    };
-    SampleCombineOperator.prototype.down = function (i, l) {
-        this.others[i]._remove(l);
-    };
-    return SampleCombineOperator;
-}());
-exports.SampleCombineOperator = SampleCombineOperator;
-var sampleCombine;
-/**
- *
- * Combines a source stream with multiple other streams. The result stream
- * will emit the latest events from all input streams, but only when the
- * source stream emits.
- *
- * If the source, or any input stream, throws an error, the result stream
- * will propagate the error. If any input streams end, their final emitted
- * value will remain in the array of any subsequent events from the result
- * stream.
- *
- * The result stream will only complete upon completion of the source stream.
- *
- * Marble diagram:
- *
- * ```text
- * --1----2-----3--------4--- (source)
- * ----a-----b-----c--d------ (other)
- *      sampleCombine
- * -------2a----3b-------4d--
- * ```
- *
- * Examples:
- *
- * ```js
- * import sampleCombine from 'xstream/extra/sampleCombine'
- * import xs from 'xstream'
- *
- * const sampler = xs.periodic(1000).take(3)
- * const other = xs.periodic(100)
- *
- * const stream = sampler.compose(sampleCombine(other))
- *
- * stream.addListener({
- *   next: i => console.log(i),
- *   error: err => console.error(err),
- *   complete: () => console.log('completed')
- * })
- * ```
- *
- * ```text
- * > [0, 8]
- * > [1, 18]
- * > [2, 28]
- * ```
- *
- * ```js
- * import sampleCombine from 'xstream/extra/sampleCombine'
- * import xs from 'xstream'
- *
- * const sampler = xs.periodic(1000).take(3)
- * const other = xs.periodic(100).take(2)
- *
- * const stream = sampler.compose(sampleCombine(other))
- *
- * stream.addListener({
- *   next: i => console.log(i),
- *   error: err => console.error(err),
- *   complete: () => console.log('completed')
- * })
- * ```
- *
- * ```text
- * > [0, 1]
- * > [1, 1]
- * > [2, 1]
- * ```
- *
- * @param {...Stream} streams One or more streams to combine with the sampler
- * stream.
- * @return {Stream}
- */
-sampleCombine = function sampleCombine() {
-    var streams = [];
-    for (var _i = 0; _i < arguments.length; _i++) {
-        streams[_i] = arguments[_i];
-    }
-    return function sampleCombineOperator(sampler) {
-        return new index_1.Stream(new SampleCombineOperator(sampler, streams));
-    };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.default = sampleCombine;
-//# sourceMappingURL=sampleCombine.js.map
-
-/***/ }),
-/* 14 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
 Object.defineProperty(exports, "__esModule", { value: true });
 var xstream_1 = __webpack_require__(0);
 function fromEvent(element, eventName, useCapture) {
@@ -2595,7 +2414,7 @@ exports.fromEvent = fromEvent;
 //# sourceMappingURL=fromEvent.js.map
 
 /***/ }),
-/* 15 */
+/* 14 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2609,19 +2428,19 @@ module.exports = function (x) { return (toString.call(x) === id); };
 
 
 /***/ }),
-/* 16 */
+/* 15 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-module.exports = __webpack_require__(64)()
+module.exports = __webpack_require__(68)()
 	? Object.assign
-	: __webpack_require__(65);
+	: __webpack_require__(69);
 
 
 /***/ }),
-/* 17 */
+/* 16 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2638,18 +2457,18 @@ module.exports = function (x) {
 
 
 /***/ }),
-/* 18 */
+/* 17 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 var clear    = __webpack_require__(22)
-  , assign   = __webpack_require__(16)
+  , assign   = __webpack_require__(15)
   , callable = __webpack_require__(2)
   , value    = __webpack_require__(1)
   , d        = __webpack_require__(3)
-  , autoBind = __webpack_require__(56)
+  , autoBind = __webpack_require__(60)
   , Symbol   = __webpack_require__(8)
 
   , defineProperty = Object.defineProperty
@@ -2735,6 +2554,181 @@ defineProperty(Iterator.prototype, Symbol.toStringTag, d('', 'Iterator'));
 
 
 /***/ }),
+/* 18 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.makeFirebaseDriver = exports.update = exports.transaction = exports.set = exports.remove = exports.push = exports.logout = exports.loginWithFacebook = exports.loginWithEmailAndPassword = exports.createUserWithEmailAndPassword = undefined;
+
+var _xstream = __webpack_require__(0);
+
+var _xstream2 = _interopRequireDefault(_xstream);
+
+var _adapt = __webpack_require__(4);
+
+var _firebase = __webpack_require__(99);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var createUserWithEmailAndPassword = exports.createUserWithEmailAndPassword = function createUserWithEmailAndPassword(email, password) {
+  return {
+    type: "CREATE_USER",
+    email: email,
+    password: password
+  };
+};
+var loginWithEmailAndPassword = exports.loginWithEmailAndPassword = function loginWithEmailAndPassword(email, password) {
+  return {
+    type: "LOGIN_EMAIL",
+    email: email,
+    password: password
+  };
+};
+var loginWithFacebook = exports.loginWithFacebook = function loginWithFacebook() {
+  return { type: "LOGIN_FACEBOOK" };
+};
+var logout = exports.logout = function logout() {
+  return { type: "LOGOUT" };
+};
+var push = exports.push = function push(_ref) {
+  var path = _ref.path,
+      value = _ref.value;
+  return { type: "PUSH", path: path, value: value };
+};
+var remove = exports.remove = function remove(path) {
+  return { type: "REMOVE", path: path };
+};
+var set = exports.set = function set(_ref2) {
+  var path = _ref2.path,
+      value = _ref2.value;
+  return { type: "SET", path: path, value: value };
+};
+var transaction = exports.transaction = function transaction(_ref3) {
+  var path = _ref3.path,
+      updateFn = _ref3.updateFn;
+  return {
+    type: "TRANSACTION",
+    path: path,
+    updateFn: updateFn
+  };
+};
+var update = exports.update = function update(_ref4) {
+  var path = _ref4.path,
+      value = _ref4.value;
+  return { type: "UPDATE", path: path, value: value };
+};
+
+var makeFirebaseDriver = exports.makeFirebaseDriver = function makeFirebaseDriver(config) {
+  return function (output$) {
+    var app = (0, _firebase.initializeApp)(config);
+    var appAuth = app.auth();
+    var appDatabase = app.database();
+
+    var responseListener = undefined;
+
+    var handleResponse = function handleResponse(promise, action) {
+      if (!responseListener) return;
+      var responseStream = (0, _adapt.adapt)(_xstream2.default.create({
+        start: function start(listener) {
+          return promise.then(function () {
+            return listener.next({ action: action });
+          }, function (err) {
+            return listener.error({ err: err, action: action });
+          });
+        },
+        stop: function stop() {}
+      }));
+      responseListener.next(responseStream);
+    };
+
+    output$.addListener({
+      complete: function complete() {},
+      error: function error(err) {
+        return console.error("Firebase sink error:", err);
+      },
+      next: function next(action) {
+        switch (action.type) {
+          case "CREATE_USER":
+            {
+              handleResponse(appAuth.createUserWithEmailAndPassword(action.email, action.password), action);
+              break;
+            }
+          case "LOGIN_EMAIL":
+            {
+              handleResponse(appAuth.signInWithEmailAndPassword(action.email, action.password), action);
+              break;
+            }
+          case "LOGIN_FACEBOOK":
+            {
+              var provider = new _firebase.auth.FacebookAuthProvider();
+              handleResponse(appAuth.signInWithPopup(provider), action);
+              break;
+            }
+          case "LOGOUT":
+            {
+              handleResponse(appAuth.signOut(), action);
+              break;
+            }
+          case "PUSH":
+            {
+              console.log(action);
+              handleResponse(appDatabase.ref(action.path).push(action.value), action);
+              break;
+            }
+          case "REMOVE":
+            {
+              handleResponse(appDatabase.ref(action.path).remove(), action);
+              break;
+            }
+          case "SET":
+            {
+              handleResponse(appDatabase.ref(action.path).set(action.value), action);
+              break;
+            }
+          default:
+            console.error("ACTION TYPE NOT VALID");
+            break;
+        }
+      }
+    });
+
+    return {
+      authentication: (0, _adapt.adapt)(_xstream2.default.create({
+        start: function start(listener) {
+          return app.auth().onAuthStateChanged(function (user) {
+            return listener.next(user);
+          });
+        },
+        stop: function stop() {}
+      })),
+      on: function on(path, eventType) {
+        return (0, _adapt.adapt)(_xstream2.default.create({
+          start: function start(listener) {
+            return appDatabase.ref(path).on(eventType, function (snapshot) {
+              return listener.next(snapshot.val());
+            });
+          },
+          stop: function stop() {}
+        }));
+      },
+      response: (0, _adapt.adapt)(_xstream2.default.create({
+        start: function start(listener) {
+          return responseListener = listener;
+        },
+        stop: function stop() {
+          return responseListener = undefined;
+        }
+      }))
+    };
+  };
+};
+
+/***/ }),
 /* 19 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -2742,12 +2736,12 @@ defineProperty(Iterator.prototype, Symbol.toStringTag, d('', 'Iterator'));
 
 Object.defineProperty(exports, "__esModule", { value: true });
 var adapt_1 = __webpack_require__(4);
-var DocumentDOMSource_1 = __webpack_require__(45);
-var BodyDOMSource_1 = __webpack_require__(44);
-var ElementFinder_1 = __webpack_require__(46);
-var fromEvent_1 = __webpack_require__(14);
-var isolate_1 = __webpack_require__(51);
-var EventDelegator_1 = __webpack_require__(47);
+var DocumentDOMSource_1 = __webpack_require__(46);
+var BodyDOMSource_1 = __webpack_require__(45);
+var ElementFinder_1 = __webpack_require__(47);
+var fromEvent_1 = __webpack_require__(13);
+var isolate_1 = __webpack_require__(52);
+var EventDelegator_1 = __webpack_require__(48);
 var utils_1 = __webpack_require__(7);
 var eventTypesThatDontBubble = [
     "blur",
@@ -3073,7 +3067,7 @@ module.exports = function (/*customCreate*/) {
 
 
 
-var isObject      = __webpack_require__(70)
+var isObject      = __webpack_require__(74)
   , value         = __webpack_require__(1)
 
   , isPrototypeOf = Object.prototype.isPrototypeOf
@@ -3140,7 +3134,7 @@ module.exports = (function (status) {
 	return false;
 }())));
 
-__webpack_require__(67);
+__webpack_require__(71);
 
 
 /***/ }),
@@ -3150,9 +3144,9 @@ __webpack_require__(67);
 "use strict";
 
 
-module.exports = __webpack_require__(76)()
+module.exports = __webpack_require__(80)()
 	? String.prototype.contains
-	: __webpack_require__(77);
+	: __webpack_require__(81);
 
 
 /***/ }),
@@ -3162,7 +3156,7 @@ module.exports = __webpack_require__(76)()
 "use strict";
 
 
-var isIterable = __webpack_require__(81);
+var isIterable = __webpack_require__(85);
 
 module.exports = function (value) {
 	if (!isIterable(value)) throw new TypeError(value + " is not iterable");
@@ -3177,7 +3171,7 @@ module.exports = function (value) {
 "use strict";
 
 
-module.exports = __webpack_require__(83)() ? Map : __webpack_require__(87);
+module.exports = __webpack_require__(87)() ? Map : __webpack_require__(91);
 
 
 /***/ }),
@@ -3397,13 +3391,194 @@ exports._unrefActive = exports.active = function(item) {
 };
 
 // setimmediate attaches itself to the global object
-__webpack_require__(99);
+__webpack_require__(103);
 exports.setImmediate = setImmediate;
 exports.clearImmediate = clearImmediate;
 
 
 /***/ }),
 /* 34 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var index_1 = __webpack_require__(0);
+var NO = {};
+var SampleCombineListener = (function () {
+    function SampleCombineListener(i, p) {
+        this.i = i;
+        this.p = p;
+        p.ils[i] = this;
+    }
+    SampleCombineListener.prototype._n = function (t) {
+        var p = this.p;
+        if (p.out === NO)
+            return;
+        p.up(t, this.i);
+    };
+    SampleCombineListener.prototype._e = function (err) {
+        this.p._e(err);
+    };
+    SampleCombineListener.prototype._c = function () {
+        this.p.down(this.i, this);
+    };
+    return SampleCombineListener;
+}());
+exports.SampleCombineListener = SampleCombineListener;
+var SampleCombineOperator = (function () {
+    function SampleCombineOperator(ins, streams) {
+        this.type = 'sampleCombine';
+        this.ins = ins;
+        this.others = streams;
+        this.out = NO;
+        this.ils = [];
+        this.Nn = 0;
+        this.vals = [];
+    }
+    SampleCombineOperator.prototype._start = function (out) {
+        this.out = out;
+        var s = this.others;
+        var n = this.Nn = s.length;
+        var vals = this.vals = new Array(n);
+        for (var i = 0; i < n; i++) {
+            vals[i] = NO;
+            s[i]._add(new SampleCombineListener(i, this));
+        }
+        this.ins._add(this);
+    };
+    SampleCombineOperator.prototype._stop = function () {
+        var s = this.others;
+        var n = s.length;
+        var ils = this.ils;
+        this.ins._remove(this);
+        for (var i = 0; i < n; i++) {
+            s[i]._remove(ils[i]);
+        }
+        this.out = NO;
+        this.vals = [];
+        this.ils = [];
+    };
+    SampleCombineOperator.prototype._n = function (t) {
+        var out = this.out;
+        if (out === NO)
+            return;
+        if (this.Nn > 0)
+            return;
+        out._n([t].concat(this.vals));
+    };
+    SampleCombineOperator.prototype._e = function (err) {
+        var out = this.out;
+        if (out === NO)
+            return;
+        out._e(err);
+    };
+    SampleCombineOperator.prototype._c = function () {
+        var out = this.out;
+        if (out === NO)
+            return;
+        out._c();
+    };
+    SampleCombineOperator.prototype.up = function (t, i) {
+        var v = this.vals[i];
+        if (this.Nn > 0 && v === NO) {
+            this.Nn--;
+        }
+        this.vals[i] = t;
+    };
+    SampleCombineOperator.prototype.down = function (i, l) {
+        this.others[i]._remove(l);
+    };
+    return SampleCombineOperator;
+}());
+exports.SampleCombineOperator = SampleCombineOperator;
+var sampleCombine;
+/**
+ *
+ * Combines a source stream with multiple other streams. The result stream
+ * will emit the latest events from all input streams, but only when the
+ * source stream emits.
+ *
+ * If the source, or any input stream, throws an error, the result stream
+ * will propagate the error. If any input streams end, their final emitted
+ * value will remain in the array of any subsequent events from the result
+ * stream.
+ *
+ * The result stream will only complete upon completion of the source stream.
+ *
+ * Marble diagram:
+ *
+ * ```text
+ * --1----2-----3--------4--- (source)
+ * ----a-----b-----c--d------ (other)
+ *      sampleCombine
+ * -------2a----3b-------4d--
+ * ```
+ *
+ * Examples:
+ *
+ * ```js
+ * import sampleCombine from 'xstream/extra/sampleCombine'
+ * import xs from 'xstream'
+ *
+ * const sampler = xs.periodic(1000).take(3)
+ * const other = xs.periodic(100)
+ *
+ * const stream = sampler.compose(sampleCombine(other))
+ *
+ * stream.addListener({
+ *   next: i => console.log(i),
+ *   error: err => console.error(err),
+ *   complete: () => console.log('completed')
+ * })
+ * ```
+ *
+ * ```text
+ * > [0, 8]
+ * > [1, 18]
+ * > [2, 28]
+ * ```
+ *
+ * ```js
+ * import sampleCombine from 'xstream/extra/sampleCombine'
+ * import xs from 'xstream'
+ *
+ * const sampler = xs.periodic(1000).take(3)
+ * const other = xs.periodic(100).take(2)
+ *
+ * const stream = sampler.compose(sampleCombine(other))
+ *
+ * stream.addListener({
+ *   next: i => console.log(i),
+ *   error: err => console.error(err),
+ *   complete: () => console.log('completed')
+ * })
+ * ```
+ *
+ * ```text
+ * > [0, 1]
+ * > [1, 1]
+ * > [2, 1]
+ * ```
+ *
+ * @param {...Stream} streams One or more streams to combine with the sampler
+ * stream.
+ * @return {Stream}
+ */
+sampleCombine = function sampleCombine() {
+    var streams = [];
+    for (var _i = 0; _i < arguments.length; _i++) {
+        streams[_i] = arguments[_i];
+    }
+    return function sampleCombineOperator(sampler) {
+        return new index_1.Stream(new SampleCombineOperator(sampler, streams));
+    };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.default = sampleCombine;
+//# sourceMappingURL=sampleCombine.js.map
+
+/***/ }),
+/* 35 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3528,7 +3703,7 @@ exports.default = isolate;
 //# sourceMappingURL=index.js.map
 
 /***/ }),
-/* 35 */
+/* 36 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3719,7 +3894,7 @@ exports.default = run;
 //# sourceMappingURL=index.js.map
 
 /***/ }),
-/* 36 */
+/* 37 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3733,22 +3908,14 @@ var _xstream = __webpack_require__(0);
 
 var _xstream2 = _interopRequireDefault(_xstream);
 
-var _sampleCombine = __webpack_require__(13);
-
-var _sampleCombine2 = _interopRequireDefault(_sampleCombine);
-
 var _dom = __webpack_require__(6);
-
-var _flattenSequentially = __webpack_require__(112);
-
-var _flattenSequentially2 = _interopRequireDefault(_flattenSequentially);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var view = function view(state$) {
   return state$.map(function (articles) {
     return articles.map(function (article) {
-      return (0, _dom.div)([(0, _dom.span)(article.username), (0, _dom.span)(": "), (0, _dom.span)(article.content)]);
+      return (0, _dom.div)([(0, _dom.span)(article.value.username), (0, _dom.span)(": "), (0, _dom.span)(article.value.content)]);
     });
   }).map(function (articles) {
     return (0, _dom.div)(articles);
@@ -3756,17 +3923,15 @@ var view = function view(state$) {
 };
 
 var Articles = function Articles(sources) {
-  var DOM$ = view(sources.props);
-
   return {
-    DOM: DOM$
+    DOM: view(sources.props)
   };
 };
 
 exports.default = Articles;
 
 /***/ }),
-/* 37 */
+/* 38 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3793,22 +3958,16 @@ var view = function view(state$) {
 };
 
 var Auth = function Auth(sources) {
-  var _intent = intent(sources.DOM),
-      logout = _intent.logout,
-      login = _intent.login;
-
-  var DOM$ = view(sources.props);
-
   return {
-    DOM: DOM$,
-    actions: { logout: logout, login: login }
+    DOM: view(sources.props),
+    actions: intent(sources.DOM)
   };
 };
 
 exports.default = Auth;
 
 /***/ }),
-/* 38 */
+/* 39 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3820,15 +3979,9 @@ Object.defineProperty(exports, "__esModule", {
 
 var _dom = __webpack_require__(6);
 
-var model = function model(sourcesProps) {
-  return sourcesProps.map(function (props) {
-    return props.feedback;
-  });
-};
-
 var view = function view(state$) {
-  return state$.map(function (feedback) {
-    return (0, _dom.div)([feedback.msg, " ", (0, _dom.button)(".dismiss", " X ")]);
+  return state$.map(function (state) {
+    return (0, _dom.div)([state.msg, " ", (0, _dom.button)(".dismiss", " X ")]);
   }).fold(function (acc, i) {
     return acc.concat(i);
   }, []).map(function (feedbacks) {
@@ -3837,17 +3990,15 @@ var view = function view(state$) {
 };
 
 var Feedback = function Feedback(sources) {
-  var state = model(sources.props);
-  var DOM$ = view(state);
   return {
-    DOM: DOM$
+    DOM: view(sources.props)
   };
 };
 
 exports.default = Feedback;
 
 /***/ }),
-/* 39 */
+/* 40 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3863,7 +4014,7 @@ var _xstream = __webpack_require__(0);
 
 var _xstream2 = _interopRequireDefault(_xstream);
 
-var _sampleCombine = __webpack_require__(13);
+var _sampleCombine = __webpack_require__(34);
 
 var _sampleCombine2 = _interopRequireDefault(_sampleCombine);
 
@@ -3878,13 +4029,15 @@ var intent = function intent(sourcesDOM) {
   var submit$ = sourcesDOM.select(".formular").events("submit").map(function (event) {
     return event.preventDefault();
   });
-  return submit$.compose((0, _sampleCombine2.default)(input$)).map(function (_ref) {
-    var _ref2 = _slicedToArray(_ref, 2),
-        submit = _ref2[0],
-        input = _ref2[1];
+  return {
+    submit: submit$.compose((0, _sampleCombine2.default)(input$)).map(function (_ref) {
+      var _ref2 = _slicedToArray(_ref, 2),
+          submit = _ref2[0],
+          input = _ref2[1];
 
-    return input;
-  });
+      return input;
+    })
+  };
 };
 
 var view = function view(state$) {
@@ -3906,172 +4059,13 @@ var view = function view(state$) {
 };
 
 var Formular = function Formular(sources) {
-  var submit$ = intent(sources.DOM);
-  var DOM$ = view(sources.props);
   return {
-    DOM: DOM$,
-    actions: { submit: submit$ }
+    DOM: view(sources.props),
+    actions: intent(sources.DOM)
   };
 };
 
 exports.default = Formular;
-
-/***/ }),
-/* 40 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.model = undefined;
-
-var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
-
-var _xstream = __webpack_require__(0);
-
-var _xstream2 = _interopRequireDefault(_xstream);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-/* AUTH */
-var toAnonymousAuthProps = function toAnonymousAuthProps() {
-  return {
-    status: "anonymous",
-    username: null,
-    uid: null
-  };
-};
-
-var toAwaitingAuthProps = function toAwaitingAuthProps() {
-  return {
-    status: "awaiting_response",
-    username: null,
-    uid: null
-  };
-};
-
-var fromSourceAuthToAuthProps = function fromSourceAuthToAuthProps(authData) {
-  if (!authData) return toAnonymousAuthProps();
-  return {
-    status: "logged_in",
-    username: authData.providerData[0].displayName,
-    uid: authData.uid
-  };
-};
-
-var streamAuthProps = function streamAuthProps(_ref) {
-  var sourceResError$ = _ref.sourceResError$,
-      sourceAuth$ = _ref.sourceAuth$,
-      actionAuthLoginProxy$ = _ref.actionAuthLoginProxy$;
-
-  var actionAuthProps$ = actionAuthLoginProxy$.map(toAwaitingAuthProps);
-  var sourceErrorAuthProps$ = sourceResError$.filter(function (_ref2) {
-    var action = _ref2.action;
-    return action.type === "AUTH_FACEBOOK";
-  }).map(toAnonymousAuthProps);
-  var sourceAuthProps$ = sourceAuth$.map(fromSourceAuthToAuthProps);
-  return _xstream2.default.merge(actionAuthProps$, sourceErrorAuthProps$, sourceAuthProps$);
-};
-
-/* FEEDBACK */
-var toErrorFeedbackProps = function toErrorFeedbackProps(_ref3) {
-  var err = _ref3.err,
-      action = _ref3.action;
-  return {
-    feedback: { msg: "Error: Type of the action: " + action.type }
-  };
-};
-
-var toSuccessFeedbackProps = function toSuccessFeedbackProps(_ref4) {
-  var err = _ref4.err,
-      action = _ref4.action;
-  return {
-    feedback: { msg: "Success: Type of the action: " + action.type }
-  };
-};
-
-var toAuthFeedbackProps = function toAuthFeedbackProps(authData) {
-  if (!authData) return { feedback: { msg: "Auth: not logged in" } };
-  return {
-    feedback: {
-      msg: "Auth: logged in as : " + authData.providerData[0].displayName
-    }
-  };
-};
-
-var streamFeedbackProps = function streamFeedbackProps(_ref5) {
-  var sourceResError$ = _ref5.sourceResError$,
-      sourceResSuccess$ = _ref5.sourceResSuccess$,
-      sourceAuth$ = _ref5.sourceAuth$;
-
-  var errorFeedbackProps$ = sourceResError$.map(toErrorFeedbackProps);
-  var successFeedbackProps$ = sourceResSuccess$.map(toSuccessFeedbackProps);
-  var authFeedbackProps$ = sourceAuth$.map(toAuthFeedbackProps);
-  return _xstream2.default.merge(errorFeedbackProps$, successFeedbackProps$, authFeedbackProps$);
-};
-
-/* FORMULAR */
-var streamFormularProps = function streamFormularProps(_ref6) {
-  var sourceAuth$ = _ref6.sourceAuth$,
-      sourceResSuccess$ = _ref6.sourceResSuccess$,
-      actionFormularSubmitProxy$ = _ref6.actionFormularSubmitProxy$;
-
-  var submissionProps$ = actionFormularSubmitProxy$.map(function () {
-    return {
-      status: "submitting"
-    };
-  });
-  var responseProp$ = sourceResSuccess$.map(function () {
-    return { status: "ready" };
-  }).startWith({ status: "ready" });
-  var submissionOrResponseProp$ = _xstream2.default.merge(submissionProps$, responseProp$);
-  return _xstream2.default.combine(sourceAuth$, submissionOrResponseProp$).map(function (_ref7) {
-    var _ref8 = _slicedToArray(_ref7, 2),
-        authData = _ref8[0],
-        authenticatedProp = _ref8[1];
-
-    if (!authData) return { status: "unlogged" };
-    return authenticatedProp;
-  });
-};
-
-/* ARTICLES */
-var streamArticlesProps = function streamArticlesProps(sourceArticles$) {
-  return sourceArticles$.map(function (articles) {
-    return articles;
-  });
-};
-
-/* APP */
-var model = exports.model = function model(_ref9) {
-  var sourceResError$ = _ref9.sourceResError$,
-      sourceResSuccess$ = _ref9.sourceResSuccess$,
-      sourceAuth$ = _ref9.sourceAuth$,
-      actionAuthLoginProxy$ = _ref9.actionAuthLoginProxy$,
-      actionFormularSubmitProxy$ = _ref9.actionFormularSubmitProxy$,
-      sourceArticles$ = _ref9.sourceArticles$;
-  return {
-    auth$: streamAuthProps({
-      sourceResError$: sourceResError$,
-      sourceAuth$: sourceAuth$,
-      actionAuthLoginProxy$: actionAuthLoginProxy$
-    }),
-    feedback$: streamFeedbackProps({
-      sourceResError$: sourceResError$,
-      sourceResSuccess$: sourceResSuccess$,
-      sourceAuth$: sourceAuth$
-    }),
-    formular$: streamFormularProps({
-      sourceAuth$: sourceAuth$,
-      sourceResSuccess$: sourceResSuccess$,
-      actionFormularSubmitProxy$: actionFormularSubmitProxy$
-    }),
-    articles$: streamArticlesProps(sourceArticles$)
-  };
-};
 
 /***/ }),
 /* 41 */
@@ -4083,7 +4077,7 @@ var model = exports.model = function model(_ref9) {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = {
+var firebaseConfig = exports.firebaseConfig = {
   apiKey: "AIzaSyCHvJ-2m_Cn_JqUxXmwqvqy9b-6FbsYtEI",
   authDomain: "brilliant-inferno-6675.firebaseapp.com",
   databaseURL: "https://brilliant-inferno-6675.firebaseio.com",
@@ -4100,119 +4094,107 @@ exports.default = {
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.makeFirebaseDriver = undefined;
+exports.streamFirebase = undefined;
+
+var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
 
 var _xstream = __webpack_require__(0);
 
 var _xstream2 = _interopRequireDefault(_xstream);
 
-var _adapt = __webpack_require__(4);
+var _sampleCombine = __webpack_require__(34);
 
-var _firebase = __webpack_require__(95);
+var _sampleCombine2 = _interopRequireDefault(_sampleCombine);
+
+var _firebaseDriver = __webpack_require__(18);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var makeFirebaseDriver = exports.makeFirebaseDriver = function makeFirebaseDriver(config) {
-  return function (output$) {
-    var firebaseApp = (0, _firebase.initializeApp)(config);
-    var firebaseAuth = firebaseApp.auth();
-    var firebaseDatabase = firebaseApp.database();
+var streamFirebase = exports.streamFirebase = function streamFirebase(_ref) {
+  var stateAuth$ = _ref.stateAuth$,
+      aAuthLoginProxy$ = _ref.aAuthLoginProxy$,
+      aAuthLogout$ = _ref.aAuthLogout$,
+      aFormularSubmitProxy$ = _ref.aFormularSubmitProxy$;
 
-    var responseListener = undefined;
+  var login$ = aAuthLoginProxy$.map(_firebaseDriver.loginWithFacebook);
+  var logout$ = aAuthLogout$.map(_firebaseDriver.logout);
+  var formularSubmit$ = aFormularSubmitProxy$.compose((0, _sampleCombine2.default)(stateAuth$)).filter(function (_ref2) {
+    var _ref3 = _slicedToArray(_ref2, 2),
+        formularValue = _ref3[0],
+        auth = _ref3[1];
 
-    var handleResponse = function handleResponse(promise, action) {
-      if (!responseListener) return;
-      var responseStream = (0, _adapt.adapt)(_xstream2.default.create({
-        start: function start(listener) {
-          return promise.then(function () {
-            return listener.next({ action: action });
-          }, function (err) {
-            return listener.error({ err: err, action: action });
-          });
-        },
-        stop: function stop() {}
-      }));
-      responseListener.next(responseStream);
-    };
+    return auth.status === "logged_in";
+  }).map(function (_ref4) {
+    var _ref5 = _slicedToArray(_ref4, 2),
+        formularValue = _ref5[0],
+        auth = _ref5[1];
 
-    output$.addListener({
-      complete: function complete() {},
-      error: function error(err) {
-        return console.error("Firebase sink error:", err);
-      },
-      next: function next(action) {
-        switch (action.type) {
-          case "AUTH_FACEBOOK":
-            {
-              var provider = new _firebase.auth.FacebookAuthProvider();
-              handleResponse(firebaseAuth.signInWithPopup(provider), action);
-              break;
-            }
-          case "AUTH_LOGOUT":
-            {
-              handleResponse(firebaseAuth.signOut(), action);
-              break;
-            }
-          case "PUSH":
-            {
-              console.log(action);
-
-              // handleResponse(
-              //   firebaseAuth.ref(action.path).push(action.values),
-              //   action
-              // );
-              break;
-            }
-          case "REMOVE":
-            {
-              handleResponse(firebaseDatabase.ref(action.path).remove(), action);
-              break;
-            }
-          case "SET":
-            {
-              handleResponse(firebaseAuth.ref(action.path).set(action.values), action);
-              break;
-            }
-          default:
-            console.error("ACTION TYPE NOT VALID");
-            break;
-        }
+    return (0, _firebaseDriver.push)({
+      path: "articles",
+      value: {
+        content: formularValue,
+        username: auth.username,
+        uid: auth.uid
       }
     });
-
-    return {
-      authentication: (0, _adapt.adapt)(_xstream2.default.create({
-        start: function start(listener) {
-          return firebaseApp.auth().onAuthStateChanged(function (user) {
-            return listener.next(user);
-          });
-        },
-        stop: function stop() {}
-      })),
-      on: function on(path, eventType) {
-        return (0, _adapt.adapt)(_xstream2.default.create({
-          start: function start(listener) {
-            return firebaseDatabase.ref(path).on(eventType, function (snapshot) {
-              return listener.next(snapshot.val());
-            });
-          },
-          stop: function stop() {}
-        }));
-      },
-      response: (0, _adapt.adapt)(_xstream2.default.create({
-        start: function start(listener) {
-          return responseListener = listener;
-        },
-        stop: function stop() {
-          return responseListener = undefined;
-        }
-      }))
-    };
-  };
+  });
+  return _xstream2.default.merge(login$, logout$, formularSubmit$);
 };
 
 /***/ }),
 /* 43 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.model = undefined;
+
+var _xstream = __webpack_require__(0);
+
+var _xstream2 = _interopRequireDefault(_xstream);
+
+var _auth = __webpack_require__(57);
+
+var _feedback = __webpack_require__(58);
+
+var _formular = __webpack_require__(59);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/* APP */
+var model = exports.model = function model(_ref) {
+  var sFireResError$ = _ref.sFireResError$,
+      sFireResSuccess$ = _ref.sFireResSuccess$,
+      sFireAuth$ = _ref.sFireAuth$,
+      aAuthLoginProxy$ = _ref.aAuthLoginProxy$,
+      aFormularSubmitProxy$ = _ref.aFormularSubmitProxy$,
+      sFireArticles$ = _ref.sFireArticles$;
+  return {
+    auth$: (0, _auth.streamAuth)({
+      sFireResError$: sFireResError$,
+      sFireAuth$: sFireAuth$,
+      aAuthLoginProxy$: aAuthLoginProxy$
+    }),
+    feedback$: (0, _feedback.streamFeedback)({
+      sFireResError$: sFireResError$,
+      sFireResSuccess$: sFireResSuccess$,
+      sFireAuth$: sFireAuth$
+    }),
+    formular$: (0, _formular.streamFormular)({
+      sFireAuth$: sFireAuth$,
+      sFireResSuccess$: sFireResSuccess$,
+      aFormularSubmitProxy$: aFormularSubmitProxy$
+    }),
+    articles$: sFireArticles$
+  };
+};
+
+/***/ }),
+/* 44 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4231,12 +4213,12 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var objectPropsToArray = exports.objectPropsToArray = function objectPropsToArray(obj) {
   return Object.keys(obj).map(function (key) {
-    return obj[key];
+    return { key: key, value: obj[key] };
   });
 };
 
 /***/ }),
-/* 44 */
+/* 45 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4244,7 +4226,7 @@ var objectPropsToArray = exports.objectPropsToArray = function objectPropsToArra
 Object.defineProperty(exports, "__esModule", { value: true });
 var xstream_1 = __webpack_require__(0);
 var adapt_1 = __webpack_require__(4);
-var fromEvent_1 = __webpack_require__(14);
+var fromEvent_1 = __webpack_require__(13);
 var BodyDOMSource = (function () {
     function BodyDOMSource(_name) {
         this._name = _name;
@@ -4277,7 +4259,7 @@ exports.BodyDOMSource = BodyDOMSource;
 //# sourceMappingURL=BodyDOMSource.js.map
 
 /***/ }),
-/* 45 */
+/* 46 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4285,7 +4267,7 @@ exports.BodyDOMSource = BodyDOMSource;
 Object.defineProperty(exports, "__esModule", { value: true });
 var xstream_1 = __webpack_require__(0);
 var adapt_1 = __webpack_require__(4);
-var fromEvent_1 = __webpack_require__(14);
+var fromEvent_1 = __webpack_require__(13);
 var DocumentDOMSource = (function () {
     function DocumentDOMSource(_name) {
         this._name = _name;
@@ -4318,7 +4300,7 @@ exports.DocumentDOMSource = DocumentDOMSource;
 //# sourceMappingURL=DocumentDOMSource.js.map
 
 /***/ }),
-/* 46 */
+/* 47 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4357,7 +4339,7 @@ exports.ElementFinder = ElementFinder;
 //# sourceMappingURL=ElementFinder.js.map
 
 /***/ }),
-/* 47 */
+/* 48 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4524,7 +4506,7 @@ exports.EventDelegator = EventDelegator;
 //# sourceMappingURL=EventDelegator.js.map
 
 /***/ }),
-/* 48 */
+/* 49 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4642,14 +4624,14 @@ exports.IsolateModule = IsolateModule;
 //# sourceMappingURL=IsolateModule.js.map
 
 /***/ }),
-/* 49 */
+/* 50 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
 var h_1 = __webpack_require__(10);
-var classNameFromVNode_1 = __webpack_require__(100);
+var classNameFromVNode_1 = __webpack_require__(104);
 var selectorParser_1 = __webpack_require__(29);
 var VNodeWrapper = (function () {
     function VNodeWrapper(rootElement) {
@@ -4686,7 +4668,7 @@ exports.VNodeWrapper = VNodeWrapper;
 //# sourceMappingURL=VNodeWrapper.js.map
 
 /***/ }),
-/* 50 */
+/* 51 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4770,7 +4752,7 @@ exports.default = exported;
 //# sourceMappingURL=hyperscript-helpers.js.map
 
 /***/ }),
-/* 51 */
+/* 52 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4833,20 +4815,20 @@ exports.totalIsolateSink = totalIsolateSink;
 //# sourceMappingURL=isolate.js.map
 
 /***/ }),
-/* 52 */
+/* 53 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var snabbdom_1 = __webpack_require__(106);
+var snabbdom_1 = __webpack_require__(110);
 var xstream_1 = __webpack_require__(0);
 var MainDOMSource_1 = __webpack_require__(19);
-var tovnode_1 = __webpack_require__(107);
-var VNodeWrapper_1 = __webpack_require__(49);
+var tovnode_1 = __webpack_require__(111);
+var VNodeWrapper_1 = __webpack_require__(50);
 var utils_1 = __webpack_require__(7);
-var modules_1 = __webpack_require__(54);
-var IsolateModule_1 = __webpack_require__(48);
+var modules_1 = __webpack_require__(55);
+var IsolateModule_1 = __webpack_require__(49);
 var MapPolyfill = __webpack_require__(28);
 function makeDOMDriverInputGuard(modules) {
     if (!Array.isArray(modules)) {
@@ -4914,7 +4896,7 @@ exports.makeDOMDriver = makeDOMDriver;
 //# sourceMappingURL=makeDOMDriver.js.map
 
 /***/ }),
-/* 53 */
+/* 54 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4972,106 +4954,100 @@ exports.mockDOMSource = mockDOMSource;
 //# sourceMappingURL=mockDOMSource.js.map
 
 /***/ }),
-/* 54 */
+/* 55 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var class_1 = __webpack_require__(102);
+var class_1 = __webpack_require__(106);
 exports.ClassModule = class_1.default;
-var props_1 = __webpack_require__(104);
+var props_1 = __webpack_require__(108);
 exports.PropsModule = props_1.default;
-var attributes_1 = __webpack_require__(101);
+var attributes_1 = __webpack_require__(105);
 exports.AttrsModule = attributes_1.default;
-var style_1 = __webpack_require__(105);
+var style_1 = __webpack_require__(109);
 exports.StyleModule = style_1.default;
-var dataset_1 = __webpack_require__(103);
+var dataset_1 = __webpack_require__(107);
 exports.DatasetModule = dataset_1.default;
 var modules = [style_1.default, class_1.default, props_1.default, attributes_1.default, dataset_1.default];
 exports.default = modules;
 //# sourceMappingURL=modules.js.map
 
 /***/ }),
-/* 55 */
+/* 56 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
-
 var _xstream = __webpack_require__(0);
 
 var _xstream2 = _interopRequireDefault(_xstream);
 
-var _sampleCombine = __webpack_require__(13);
-
-var _sampleCombine2 = _interopRequireDefault(_sampleCombine);
-
-var _isolate = __webpack_require__(34);
+var _isolate = __webpack_require__(35);
 
 var _isolate2 = _interopRequireDefault(_isolate);
 
-var _run = __webpack_require__(35);
+var _run = __webpack_require__(36);
 
 var _dom = __webpack_require__(6);
 
-var _utils = __webpack_require__(43);
+var _utils = __webpack_require__(44);
 
-var _firebaseDriver = __webpack_require__(42);
+var _firebaseDriver = __webpack_require__(18);
 
 var _firebaseConfig = __webpack_require__(41);
 
-var _firebaseConfig2 = _interopRequireDefault(_firebaseConfig);
+var _firebase = __webpack_require__(42);
 
-var _appModel = __webpack_require__(40);
+var _model = __webpack_require__(43);
 
-var _Auth = __webpack_require__(37);
+var _Auth = __webpack_require__(38);
 
 var _Auth2 = _interopRequireDefault(_Auth);
 
-var _Feedback = __webpack_require__(38);
+var _Feedback = __webpack_require__(39);
 
 var _Feedback2 = _interopRequireDefault(_Feedback);
 
-var _Formular = __webpack_require__(39);
+var _Formular = __webpack_require__(40);
 
 var _Formular2 = _interopRequireDefault(_Formular);
 
-var _Articles = __webpack_require__(36);
+var _Articles = __webpack_require__(37);
 
 var _Articles2 = _interopRequireDefault(_Articles);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var intent = function intent(sources) {
-  var sourceRes$ = sources.firebase.response.map(function (res) {
+  var sFireRes$ = sources.firebase.response.map(function (res) {
     return res.replaceError(function (_ref) {
       var err = _ref.err,
           action = _ref.action;
       return _xstream2.default.of({ err: err, action: action });
     });
   }).flatten();
-  var sourceResSuccess$ = sourceRes$.filter(function (_ref2) {
+  var sFireResSuccess$ = sFireRes$.filter(function (_ref2) {
     var err = _ref2.err;
     return !err;
   });
-  var sourceResError$ = sourceRes$.filter(function (_ref3) {
+  var sFireResError$ = sFireRes$.filter(function (_ref3) {
     var err = _ref3.err;
     return err;
   });
-  var sourceAuth$ = sources.firebase.authentication;
-  var actionAuthLoginProxy$ = _xstream2.default.create();
-  var actionFormularSubmitProxy$ = _xstream2.default.create();
-  var sourceArticles$ = sources.firebase.on("articles", "value").map(_utils.objectPropsToArray);
+  var sFireAuth$ = sources.firebase.authentication;
+  var aAuthLoginProxy$ = _xstream2.default.create();
+  var aFormularSubmitProxy$ = _xstream2.default.create();
+  var sFireArticles$ = sources.firebase.on("articles", "value").map(_utils.objectPropsToArray);
   return {
-    sourceResSuccess$: sourceResSuccess$,
-    sourceResError$: sourceResError$,
-    sourceAuth$: sourceAuth$,
-    actionAuthLoginProxy$: actionAuthLoginProxy$,
-    actionFormularSubmitProxy$: actionFormularSubmitProxy$,
-    sourceArticles$: sourceArticles$
+    sFireResSuccess$: sFireResSuccess$,
+    sFireResError$: sFireResError$,
+    sFireAuth$: sFireAuth$,
+    aAuthLoginProxy$: aAuthLoginProxy$,
+    aFormularSubmitProxy$: aFormularSubmitProxy$,
+    sFireArticles$: sFireArticles$
   };
 };
 
@@ -5080,73 +5056,27 @@ var view = function view(_ref4) {
       feedback = _ref4.feedback,
       formular = _ref4.formular,
       articles = _ref4.articles;
-  return _xstream2.default.combine(auth.DOM, feedback.DOM, formular.DOM, articles.DOM).map(function (_ref5) {
-    var _ref6 = _slicedToArray(_ref5, 4),
-        authVDom = _ref6[0],
-        feedbackVDOM = _ref6[1],
-        formularVDom = _ref6[2],
-        articlesVDom = _ref6[3];
-
-    return (0, _dom.div)([authVDom, feedbackVDOM, formularVDom, articlesVDom]);
+  return _xstream2.default.combine(auth.DOM, feedback.DOM, formular.DOM, articles.DOM).map(function (doms) {
+    return (0, _dom.div)(doms);
   });
-};
-
-var toFirebaseSink = function toFirebaseSink(_ref7) {
-  var state = _ref7.state,
-      login = _ref7.login,
-      logout = _ref7.logout,
-      formularSubmit = _ref7.formularSubmit;
-
-  var loginAction$ = login.map(function () {
-    return {
-      type: "AUTH_FACEBOOK"
-    };
-  });
-  var logoutAction$ = logout.map(function () {
-    return {
-      type: "AUTH_LOGOUT"
-    };
-  });
-  var formularSubmitAction$ = formularSubmit.compose((0, _sampleCombine2.default)(state.auth$)).filter(function (_ref8) {
-    var _ref9 = _slicedToArray(_ref8, 2),
-        submitValue = _ref9[0],
-        auth = _ref9[1];
-
-    return auth.status === "logged_in";
-  }).map(function (_ref10) {
-    var _ref11 = _slicedToArray(_ref10, 2),
-        submitValue = _ref11[0],
-        auth = _ref11[1];
-
-    return {
-      type: "PUSH",
-      path: "articles",
-      value: {
-        content: submitValue,
-        username: auth.username,
-        uid: auth.uid
-      }
-    };
-  });
-  return _xstream2.default.merge(loginAction$, logoutAction$, formularSubmitAction$);
 };
 
 function main(sources) {
   var _intent = intent(sources),
-      sourceResSuccess$ = _intent.sourceResSuccess$,
-      sourceResError$ = _intent.sourceResError$,
-      sourceAuth$ = _intent.sourceAuth$,
-      actionAuthLoginProxy$ = _intent.actionAuthLoginProxy$,
-      actionFormularSubmitProxy$ = _intent.actionFormularSubmitProxy$,
-      sourceArticles$ = _intent.sourceArticles$;
+      sFireResSuccess$ = _intent.sFireResSuccess$,
+      sFireResError$ = _intent.sFireResError$,
+      sFireAuth$ = _intent.sFireAuth$,
+      aAuthLoginProxy$ = _intent.aAuthLoginProxy$,
+      aFormularSubmitProxy$ = _intent.aFormularSubmitProxy$,
+      sFireArticles$ = _intent.sFireArticles$;
 
-  var state = (0, _appModel.model)({
-    sourceResSuccess$: sourceResSuccess$,
-    sourceResError$: sourceResError$,
-    sourceAuth$: sourceAuth$,
-    actionAuthLoginProxy$: actionAuthLoginProxy$,
-    actionFormularSubmitProxy$: actionFormularSubmitProxy$,
-    sourceArticles$: sourceArticles$
+  var state = (0, _model.model)({
+    sFireResSuccess$: sFireResSuccess$,
+    sFireResError$: sFireResError$,
+    sFireAuth$: sFireAuth$,
+    aAuthLoginProxy$: aAuthLoginProxy$,
+    aFormularSubmitProxy$: aFormularSubmitProxy$,
+    sFireArticles$: sFireArticles$
   });
 
   /* AUTH */
@@ -5155,7 +5085,8 @@ function main(sources) {
     props: state.auth$
   };
   var auth = (0, _isolate2.default)(_Auth2.default)(authSources);
-  actionAuthLoginProxy$.imitate(auth.actions.login);
+  aAuthLoginProxy$.imitate(auth.actions.login);
+  var aAuthLogout$ = auth.actions.logout;
 
   /* FEEDBACK */
   var feedbackSources = {
@@ -5170,7 +5101,7 @@ function main(sources) {
     props: state.formular$
   };
   var formular = (0, _isolate2.default)(_Formular2.default)(formularSources);
-  actionFormularSubmitProxy$.imitate(formular.actions.submit);
+  aFormularSubmitProxy$.imitate(formular.actions.submit);
 
   /* ARTICLES */
   var articlesSources = {
@@ -5181,33 +5112,191 @@ function main(sources) {
 
   return {
     DOM: view({ auth: auth, feedback: feedback, formular: formular, articles: articles }),
-    firebase: toFirebaseSink({
-      state: state,
-      login: auth.actions.login,
-      logout: auth.actions.logout,
-      formularSubmit: formular.actions.submit
+    firebase: (0, _firebase.streamFirebase)({
+      stateAuth$: state.auth$,
+      aAuthLoginProxy$: aAuthLoginProxy$,
+      aAuthLogout$: aAuthLogout$,
+      aFormularSubmitProxy$: aFormularSubmitProxy$
     })
   };
 }
 
 var drivers = {
   DOM: (0, _dom.makeDOMDriver)("#root"),
-  firebase: (0, _firebaseDriver.makeFirebaseDriver)(_firebaseConfig2.default)
+  firebase: (0, _firebaseDriver.makeFirebaseDriver)(_firebaseConfig.firebaseConfig)
 };
 
 (0, _run.run)(main, drivers);
 
 /***/ }),
-/* 56 */
+/* 57 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var copy             = __webpack_require__(66)
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.streamAuth = undefined;
+
+var _xstream = __webpack_require__(0);
+
+var _xstream2 = _interopRequireDefault(_xstream);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+/* AUTH */
+var toAnonymous = function toAnonymous() {
+  return {
+    status: "anonymous",
+    username: null,
+    uid: null
+  };
+};
+
+var toAwaiting = function toAwaiting() {
+  return {
+    status: "awaiting_response",
+    username: null,
+    uid: null
+  };
+};
+
+var fromSFireAuth = function fromSFireAuth(authData) {
+  if (!authData) return toAnonymous();
+  return {
+    status: "logged_in",
+    username: authData.providerData[0].displayName,
+    uid: authData.uid
+  };
+};
+
+var streamAuth = exports.streamAuth = function streamAuth(_ref) {
+  var sFireResError$ = _ref.sFireResError$,
+      sFireAuth$ = _ref.sFireAuth$,
+      aAuthLoginProxy$ = _ref.aAuthLoginProxy$;
+
+  var fireAuth$ = sFireAuth$.map(fromSFireAuth);
+  var login$ = aAuthLoginProxy$.map(toAwaiting);
+  var resError$ = sFireResError$.filter(function (_ref2) {
+    var action = _ref2.action;
+    return action.type === "LOGIN_FACEBOOK";
+  }).map(toAnonymous);
+  return _xstream2.default.merge(fireAuth$, login$, resError$);
+};
+
+/***/ }),
+/* 58 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.streamFeedback = undefined;
+
+var _xstream = __webpack_require__(0);
+
+var _xstream2 = _interopRequireDefault(_xstream);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var toError = function toError(_ref) {
+  var err = _ref.err,
+      action = _ref.action;
+  return {
+    msg: "Error: Type of the action: " + action.type
+  };
+};
+
+var toSuccess = function toSuccess(_ref2) {
+  var err = _ref2.err,
+      action = _ref2.action;
+  return {
+    msg: "Success: Type of the action: " + action.type
+  };
+};
+
+var fromSFireAuth = function fromSFireAuth(authData) {
+  if (!authData) return { msg: "Auth: not logged in" };
+  return {
+    msg: "Auth: logged in as : " + authData.providerData[0].displayName
+  };
+};
+
+var streamFeedback = exports.streamFeedback = function streamFeedback(_ref3) {
+  var sFireResError$ = _ref3.sFireResError$,
+      sFireResSuccess$ = _ref3.sFireResSuccess$,
+      sFireAuth$ = _ref3.sFireAuth$;
+
+  var error$ = sFireResError$.map(toError);
+  var success$ = sFireResSuccess$.map(toSuccess);
+  var auth$ = sFireAuth$.map(fromSFireAuth);
+  return _xstream2.default.merge(error$, success$, auth$);
+};
+
+/***/ }),
+/* 59 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.streamFormular = undefined;
+
+var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
+
+var _xstream = __webpack_require__(0);
+
+var _xstream2 = _interopRequireDefault(_xstream);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var toUnlogged = function toUnlogged() {
+  return { status: "unlogged" };
+};
+var toReady = function toReady() {
+  return { status: "ready" };
+};
+var toSubmitting = function toSubmitting() {
+  return { status: "submitting" };
+};
+
+var streamFormular = exports.streamFormular = function streamFormular(_ref) {
+  var sFireAuth$ = _ref.sFireAuth$,
+      sFireResSuccess$ = _ref.sFireResSuccess$,
+      aFormularSubmitProxy$ = _ref.aFormularSubmitProxy$;
+
+  var submitting$ = aFormularSubmitProxy$.map(toSubmitting);
+  var ready$ = sFireResSuccess$.map(toReady);
+  var readyOrSubmitting$ = _xstream2.default.merge(submitting$, ready$).startWith(toReady());
+  return _xstream2.default.combine(sFireAuth$, readyOrSubmitting$).map(function (_ref2) {
+    var _ref3 = _slicedToArray(_ref2, 2),
+        authData = _ref3[0],
+        readyOrSubmitting = _ref3[1];
+
+    if (!authData) return toUnlogged();
+    return readyOrSubmitting;
+  });
+};
+
+/***/ }),
+/* 60 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var copy             = __webpack_require__(70)
   , normalizeOptions = __webpack_require__(23)
   , ensureCallable   = __webpack_require__(2)
-  , map              = __webpack_require__(74)
+  , map              = __webpack_require__(78)
   , callable         = __webpack_require__(2)
   , validValue       = __webpack_require__(1)
 
@@ -5237,13 +5326,13 @@ module.exports = function (props/*, options*/) {
 
 
 /***/ }),
-/* 57 */
+/* 61 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var toPosInt = __webpack_require__(62)
+var toPosInt = __webpack_require__(66)
   , value    = __webpack_require__(1)
 
   , indexOf = Array.prototype.indexOf
@@ -5273,19 +5362,19 @@ module.exports = function (searchElement/*, fromIndex*/) {
 
 
 /***/ }),
-/* 58 */
+/* 62 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-module.exports = __webpack_require__(59)()
+module.exports = __webpack_require__(63)()
 	? Math.sign
-	: __webpack_require__(60);
+	: __webpack_require__(64);
 
 
 /***/ }),
-/* 59 */
+/* 63 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5299,7 +5388,7 @@ module.exports = function () {
 
 
 /***/ }),
-/* 60 */
+/* 64 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5313,13 +5402,13 @@ module.exports = function (value) {
 
 
 /***/ }),
-/* 61 */
+/* 65 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var sign = __webpack_require__(58)
+var sign = __webpack_require__(62)
 
   , abs = Math.abs, floor = Math.floor;
 
@@ -5332,13 +5421,13 @@ module.exports = function (value) {
 
 
 /***/ }),
-/* 62 */
+/* 66 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var toInteger = __webpack_require__(61)
+var toInteger = __webpack_require__(65)
 
   , max = Math.max;
 
@@ -5346,7 +5435,7 @@ module.exports = function (value) { return max(0, toInteger(value)); };
 
 
 /***/ }),
-/* 63 */
+/* 67 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5382,7 +5471,7 @@ module.exports = function (method, defVal) {
 
 
 /***/ }),
-/* 64 */
+/* 68 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5398,13 +5487,13 @@ module.exports = function () {
 
 
 /***/ }),
-/* 65 */
+/* 69 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var keys  = __webpack_require__(71)
+var keys  = __webpack_require__(75)
   , value = __webpack_require__(1)
 
   , max = Math.max;
@@ -5427,13 +5516,13 @@ module.exports = function (dest, src/*, …srcn*/) {
 
 
 /***/ }),
-/* 66 */
+/* 70 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var assign = __webpack_require__(16)
+var assign = __webpack_require__(15)
   , value  = __webpack_require__(1);
 
 module.exports = function (obj) {
@@ -5444,7 +5533,7 @@ module.exports = function (obj) {
 
 
 /***/ }),
-/* 67 */
+/* 71 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5487,17 +5576,17 @@ module.exports = (function () {
 
 
 /***/ }),
-/* 68 */
+/* 72 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-module.exports = __webpack_require__(63)('forEach');
+module.exports = __webpack_require__(67)('forEach');
 
 
 /***/ }),
-/* 69 */
+/* 73 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5509,7 +5598,7 @@ module.exports = function (obj) { return typeof obj === 'function'; };
 
 
 /***/ }),
-/* 70 */
+/* 74 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5523,19 +5612,19 @@ module.exports = function (x) {
 
 
 /***/ }),
-/* 71 */
+/* 75 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-module.exports = __webpack_require__(72)()
+module.exports = __webpack_require__(76)()
 	? Object.keys
-	: __webpack_require__(73);
+	: __webpack_require__(77);
 
 
 /***/ }),
-/* 72 */
+/* 76 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5550,7 +5639,7 @@ module.exports = function () {
 
 
 /***/ }),
-/* 73 */
+/* 77 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5564,14 +5653,14 @@ module.exports = function (object) {
 
 
 /***/ }),
-/* 74 */
+/* 78 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 var callable = __webpack_require__(2)
-  , forEach  = __webpack_require__(68)
+  , forEach  = __webpack_require__(72)
 
   , call = Function.prototype.call;
 
@@ -5586,7 +5675,7 @@ module.exports = function (obj, cb/*, thisArg*/) {
 
 
 /***/ }),
-/* 75 */
+/* 79 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5602,7 +5691,7 @@ module.exports = function (arg/*, …args*/) {
 
 
 /***/ }),
-/* 76 */
+/* 80 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5617,7 +5706,7 @@ module.exports = function () {
 
 
 /***/ }),
-/* 77 */
+/* 81 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5631,7 +5720,7 @@ module.exports = function (searchString/*, position*/) {
 
 
 /***/ }),
-/* 78 */
+/* 82 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5640,7 +5729,7 @@ module.exports = function (searchString/*, position*/) {
 var setPrototypeOf = __webpack_require__(11)
   , contains       = __webpack_require__(26)
   , d              = __webpack_require__(3)
-  , Iterator       = __webpack_require__(18)
+  , Iterator       = __webpack_require__(17)
 
   , defineProperty = Object.defineProperty
   , ArrayIterator;
@@ -5668,16 +5757,16 @@ ArrayIterator.prototype = Object.create(Iterator.prototype, {
 
 
 /***/ }),
-/* 79 */
+/* 83 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var isArguments = __webpack_require__(15)
+var isArguments = __webpack_require__(14)
   , callable    = __webpack_require__(2)
-  , isString    = __webpack_require__(17)
-  , get         = __webpack_require__(80)
+  , isString    = __webpack_require__(16)
+  , get         = __webpack_require__(84)
 
   , isArray = Array.isArray, call = Function.prototype.call
   , some = Array.prototype.some;
@@ -5721,16 +5810,16 @@ module.exports = function (iterable, cb/*, thisArg*/) {
 
 
 /***/ }),
-/* 80 */
+/* 84 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var isArguments    = __webpack_require__(15)
-  , isString       = __webpack_require__(17)
-  , ArrayIterator  = __webpack_require__(78)
-  , StringIterator = __webpack_require__(82)
+var isArguments    = __webpack_require__(14)
+  , isString       = __webpack_require__(16)
+  , ArrayIterator  = __webpack_require__(82)
+  , StringIterator = __webpack_require__(86)
   , iterable       = __webpack_require__(27)
   , iteratorSymbol = __webpack_require__(8).iterator;
 
@@ -5743,14 +5832,14 @@ module.exports = function (obj) {
 
 
 /***/ }),
-/* 81 */
+/* 85 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var isArguments    = __webpack_require__(15)
-  , isString       = __webpack_require__(17)
+var isArguments    = __webpack_require__(14)
+  , isString       = __webpack_require__(16)
   , iteratorSymbol = __webpack_require__(8).iterator
 
   , isArray = Array.isArray;
@@ -5765,7 +5854,7 @@ module.exports = function (value) {
 
 
 /***/ }),
-/* 82 */
+/* 86 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5776,7 +5865,7 @@ module.exports = function (value) {
 
 var setPrototypeOf = __webpack_require__(11)
   , d              = __webpack_require__(3)
-  , Iterator       = __webpack_require__(18)
+  , Iterator       = __webpack_require__(17)
 
   , defineProperty = Object.defineProperty
   , StringIterator;
@@ -5809,7 +5898,7 @@ StringIterator.prototype = Object.create(Iterator.prototype, {
 
 
 /***/ }),
-/* 83 */
+/* 87 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5848,7 +5937,7 @@ module.exports = function () {
 
 
 /***/ }),
-/* 84 */
+/* 88 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5864,18 +5953,18 @@ module.exports = (function () {
 
 
 /***/ }),
-/* 85 */
+/* 89 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-module.exports = __webpack_require__(75)('key',
+module.exports = __webpack_require__(79)('key',
 	'value', 'key+value');
 
 
 /***/ }),
-/* 86 */
+/* 90 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5883,9 +5972,9 @@ module.exports = __webpack_require__(75)('key',
 
 var setPrototypeOf    = __webpack_require__(11)
   , d                 = __webpack_require__(3)
-  , Iterator          = __webpack_require__(18)
+  , Iterator          = __webpack_require__(17)
   , toStringTagSymbol = __webpack_require__(8).toStringTag
-  , kinds             = __webpack_require__(85)
+  , kinds             = __webpack_require__(89)
 
   , defineProperties = Object.defineProperties
   , unBind = Iterator.prototype._unBind
@@ -5920,24 +6009,24 @@ Object.defineProperty(MapIterator.prototype, toStringTagSymbol,
 
 
 /***/ }),
-/* 87 */
+/* 91 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 var clear          = __webpack_require__(22)
-  , eIndexOf       = __webpack_require__(57)
+  , eIndexOf       = __webpack_require__(61)
   , setPrototypeOf = __webpack_require__(11)
   , callable       = __webpack_require__(2)
   , validValue     = __webpack_require__(1)
   , d              = __webpack_require__(3)
-  , ee             = __webpack_require__(92)
+  , ee             = __webpack_require__(96)
   , Symbol         = __webpack_require__(8)
   , iterator       = __webpack_require__(27)
-  , forOf          = __webpack_require__(79)
-  , Iterator       = __webpack_require__(86)
-  , isNative       = __webpack_require__(84)
+  , forOf          = __webpack_require__(83)
+  , Iterator       = __webpack_require__(90)
+  , isNative       = __webpack_require__(88)
 
   , call = Function.prototype.call
   , defineProperties = Object.defineProperties, getPrototypeOf = Object.getPrototypeOf
@@ -6031,7 +6120,7 @@ Object.defineProperty(MapPoly.prototype, Symbol.toStringTag, d('c', 'Map'));
 
 
 /***/ }),
-/* 88 */
+/* 92 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6055,7 +6144,7 @@ module.exports = function () {
 
 
 /***/ }),
-/* 89 */
+/* 93 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6071,7 +6160,7 @@ module.exports = function (x) {
 
 
 /***/ }),
-/* 90 */
+/* 94 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6080,7 +6169,7 @@ module.exports = function (x) {
 
 
 var d              = __webpack_require__(3)
-  , validateSymbol = __webpack_require__(91)
+  , validateSymbol = __webpack_require__(95)
 
   , create = Object.create, defineProperties = Object.defineProperties
   , defineProperty = Object.defineProperty, objPrototype = Object.prototype
@@ -6196,13 +6285,13 @@ defineProperty(HiddenSymbol.prototype, SymbolPolyfill.toPrimitive,
 
 
 /***/ }),
-/* 91 */
+/* 95 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var isSymbol = __webpack_require__(89);
+var isSymbol = __webpack_require__(93);
 
 module.exports = function (value) {
 	if (!isSymbol(value)) throw new TypeError(value + " is not a symbol");
@@ -6211,7 +6300,7 @@ module.exports = function (value) {
 
 
 /***/ }),
-/* 92 */
+/* 96 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6350,7 +6439,7 @@ exports.methods = methods;
 
 
 /***/ }),
-/* 93 */
+/* 97 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global) {/*! @license Firebase v3.9.0
@@ -6612,7 +6701,7 @@ module.exports = firebase.auth;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(5)))
 
 /***/ }),
-/* 94 */
+/* 98 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global) {/*! @license Firebase v3.9.0
@@ -6882,7 +6971,7 @@ module.exports = firebase.database;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(5)))
 
 /***/ }),
-/* 95 */
+/* 99 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6896,21 +6985,21 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 var firebase = __webpack_require__(9);
-__webpack_require__(93);
+__webpack_require__(97);
 var Storage, XMLHttpRequest;
 
-__webpack_require__(94);
-__webpack_require__(97);
+__webpack_require__(98);
+__webpack_require__(101);
 var AsyncStorage;
 
-__webpack_require__(96);
+__webpack_require__(100);
 exports.default = firebase;
 module.exports = exports['default'];
 //# sourceMappingURL=firebase.js.map
 
 
 /***/ }),
-/* 96 */
+/* 100 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global) {/*! @license Firebase v3.9.0
@@ -6958,7 +7047,7 @@ module.exports = firebase.messaging;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(5)))
 
 /***/ }),
-/* 97 */
+/* 101 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global) {/*! @license Firebase v3.9.0
@@ -7022,7 +7111,7 @@ module.exports = firebase.storage;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(5)))
 
 /***/ }),
-/* 98 */
+/* 102 */
 /***/ (function(module, exports) {
 
 // shim for using process in browser
@@ -7208,7 +7297,7 @@ process.umask = function() { return 0; };
 
 
 /***/ }),
-/* 99 */
+/* 103 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global, process) {(function (global, undefined) {
@@ -7398,10 +7487,10 @@ process.umask = function() { return 0; };
     attachTo.clearImmediate = clearImmediate;
 }(typeof self === "undefined" ? typeof global === "undefined" ? this : global : self));
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(5), __webpack_require__(98)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(5), __webpack_require__(102)))
 
 /***/ }),
-/* 100 */
+/* 104 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7427,7 +7516,7 @@ exports.classNameFromVNode = classNameFromVNode;
 //# sourceMappingURL=classNameFromVNode.js.map
 
 /***/ }),
-/* 101 */
+/* 105 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7484,7 +7573,7 @@ exports.default = exports.attributesModule;
 //# sourceMappingURL=attributes.js.map
 
 /***/ }),
-/* 102 */
+/* 106 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7515,7 +7604,7 @@ exports.default = exports.classModule;
 //# sourceMappingURL=class.js.map
 
 /***/ }),
-/* 103 */
+/* 107 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7557,7 +7646,7 @@ exports.default = exports.datasetModule;
 //# sourceMappingURL=dataset.js.map
 
 /***/ }),
-/* 104 */
+/* 108 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7589,7 +7678,7 @@ exports.default = exports.propsModule;
 //# sourceMappingURL=props.js.map
 
 /***/ }),
-/* 105 */
+/* 109 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7681,7 +7770,7 @@ exports.default = exports.styleModule;
 //# sourceMappingURL=style.js.map
 
 /***/ }),
-/* 106 */
+/* 110 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7993,7 +8082,7 @@ exports.init = init;
 //# sourceMappingURL=snabbdom.js.map
 
 /***/ }),
-/* 107 */
+/* 111 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8043,14 +8132,14 @@ exports.default = toVNode;
 //# sourceMappingURL=tovnode.js.map
 
 /***/ }),
-/* 108 */
+/* 112 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(109);
+module.exports = __webpack_require__(113);
 
 
 /***/ }),
-/* 109 */
+/* 113 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8060,7 +8149,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _ponyfill = __webpack_require__(110);
+var _ponyfill = __webpack_require__(114);
 
 var _ponyfill2 = _interopRequireDefault(_ponyfill);
 
@@ -8083,10 +8172,10 @@ if (typeof self !== 'undefined') {
 
 var result = (0, _ponyfill2['default'])(root);
 exports['default'] = result;
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(5), __webpack_require__(111)(module)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(5), __webpack_require__(115)(module)))
 
 /***/ }),
-/* 110 */
+/* 114 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8115,7 +8204,7 @@ function symbolObservablePonyfill(root) {
 };
 
 /***/ }),
-/* 111 */
+/* 115 */
 /***/ (function(module, exports) {
 
 module.exports = function(module) {
@@ -8141,132 +8230,6 @@ module.exports = function(module) {
 	return module;
 };
 
-
-/***/ }),
-/* 112 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var index_1 = __webpack_require__(0);
-var FSInner = (function () {
-    function FSInner(out, op) {
-        this.out = out;
-        this.op = op;
-    }
-    FSInner.prototype._n = function (t) {
-        this.out._n(t);
-    };
-    FSInner.prototype._e = function (err) {
-        this.out._e(err);
-    };
-    FSInner.prototype._c = function () {
-        this.op.less();
-    };
-    return FSInner;
-}());
-var FlattenSeqOperator = (function () {
-    function FlattenSeqOperator(ins) {
-        this.type = 'flattenSequentially';
-        this.ins = ins;
-        this.out = null;
-        this.open = true;
-        this.active = null;
-        this.activeIL = null;
-        this.seq = [];
-    }
-    FlattenSeqOperator.prototype._start = function (out) {
-        this.out = out;
-        this.open = true;
-        this.active = null;
-        this.activeIL = new FSInner(out, this);
-        this.seq = [];
-        this.ins._add(this);
-    };
-    FlattenSeqOperator.prototype._stop = function () {
-        this.ins._remove(this);
-        if (this.active && this.activeIL) {
-            this.active._remove(this.activeIL);
-        }
-        this.open = true;
-        this.active = null;
-        this.activeIL = null;
-        this.seq = [];
-        this.out = null;
-    };
-    FlattenSeqOperator.prototype.less = function () {
-        this.active = null;
-        var seq = this.seq;
-        if (seq.length > 0) {
-            this._n(seq.shift());
-        }
-        if (!this.open && !this.active) {
-            this.out._c();
-        }
-    };
-    FlattenSeqOperator.prototype._n = function (s) {
-        var u = this.out;
-        if (!u)
-            return;
-        if (this.active) {
-            this.seq.push(s);
-        }
-        else {
-            this.active = s;
-            s._add(this.activeIL);
-        }
-    };
-    FlattenSeqOperator.prototype._e = function (err) {
-        var u = this.out;
-        if (!u)
-            return;
-        u._e(err);
-    };
-    FlattenSeqOperator.prototype._c = function () {
-        var u = this.out;
-        if (!u)
-            return;
-        this.open = false;
-        if (!this.active && this.seq.length === 0) {
-            u._c();
-        }
-    };
-    return FlattenSeqOperator;
-}());
-exports.FlattenSeqOperator = FlattenSeqOperator;
-/**
- * Flattens a "stream of streams", handling only one nested stream at a time,
- * with no concurrency, but does not drop nested streams like `flatten` does.
- *
- * If the input stream is a stream that emits streams, then this operator will
- * return an output stream which is a flat stream: emits regular events. The
- * flattening happens sequentially and without concurrency. It works like this:
- * when the input stream emits a nested stream, *flattenSequentially* will start
- * imitating that nested one. When the next nested stream is emitted on the
- * input stream, *flattenSequentially* will keep that in a buffer, and only
- * start imitating it once the previous nested stream completes.
- *
- * In essence, `flattenSequentially` concatenates all nested streams.
- *
- * Marble diagram:
- *
- * ```text
- * --+--------+-------------------------
- *   \        \
- *    \       ----1----2---3--|
- *    --a--b----c----d--|
- *          flattenSequentially
- * -----a--b----c----d------1----2---3--
- * ```
- *
- * @return {Stream}
- */
-function flattenSequentially(ins) {
-    return new index_1.Stream(new FlattenSeqOperator(ins));
-}
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.default = flattenSequentially;
-//# sourceMappingURL=flattenSequentially.js.map
 
 /***/ })
 /******/ ]);

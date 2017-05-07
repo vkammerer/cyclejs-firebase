@@ -11,7 +11,11 @@ const intent = sourcesDOM => {
     .select(".formular")
     .events("submit")
     .map(event => event.preventDefault());
-  return submit$.compose(sampleCombine(input$)).map(([submit, input]) => input);
+  return {
+    submit: submit$
+      .compose(sampleCombine(input$))
+      .map(([submit, input]) => input)
+  };
 };
 
 const view = state$ =>
@@ -40,13 +44,9 @@ const view = state$ =>
     ]);
   });
 
-const Formular = sources => {
-  const submit$ = intent(sources.DOM);
-  const DOM$ = view(sources.props);
-  return {
-    DOM: DOM$,
-    actions: { submit: submit$ }
-  };
-};
+const Formular = sources => ({
+  DOM: view(sources.props),
+  actions: intent(sources.DOM)
+});
 
 export default Formular;
