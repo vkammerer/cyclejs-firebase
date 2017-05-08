@@ -2,22 +2,6 @@ import xs from "xstream";
 import sampleCombine from "xstream/extra/sampleCombine";
 import { p, input, span, button, form } from "@cycle/dom";
 
-const intent = sourcesDOM => {
-  const input$ = sourcesDOM
-    .select(".input")
-    .events("input")
-    .map(e => e.target.value);
-  const submit$ = sourcesDOM
-    .select(".formular")
-    .events("submit")
-    .map(event => event.preventDefault());
-  return {
-    submit: submit$
-      .compose(sampleCombine(input$))
-      .map(([submit, input]) => input)
-  };
-};
-
 const view = state$ =>
   state$.map(state => {
     if (state.status === "unlogged")
@@ -44,8 +28,27 @@ const view = state$ =>
     ]);
   });
 
+const reducer = state$ => xs.of(() => ({ formular: {} }));
+
+const intent = sourcesDOM => {
+  const input$ = sourcesDOM
+    .select(".input")
+    .events("input")
+    .map(e => e.target.value);
+  const submit$ = sourcesDOM
+    .select(".formular")
+    .events("submit")
+    .map(event => event.preventDefault());
+  return {
+    submit: submit$
+      .compose(sampleCombine(input$))
+      .map(([submit, input]) => input)
+  };
+};
+
 const Formular = sources => ({
-  DOM: view(sources.props),
+  DOM: view(sources.onion.state$),
+  onion: reducer(sources.onion.state$),
   actions: intent(sources.DOM)
 });
 

@@ -1,3 +1,4 @@
+import xs from "xstream";
 import { div, button } from "@cycle/dom";
 
 const view = state$ =>
@@ -6,8 +7,11 @@ const view = state$ =>
     .fold((acc, i) => acc.concat(i), [])
     .map(feedbacks => div(feedbacks));
 
+const reducer = state$ => xs.of(() => ({ feedback: [] }));
+
 const Feedback = sources => ({
-  DOM: view(sources.props)
+  DOM: view(sources.onion.state$),
+  onion: reducer(sources.onion.state$)
 });
 
 export default Feedback;

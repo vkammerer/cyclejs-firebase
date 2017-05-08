@@ -15,7 +15,7 @@ const fromSFireAuth = authData => {
   };
 };
 
-export const streamFeedback = ({
+export const feedbackReducer = ({
   sFireResError$,
   sFireResSuccess$,
   sFireAuth$
@@ -23,5 +23,9 @@ export const streamFeedback = ({
   const error$ = sFireResError$.map(toError);
   const success$ = sFireResSuccess$.map(toSuccess);
   const auth$ = sFireAuth$.map(fromSFireAuth);
-  return xs.merge(error$, success$, auth$);
+  const combined = xs.merge(error$, success$, auth$);
+  return combined.map(feedback => prevState => ({
+    ...prevState,
+    feedback
+  }));
 };

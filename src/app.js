@@ -2,11 +2,11 @@ import xs from "xstream";
 import isolate from "@cycle/isolate";
 import { run } from "@cycle/run";
 import { div, makeDOMDriver } from "@cycle/dom";
-import { objectPropsToArray } from "./utils";
+import onionify from "cycle-onionify";
 import { makeFirebaseDriver } from "./firebaseDriver";
 import { firebaseConfig } from "./firebaseConfig";
-import { streamFirebase } from "./model/firebase";
-import { model } from "./model";
+import { firebaseSink } from "./firebaseSink";
+import { reducer } from "./reducer";
 import Auth from "./components/Auth";
 import Feedback from "./components/Feedback";
 import Formular from "./components/Formular";
@@ -19,17 +19,11 @@ const intent = sources => {
   const sFireResSuccess$ = sFireRes$.filter(({ err }) => !err);
   const sFireResError$ = sFireRes$.filter(({ err }) => err);
   const sFireAuth$ = sources.firebase.authentication;
-  const aAuthLoginProxy$ = xs.create();
-  const aFormularSubmitProxy$ = xs.create();
-  const sFireArticles$ = sources.firebase
-    .on("articles", "value")
-    .map(objectPropsToArray);
+  const sFireArticles$ = sources.firebase.on("articles", "value");
   return {
     sFireResSuccess$,
     sFireResError$,
     sFireAuth$,
-    aAuthLoginProxy$,
-    aFormularSubmitProxy$,
     sFireArticles$
   };
 };
@@ -40,62 +34,48 @@ const view = ({ auth, feedback, formular, articles }) =>
     .map(doms => div(doms));
 
 function main(sources) {
+  /* AUTH */
+  const auth = isolate(Auth, "auth")(sources);
+  const aAuthLogin$ = auth.actions.login;
+  const aAuthLogout$ = auth.actions.logout;
+
+  /* FEEDBACK */
+  const feedback = isolate(Feedback, "feedback")(sources);
+
+  /* FORMULAR */
+  const formular = isolate(Formular, "formular")(sources);
+  const aFormularSubmit$ = formular.actions.submit;
+
+  /* ARTICLES */
+  const articles = isolate(Articles, "articles")(sources);
+
+  /* APP */
   const {
     sFireResSuccess$,
     sFireResError$,
     sFireAuth$,
-    aAuthLoginProxy$,
-    aFormularSubmitProxy$,
     sFireArticles$
   } = intent(sources);
 
-  const state = model({
+  const reducer$ = reducer({
     sFireResSuccess$,
     sFireResError$,
     sFireAuth$,
-    aAuthLoginProxy$,
-    aFormularSubmitProxy$,
-    sFireArticles$
+    sFireArticles$,
+    aAuthLogin$,
+    aFormularSubmit$
   });
 
-  /* AUTH */
-  const authSources = {
-    DOM: sources.DOM,
-    props: state.auth$
-  };
-  const auth = isolate(Auth)(authSources);
-  aAuthLoginProxy$.imitate(auth.actions.login);
-  const aAuthLogout$ = auth.actions.logout;
-
-  /* FEEDBACK */
-  const feedbackSources = {
-    DOM: sources.DOM,
-    props: state.feedback$
-  };
-  const feedback = isolate(Feedback)(feedbackSources);
-
-  /* FORMULAR */
-  const formularSources = {
-    DOM: sources.DOM,
-    props: state.formular$
-  };
-  const formular = isolate(Formular)(formularSources);
-  aFormularSubmitProxy$.imitate(formular.actions.submit);
-
-  /* ARTICLES */
-  const articlesSources = {
-    DOM: sources.DOM,
-    props: state.articles$
-  };
-  const articles = isolate(Articles)(articlesSources);
+  const state$ = sources.onion.state$;
 
   return {
     DOM: view({ auth, feedback, formular, articles }),
-    firebase: streamFirebase({
-      stateAuth$: state.auth$,
-      aAuthLoginProxy$,
+    onion: reducer$,
+    firebase: firebaseSink({
+      state$,
+      aAuthLogin$,
       aAuthLogout$,
-      aFormularSubmitProxy$
+      aFormularSubmit$
     })
   };
 }
@@ -105,4 +85,6 @@ const drivers = {
   firebase: makeFirebaseDriver(firebaseConfig)
 };
 
-run(main, drivers);
+const wrappedMain = onionify(main);
+
+run(wrappedMain, drivers);

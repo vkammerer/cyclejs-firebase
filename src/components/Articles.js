@@ -1,21 +1,32 @@
 import xs from "xstream";
 import { div, input, span, button, form } from "@cycle/dom";
 
+const buttonView = articleValue => {
+  if (!articleValue.userArticle) return "";
+  return span([button("Edit"), button("Delete")]);
+};
+
 const view = state$ =>
-  state$
-    .map(articles =>
-      articles.map(article =>
-        div([
-          span(article.value.username),
-          span(": "),
-          span(article.value.content)
-        ])
-      )
+  state$.map(state =>
+    div(
+      !state.articles.length
+        ? "No article"
+        : state.articles.map(article =>
+            div([
+              span(article.value.username),
+              span(" said: "),
+              span(article.value.content),
+              buttonView(article.value)
+            ])
+          )
     )
-    .map(articles => div(articles));
+  );
+
+const reducer = state$ => xs.of(() => ({ articles: [] }));
 
 const Articles = sources => ({
-  DOM: view(sources.props)
+  DOM: view(sources.onion.state$),
+  onion: reducer(sources.onion.state$)
 });
 
 export default Articles;
