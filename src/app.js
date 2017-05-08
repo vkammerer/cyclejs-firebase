@@ -47,9 +47,16 @@ function main(sources) {
   const aFormularSubmit$ = formular.actions.submit;
 
   /* ARTICLES */
-  const articles = isolate(Articles, "articles")(sources);
+  const articles = isolate(Articles, "articles")(sources, {
+    sFireAuth$,
+    sFireResSuccess$,
+    sFireArticles$
+  });
 
   /* APP */
+  const childrenOnions$ = xs.merge(
+    ...[auth, feedback, formular, articles].map(sink => sink.onion)
+  );
   const {
     sFireResSuccess$,
     sFireResError$,
@@ -57,14 +64,17 @@ function main(sources) {
     sFireArticles$
   } = intent(sources);
 
-  const reducer$ = reducer({
-    sFireResSuccess$,
-    sFireResError$,
-    sFireAuth$,
-    sFireArticles$,
-    aAuthLogin$,
-    aFormularSubmit$
-  });
+  const reducer$ = xs.merge(
+    childrenOnions$,
+    reducer({
+      sFireResSuccess$,
+      sFireResError$,
+      sFireAuth$,
+      sFireArticles$,
+      aAuthLogin$,
+      aFormularSubmit$
+    })
+  );
 
   const state$ = sources.onion.state$;
 

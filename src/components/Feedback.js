@@ -7,7 +7,7 @@ const view = state$ =>
     .fold((acc, i) => acc.concat(i), [])
     .map(feedbacks => div(feedbacks));
 
-const reducer = state$ => xs.of(() => ({ feedback: [] }));
+const reducer = state$ => xs.of(() => [{ msg: "yes" }]);
 
 const Feedback = sources => ({
   DOM: view(sources.onion.state$),

@@ -1,32 +1,31 @@
 import xs from "xstream";
-import { div, input, span, button, form } from "@cycle/dom";
+import isolate from "@cycle/isolate";
+import { div } from "@cycle/dom";
+import Article from "./Article";
+import { pick, mix } from "cycle-onionify";
+import { articlesReducerFlat } from "../reducer/articles.js";
 
-const buttonView = articleValue => {
-  if (!articleValue.userArticle) return "";
-  return span([button("Edit"), button("Delete")]);
-};
+const view = childrenSinks$ =>
+  childrenSinks$
+    .compose(pick(sinks => sinks.DOM))
+    .compose(mix(xs.combine))
+    .map(itemVNodes => div(itemVNodes));
 
-const view = state$ =>
-  state$.map(state =>
-    div(
-      !state.articles.length
-        ? "No article"
-        : state.articles.map(article =>
-            div([
-              span(article.value.username),
-              span(" said: "),
-              span(article.value.content),
-              buttonView(article.value)
-            ])
-          )
-    )
+const Articles = (
+  sources,
+  { sFireAuth$, sFireResSuccess$, sFireArticles$ }
+) => {
+  const childrenSinks$ = sources.onion.state$.map(state =>
+    state.map((item, i) => isolate(Article, i)(sources))
   );
+  const childrenReducers$ = childrenSinks$.compose(pick("onion"));
+  const childrenReducer$ = childrenReducers$.compose(mix(xs.merge));
+  const reducer$ = xs.merge(childrenReducer$);
 
-const reducer = state$ => xs.of(() => ({ articles: [] }));
-
-const Articles = sources => ({
-  DOM: view(sources.onion.state$),
-  onion: reducer(sources.onion.state$)
-});
+  return {
+    DOM: view(childrenSinks$),
+    onion: reducer$
+  };
+};
 
 export default Articles;

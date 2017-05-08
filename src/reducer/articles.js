@@ -1,6 +1,14 @@
 import xs from "xstream";
 import { objectPropsToArray } from "../utils";
 
+const augmentArticles = (auth, articlesArray) =>
+  !auth
+    ? articlesArray
+    : articlesArray.map(a => {
+        if (a.value.uid !== auth.uid) return a;
+        return { ...a, value: { ...a.value, userArticle: true } };
+      });
+
 export const articlesReducer = ({
   sFireAuth$,
   sFireResSuccess$,
@@ -8,18 +16,11 @@ export const articlesReducer = ({
 }) => {
   const combined = xs.combine(sFireAuth$, sFireArticles$);
   return combined.map(([auth, articles]) => prevState => {
-    console.log(auth ? auth.uid : "no auth", articles);
     const articlesArray = objectPropsToArray(articles);
-    const augmentedArticles = !auth
-      ? articlesArray
-      : articlesArray.map(a => {
-          if (a.value.uid !== auth.uid) return a;
-          return { ...a, value: { ...a.value, userArticle: true } };
-        });
 
     return {
       ...prevState,
-      articles: { articles: augmentedArticles }
+      articles: augmentArticles(auth, articlesArray)
     };
   });
 };
