@@ -4,7 +4,7 @@ import { p, input, span, button, form } from "@cycle/dom";
 
 const view = state$ =>
   state$.map(state => {
-    if (state.status === "unlogged")
+    if (state.status === "anonymous")
       return p("Log in to add a new article of your own!");
     return form(".formular", [
       p([
@@ -28,8 +28,6 @@ const view = state$ =>
     ]);
   });
 
-const reducer = state$ => xs.of(() => ({ formular: {} }));
-
 const intent = sourcesDOM => {
   const input$ = sourcesDOM
     .select(".input")
@@ -39,17 +37,24 @@ const intent = sourcesDOM => {
     .select(".formular")
     .events("submit")
     .map(event => event.preventDefault());
-  return {
-    submit: submit$
-      .compose(sampleCombine(input$))
-      .map(([submit, input]) => input)
-  };
+  const validSubmit = submit$
+    .compose(sampleCombine(input$))
+    .map(([submit, value]) => value);
+  return validSubmit.map(value => ({
+    type: "FORMULAR_SUBMIT",
+    value
+  }));
 };
 
-const Formular = sources => ({
-  DOM: view(sources.onion.state$),
-  onion: reducer(sources.onion.state$),
-  actions: intent(sources.DOM)
-});
+const Formular = sources => {
+  const DOM = view(sources.onion.state$);
+  const reducer$ = xs.of(prevState => ({ status: "anonymous" }));
+  const actions = intent(sources.DOM);
+  return {
+    DOM,
+    onion: reducer$,
+    actions
+  };
+};
 
 export default Formular;

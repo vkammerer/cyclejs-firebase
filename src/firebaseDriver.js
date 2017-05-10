@@ -78,7 +78,6 @@ export const makeFirebaseDriver = config => output$ => {
           break;
         }
         case "PUSH": {
-          console.log(action);
           handleResponse(
             appDatabase.ref(action.path).push(action.value),
             action
@@ -97,7 +96,7 @@ export const makeFirebaseDriver = config => output$ => {
           break;
         }
         default:
-          console.error("ACTION TYPE NOT VALID");
+          console.error("Firebase driver: ACTION TYPE NOT VALID");
           break;
       }
     }

@@ -1,31 +1,29 @@
 import xs from "xstream";
 import isolate from "@cycle/isolate";
 import { div } from "@cycle/dom";
-import Article from "./Article";
 import { pick, mix } from "cycle-onionify";
-import { articlesReducerFlat } from "../reducer/articles.js";
 
 const view = childrenSinks$ =>
-  childrenSinks$
-    .compose(pick(sinks => sinks.DOM))
-    .compose(mix(xs.combine))
-    .map(itemVNodes => div(itemVNodes));
+  childrenSinks$.map(itemVNodes => div(itemVNodes));
 
-const Articles = (
-  sources,
-  { sFireAuth$, sFireResSuccess$, sFireArticles$ }
-) => {
+const List = Item => sources => {
   const childrenSinks$ = sources.onion.state$.map(state =>
-    state.map((item, i) => isolate(Article, i)(sources))
+    state.map((item, i) => isolate(Item, i)(sources, i))
   );
+
+  const childrenDoms$ = childrenSinks$.compose(pick("DOM"));
+  const childrenDom$ = childrenDoms$.compose(mix(xs.combine));
+
   const childrenReducers$ = childrenSinks$.compose(pick("onion"));
   const childrenReducer$ = childrenReducers$.compose(mix(xs.merge));
+
+  const DOM = view(childrenDom$);
   const reducer$ = xs.merge(childrenReducer$);
 
   return {
-    DOM: view(childrenSinks$),
+    DOM,
     onion: reducer$
   };
 };
 
-export default Articles;
+export default List;

@@ -18,17 +18,21 @@ const toLoggedIn = data => ({
   uid: data.uid
 });
 
-export const authReducer = ({ sFireResError$, sFireAuth$, aAuthLogin$ }) => {
+export const authReducer = ({ sFireResError$, sFireAuth$ }, actions$) => {
+  const login$ = actions$
+    .filter(a => a.type === "LOGIN_FACEBOOK")
+    .map(toAwaiting);
+  const logout$ = actions$.filter(a => a.type === "LOGOUT").map(toAnonymous);
   const fireAuthLoggedIn$ = sFireAuth$.filter(data => data).map(toLoggedIn);
   const fireAuthLoggedOut$ = sFireAuth$.filter(data => !data).map(toAnonymous);
-  const login$ = aAuthLogin$.map(toAwaiting);
   const resLoginError$ = sFireResError$
     .filter(({ action }) => action.type === "LOGIN_FACEBOOK")
     .map(toAnonymous);
   const combined = xs.merge(
+    login$,
+    logout$,
     fireAuthLoggedIn$,
     fireAuthLoggedOut$,
-    login$,
     resLoginError$
   );
   return combined.map(auth => prevState => ({

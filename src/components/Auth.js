@@ -13,17 +13,27 @@ const view = state$ =>
     return p([button(".login", "Log in")]);
   });
 
-const reducer = state$ => xs.of(() => ({ auth: {} }));
+const intent = sourceDOM => {
+  const loginAction$ = sourceDOM
+    .select(".login")
+    .events("click")
+    .map(() => ({ type: "LOGIN_FACEBOOK" }));
+  const logoutAction$ = sourceDOM
+    .select(".logout")
+    .events("click")
+    .map(() => ({ type: "LOGOUT" }));
+  return xs.merge(loginAction$, logoutAction$);
+};
 
-const intent = sourceDOM => ({
-  logout: sourceDOM.select(".logout").events("click"),
-  login: sourceDOM.select(".login").events("click")
-});
-
-const Auth = sources => ({
-  DOM: view(sources.onion.state$),
-  onion: reducer(sources.onion.state$),
-  actions: intent(sources.DOM)
-});
+const Auth = sources => {
+  const actions = intent(sources.DOM);
+  const reducer$ = xs.of(prevState => ({ status: "anonymous" }));
+  const DOM = view(sources.onion.state$);
+  return {
+    DOM,
+    onion: reducer$,
+    actions
+  };
+};
 
 export default Auth;
