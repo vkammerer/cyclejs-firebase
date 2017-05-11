@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 56);
+/******/ 	return __webpack_require__(__webpack_require__.s = 51);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -77,7 +77,7 @@ var __extends = (this && this.__extends) || function (d, b) {
     function __() { this.constructor = d; }
     d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 };
-var symbol_observable_1 = __webpack_require__(114);
+var symbol_observable_1 = __webpack_require__(117);
 var NO = {};
 exports.NO = NO;
 function noop() { }
@@ -1859,124 +1859,9 @@ module.exports = function (fn) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var adaptStream = function (x) { return x; };
-function setAdapt(f) {
-    adaptStream = f;
-}
-exports.setAdapt = setAdapt;
-function adapt(stream) {
-    return adaptStream(stream);
-}
-exports.adapt = adapt;
-//# sourceMappingURL=adapt.js.map
-
-/***/ }),
-/* 4 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var assign        = __webpack_require__(15)
-  , normalizeOpts = __webpack_require__(23)
-  , isCallable    = __webpack_require__(75)
-  , contains      = __webpack_require__(26)
-
-  , d;
-
-d = module.exports = function (dscr, value/*, options*/) {
-	var c, e, w, options, desc;
-	if ((arguments.length < 2) || (typeof dscr !== 'string')) {
-		options = value;
-		value = dscr;
-		dscr = null;
-	} else {
-		options = arguments[2];
-	}
-	if (dscr == null) {
-		c = w = true;
-		e = false;
-	} else {
-		c = contains.call(dscr, 'c');
-		e = contains.call(dscr, 'e');
-		w = contains.call(dscr, 'w');
-	}
-
-	desc = { value: value, configurable: c, enumerable: e, writable: w };
-	return !options ? desc : assign(normalizeOpts(options), desc);
-};
-
-d.gs = function (dscr, get, set/*, options*/) {
-	var c, e, options, desc;
-	if (typeof dscr !== 'string') {
-		options = set;
-		set = get;
-		get = dscr;
-		dscr = null;
-	} else {
-		options = arguments[3];
-	}
-	if (get == null) {
-		get = undefined;
-	} else if (!isCallable(get)) {
-		options = get;
-		get = set = undefined;
-	} else if (set == null) {
-		set = undefined;
-	} else if (!isCallable(set)) {
-		options = set;
-		set = undefined;
-	}
-	if (dscr == null) {
-		c = true;
-		e = false;
-	} else {
-		c = contains.call(dscr, 'c');
-		e = contains.call(dscr, 'e');
-	}
-
-	desc = { get: get, set: set, configurable: c, enumerable: e };
-	return !options ? desc : assign(normalizeOpts(options), desc);
-};
-
-
-/***/ }),
-/* 5 */
-/***/ (function(module, exports) {
-
-var g;
-
-// This works in non-strict mode
-g = (function() {
-	return this;
-})();
-
-try {
-	// This works if eval is allowed (see CSP)
-	g = g || Function("return this")() || (1,eval)("this");
-} catch(e) {
-	// This works if the window reference is available
-	if(typeof window === "object")
-		g = window;
-}
-
-// g can still be undefined, but nothing to do about it...
-// We return undefined, instead of nothing here, so it's
-// easier to handle this case. if(!global) { ...}
-
-module.exports = g;
-
-
-/***/ }),
-/* 6 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-Object.defineProperty(exports, "__esModule", { value: true });
-var thunk_1 = __webpack_require__(32);
+var thunk_1 = __webpack_require__(35);
 exports.thunk = thunk_1.thunk;
-var MainDOMSource_1 = __webpack_require__(19);
+var MainDOMSource_1 = __webpack_require__(21);
 exports.MainDOMSource = MainDOMSource_1.MainDOMSource;
 /**
  * A factory for the DOM driver function.
@@ -2020,7 +1905,7 @@ exports.MainDOMSource = MainDOMSource_1.MainDOMSource;
  * VNode as input, and outputs the DOMSource object.
  * @function makeDOMDriver
  */
-var makeDOMDriver_1 = __webpack_require__(53);
+var makeDOMDriver_1 = __webpack_require__(48);
 exports.makeDOMDriver = makeDOMDriver_1.makeDOMDriver;
 /**
  * A factory function to create mocked DOMSource objects, for testing purposes.
@@ -2070,7 +1955,7 @@ exports.makeDOMDriver = makeDOMDriver_1.makeDOMDriver;
  *
  * @function mockDOMSource
  */
-var mockDOMSource_1 = __webpack_require__(54);
+var mockDOMSource_1 = __webpack_require__(49);
 exports.mockDOMSource = mockDOMSource_1.mockDOMSource;
 exports.MockedDOMSource = mockDOMSource_1.MockedDOMSource;
 /**
@@ -2115,7 +2000,7 @@ exports.MockedDOMSource = mockDOMSource_1.MockedDOMSource;
  */
 var h_1 = __webpack_require__(10);
 exports.h = h_1.h;
-var hyperscript_helpers_1 = __webpack_require__(51);
+var hyperscript_helpers_1 = __webpack_require__(46);
 exports.svg = hyperscript_helpers_1.default.svg;
 exports.a = hyperscript_helpers_1.default.a;
 exports.abbr = hyperscript_helpers_1.default.abbr;
@@ -2220,6 +2105,121 @@ exports.video = hyperscript_helpers_1.default.video;
 //# sourceMappingURL=index.js.map
 
 /***/ }),
+/* 4 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", { value: true });
+var adaptStream = function (x) { return x; };
+function setAdapt(f) {
+    adaptStream = f;
+}
+exports.setAdapt = setAdapt;
+function adapt(stream) {
+    return adaptStream(stream);
+}
+exports.adapt = adapt;
+//# sourceMappingURL=adapt.js.map
+
+/***/ }),
+/* 5 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var assign        = __webpack_require__(15)
+  , normalizeOpts = __webpack_require__(26)
+  , isCallable    = __webpack_require__(78)
+  , contains      = __webpack_require__(29)
+
+  , d;
+
+d = module.exports = function (dscr, value/*, options*/) {
+	var c, e, w, options, desc;
+	if ((arguments.length < 2) || (typeof dscr !== 'string')) {
+		options = value;
+		value = dscr;
+		dscr = null;
+	} else {
+		options = arguments[2];
+	}
+	if (dscr == null) {
+		c = w = true;
+		e = false;
+	} else {
+		c = contains.call(dscr, 'c');
+		e = contains.call(dscr, 'e');
+		w = contains.call(dscr, 'w');
+	}
+
+	desc = { value: value, configurable: c, enumerable: e, writable: w };
+	return !options ? desc : assign(normalizeOpts(options), desc);
+};
+
+d.gs = function (dscr, get, set/*, options*/) {
+	var c, e, options, desc;
+	if (typeof dscr !== 'string') {
+		options = set;
+		set = get;
+		get = dscr;
+		dscr = null;
+	} else {
+		options = arguments[3];
+	}
+	if (get == null) {
+		get = undefined;
+	} else if (!isCallable(get)) {
+		options = get;
+		get = set = undefined;
+	} else if (set == null) {
+		set = undefined;
+	} else if (!isCallable(set)) {
+		options = set;
+		set = undefined;
+	}
+	if (dscr == null) {
+		c = true;
+		e = false;
+	} else {
+		c = contains.call(dscr, 'c');
+		e = contains.call(dscr, 'e');
+	}
+
+	desc = { get: get, set: set, configurable: c, enumerable: e };
+	return !options ? desc : assign(normalizeOpts(options), desc);
+};
+
+
+/***/ }),
+/* 6 */
+/***/ (function(module, exports) {
+
+var g;
+
+// This works in non-strict mode
+g = (function() {
+	return this;
+})();
+
+try {
+	// This works if eval is allowed (see CSP)
+	g = g || Function("return this")() || (1,eval)("this");
+} catch(e) {
+	// This works if the window reference is available
+	if(typeof window === "object")
+		g = window;
+}
+
+// g can still be undefined, but nothing to do about it...
+// We return undefined, instead of nothing here, so it's
+// easier to handle this case. if(!global) { ...}
+
+module.exports = g;
+
+
+/***/ }),
 /* 7 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -2279,7 +2279,7 @@ exports.getSelectors = getSelectors;
 "use strict";
 
 
-module.exports = __webpack_require__(94)() ? Symbol : __webpack_require__(96);
+module.exports = __webpack_require__(97)() ? Symbol : __webpack_require__(99);
 
 
 /***/ }),
@@ -2293,7 +2293,7 @@ Terms: https://firebase.google.com/terms/ */
 var firebase=function(e){function t(r){if(n[r])return n[r].exports;var i=n[r]={i:r,l:!1,exports:{}};return e[r].call(i.exports,i,i.exports,t),i.l=!0,i.exports}var n={};return t.m=e,t.c=n,t.i=function(e){return e},t.d=function(e,n,r){t.o(e,n)||Object.defineProperty(e,n,{configurable:!1,enumerable:!0,get:r})},t.n=function(e){var n=e&&e.__esModule?function(){return e.default}:function(){return e};return t.d(n,"a",n),n},t.o=function(e,t){return Object.prototype.hasOwnProperty.call(e,t)},t.p="",t(t.s=11)}([function(e,t,n){"use strict";(function(e){Object.defineProperty(t,"__esModule",{value:!0});var r=void 0;if(void 0!==e)r=e;else if("undefined"!=typeof self)r=self;else try{r=Function("return this")()}catch(e){throw new Error("polyfill failed because global object is unavailable in this environment")}var i=r.Promise||n(8);t.local={Promise:i,GoogPromise:i}}).call(t,n(1))},function(e,t){var n;n=function(){return this}();try{n=n||Function("return this")()||(0,eval)("this")}catch(e){"object"==typeof window&&(n=window)}e.exports=n},function(e,t,n){"use strict";Object.defineProperty(t,"__esModule",{value:!0});var r=n(5),i=(0,r.createFirebaseNamespace)();t.default=i,e.exports=t.default},function(e,t,n){"use strict";function r(e){return i(void 0,e)}function i(e,t){if(!(t instanceof Object))return t;switch(t.constructor){case Date:return new Date(t.getTime());case Object:void 0===e&&(e={});break;case Array:e=[];break;default:return t}for(var n in t)t.hasOwnProperty(n)&&(e[n]=i(e[n],t[n]));return e}function o(e,t,n){e[t]=n}Object.defineProperty(t,"__esModule",{value:!0}),t.deepCopy=r,t.deepExtend=i,t.patchProperty=o},function(e,t,n){"use strict";function r(e,t){if(!(e instanceof t))throw new TypeError("Cannot call a class as a function")}function i(e){var t=a;return a=e,t}Object.defineProperty(t,"__esModule",{value:!0});var o=function(){function e(e,t){for(var n=0;n<t.length;n++){var r=t[n];r.enumerable=r.enumerable||!1,r.configurable=!0,"value"in r&&(r.writable=!0),Object.defineProperty(e,r.key,r)}}return function(t,n,r){return n&&e(t.prototype,n),r&&e(t,r),t}}();t.patchCapture=i;var a=Error.captureStackTrace,c=function e(t,n){if(r(this,e),this.code=t,this.message=n,a)a(this,s.prototype.create);else{var i=Error.apply(this,arguments);this.name="FirebaseError",Object.defineProperty(this,"stack",{get:function(){return i.stack}})}};c.prototype=Object.create(Error.prototype),c.prototype.constructor=c,c.prototype.name="FirebaseError";var s=t.ErrorFactory=function(){function e(t,n,i){r(this,e),this.service=t,this.serviceName=n,this.errors=i,this.pattern=/\{\$([^}]+)}/g}return o(e,[{key:"create",value:function(e,t){void 0===t&&(t={});var n=this.errors[e],r=this.service+"/"+e,i=void 0;i=void 0===n?"Error":n.replace(this.pattern,function(e,n){var r=t[n];return void 0!==r?r.toString():"<"+n+"?>"}),i=this.serviceName+": "+i+" ("+r+").";var o=new c(r,i);for(var a in t)t.hasOwnProperty(a)&&"_"!==a.slice(-1)&&(o[a]=t[a]);return o}}]),e}()},function(e,t,n){"use strict";function r(e,t){if(!(e instanceof t))throw new TypeError("Cannot call a class as a function")}function i(){function e(e){e=e||d;var t=r[e];return void 0===t&&o("no-app",{name:e}),t}function t(e,t){Object.keys(a).forEach(function(r){var i=n(e,r);null!==i&&h[i]&&h[i](t,e)})}function n(e,t){if("serverAuth"===t)return null;var n=t,r=e.options;return"auth"===t&&(r.serviceAccount||r.credential)&&(n="serverAuth","serverAuth"in a||o("sa-not-supported")),n}var r={},a={},h={},v={__esModule:!0,initializeApp:function(e,n){void 0===n?n=d:"string"==typeof n&&""!==n||o("bad-app-name",{name:n+""}),void 0!==r[n]&&o("duplicate-app",{name:n});var i=new p(e,n,v);return r[n]=i,t(i,"create"),void 0!=i.INTERNAL&&void 0!=i.INTERNAL.getToken||(0,c.deepExtend)(i,{INTERNAL:{getUid:function(){return null},getToken:function(){return l.resolve(null)},addAuthTokenListener:function(){},removeAuthTokenListener:function(){}}}),i},app:e,apps:null,Promise:l,SDK_VERSION:"3.9.0",INTERNAL:{registerService:function(t,n,r,i,s){a[t]&&o("duplicate-service",{name:t}),a[t]=s?n:function(e,t){return n(e,t,d)},i&&(h[t]=i);var u=void 0;return u=function(n){return void 0===n&&(n=e()),"function"!=typeof n[t]&&o("invalid-app-argument",{name:t}),n[t]()},void 0!==r&&(0,c.deepExtend)(u,r),v[t]=u,u},createFirebaseNamespace:i,extendNamespace:function(e){(0,c.deepExtend)(v,e)},createSubscribe:s.createSubscribe,ErrorFactory:u.ErrorFactory,removeApp:function(e){t(r[e],"delete"),delete r[e]},factories:a,useAsService:n,Promise:f.local.GoogPromise,deepExtend:c.deepExtend}};return(0,c.patchProperty)(v,"default",v),Object.defineProperty(v,"apps",{get:function(){return Object.keys(r).map(function(e){return r[e]})}}),(0,c.patchProperty)(e,"App",p),v}function o(e,t){throw v.create(e,t)}Object.defineProperty(t,"__esModule",{value:!0});var a=function(){function e(e,t){for(var n=0;n<t.length;n++){var r=t[n];r.enumerable=r.enumerable||!1,r.configurable=!0,"value"in r&&(r.writable=!0),Object.defineProperty(e,r.key,r)}}return function(t,n,r){return n&&e(t.prototype,n),r&&e(t,r),t}}();t.createFirebaseNamespace=i;var c=n(3),s=n(6),u=n(4),f=n(0),l=f.local.Promise,d="[DEFAULT]",p=function(){function e(t,n,i){var o=this;r(this,e),this.firebase_=i,this.isDeleted_=!1,this.services_={},this.name_=n,this.options_=(0,c.deepCopy)(t);var a="credential"in this.options_,s="serviceAccount"in this.options_;if(a||s){var u=s?"serviceAccount":"credential";"undefined"!=typeof console&&console.log("The '"+u+"' property specified in the first argument to initializeApp() is deprecated and will be removed in the next major version. You should instead use the 'firebase-admin' package. See https://firebase.google.com/docs/admin/setup for details on how to get started.")}Object.keys(i.INTERNAL.factories).forEach(function(e){var t=i.INTERNAL.useAsService(o,e);if(null!==t){var n=o.getService.bind(o,t);(0,c.patchProperty)(o,e,n)}})}return a(e,[{key:"delete",value:function(){var e=this;return new l(function(t){e.checkDestroyed_(),t()}).then(function(){e.firebase_.INTERNAL.removeApp(e.name_);var t=[];return Object.keys(e.services_).forEach(function(n){Object.keys(e.services_[n]).forEach(function(r){t.push(e.services_[n][r])})}),l.all(t.map(function(e){return e.INTERNAL.delete()}))}).then(function(){e.isDeleted_=!0,e.services_={}})}},{key:"getService",value:function(e,t){this.checkDestroyed_(),void 0===this.services_[e]&&(this.services_[e]={});var n=t||d;if(void 0===this.services_[e][n]){var r=this.firebase_.INTERNAL.factories[e](this,this.extendApp.bind(this),t);return this.services_[e][n]=r,r}return this.services_[e][n]}},{key:"extendApp",value:function(e){(0,c.deepExtend)(this,e)}},{key:"checkDestroyed_",value:function(){this.isDeleted_&&o("app-deleted",{name:this.name_})}},{key:"name",get:function(){return this.checkDestroyed_(),this.name_}},{key:"options",get:function(){return this.checkDestroyed_(),this.options_}}]),e}();p.prototype.name&&p.prototype.options||p.prototype.delete||console.log("dc");var h={"no-app":"No Firebase App '{$name}' has been created - call Firebase App.initializeApp()","bad-app-name":"Illegal App name: '{$name}","duplicate-app":"Firebase App named '{$name}' already exists","app-deleted":"Firebase App named '{$name}' already deleted","duplicate-service":"Firebase service named '{$name}' already registered","sa-not-supported":"Initializing the Firebase SDK with a service account is only allowed in a Node.js environment. On client devices, you should instead initialize the SDK with an api key and auth domain","invalid-app-argument":"firebase.{$name}() takes either no argument or a Firebase App instance."},v=new u.ErrorFactory("app","Firebase",h)},function(e,t,n){"use strict";function r(e,t){if(!(e instanceof t))throw new TypeError("Cannot call a class as a function")}function i(e,t){var n=new d(e,t);return n.subscribe.bind(n)}function o(e,t){return function(){for(var n=arguments.length,r=Array(n),i=0;i<n;i++)r[i]=arguments[i];l.resolve(!0).then(function(){e.apply(void 0,r)}).catch(function(e){t&&t(e)})}}function a(e,t){if("object"!==(void 0===e?"undefined":s(e))||null===e)return!1;var n=!0,r=!1,i=void 0;try{for(var o,a=t[Symbol.iterator]();!(n=(o=a.next()).done);n=!0){var c=o.value;if(c in e&&"function"==typeof e[c])return!0}}catch(e){r=!0,i=e}finally{try{!n&&a.return&&a.return()}finally{if(r)throw i}}return!1}function c(){}Object.defineProperty(t,"__esModule",{value:!0});var s="function"==typeof Symbol&&"symbol"==typeof Symbol.iterator?function(e){return typeof e}:function(e){return e&&"function"==typeof Symbol&&e.constructor===Symbol&&e!==Symbol.prototype?"symbol":typeof e},u=function(){function e(e,t){for(var n=0;n<t.length;n++){var r=t[n];r.enumerable=r.enumerable||!1,r.configurable=!0,"value"in r&&(r.writable=!0),Object.defineProperty(e,r.key,r)}}return function(t,n,r){return n&&e(t.prototype,n),r&&e(t,r),t}}();t.createSubscribe=i,t.async=o;var f=n(0),l=f.local.Promise,d=function(){function e(t,n){var i=this;r(this,e),this.observers=[],this.unsubscribes=[],this.observerCount=0,this.task=l.resolve(),this.finalized=!1,this.onNoObservers=n,this.task.then(function(){t(i)}).catch(function(e){i.error(e)})}return u(e,[{key:"next",value:function(e){this.forEachObserver(function(t){t.next(e)})}},{key:"error",value:function(e){this.forEachObserver(function(t){t.error(e)}),this.close(e)}},{key:"complete",value:function(){this.forEachObserver(function(e){e.complete()}),this.close()}},{key:"subscribe",value:function(e,t,n){var r=this,i=void 0;if(void 0===e&&void 0===t&&void 0===n)throw new Error("Missing Observer.");i=a(e,["next","error","complete"])?e:{next:e,error:t,complete:n},void 0===i.next&&(i.next=c),void 0===i.error&&(i.error=c),void 0===i.complete&&(i.complete=c);var o=this.unsubscribeOne.bind(this,this.observers.length);return this.finalized&&this.task.then(function(){try{r.finalError?i.error(r.finalError):i.complete()}catch(e){}}),this.observers.push(i),o}},{key:"unsubscribeOne",value:function(e){void 0!==this.observers&&void 0!==this.observers[e]&&(delete this.observers[e],this.observerCount-=1,0===this.observerCount&&void 0!==this.onNoObservers&&this.onNoObservers(this))}},{key:"forEachObserver",value:function(e){if(!this.finalized)for(var t=0;t<this.observers.length;t++)this.sendOne(t,e)}},{key:"sendOne",value:function(e,t){var n=this;this.task.then(function(){if(void 0!==n.observers&&void 0!==n.observers[e])try{t(n.observers[e])}catch(e){"undefined"!=typeof console&&console.error&&console.error(e)}})}},{key:"close",value:function(e){var t=this;this.finalized||(this.finalized=!0,void 0!==e&&(this.finalError=e),this.task.then(function(){t.observers=void 0,t.onNoObservers=void 0}))}}]),e}()},function(e,t){function n(){throw new Error("setTimeout has not been defined")}function r(){throw new Error("clearTimeout has not been defined")}function i(e){if(f===setTimeout)return setTimeout(e,0);if((f===n||!f)&&setTimeout)return f=setTimeout,setTimeout(e,0);try{return f(e,0)}catch(t){try{return f.call(null,e,0)}catch(t){return f.call(this,e,0)}}}function o(e){if(l===clearTimeout)return clearTimeout(e);if((l===r||!l)&&clearTimeout)return l=clearTimeout,clearTimeout(e);try{return l(e)}catch(t){try{return l.call(null,e)}catch(t){return l.call(this,e)}}}function a(){v&&p&&(v=!1,p.length?h=p.concat(h):m=-1,h.length&&c())}function c(){if(!v){var e=i(a);v=!0;for(var t=h.length;t;){for(p=h,h=[];++m<t;)p&&p[m].run();m=-1,t=h.length}p=null,v=!1,o(e)}}function s(e,t){this.fun=e,this.array=t}function u(){}var f,l,d=e.exports={};!function(){try{f="function"==typeof setTimeout?setTimeout:n}catch(e){f=n}try{l="function"==typeof clearTimeout?clearTimeout:r}catch(e){l=r}}();var p,h=[],v=!1,m=-1;d.nextTick=function(e){var t=new Array(arguments.length-1);if(arguments.length>1)for(var n=1;n<arguments.length;n++)t[n-1]=arguments[n];h.push(new s(e,t)),1!==h.length||v||i(c)},s.prototype.run=function(){this.fun.apply(null,this.array)},d.title="browser",d.browser=!0,d.env={},d.argv=[],d.version="",d.versions={},d.on=u,d.addListener=u,d.once=u,d.off=u,d.removeListener=u,d.removeAllListeners=u,d.emit=u,d.binding=function(e){throw new Error("process.binding is not supported")},d.cwd=function(){return"/"},d.chdir=function(e){throw new Error("process.chdir is not supported")},d.umask=function(){return 0}},function(e,t,n){(function(t){!function(n){function r(){}function i(e,t){return function(){e.apply(t,arguments)}}function o(e){if("object"!=typeof this)throw new TypeError("Promises must be constructed via new");if("function"!=typeof e)throw new TypeError("not a function");this._state=0,this._handled=!1,this._value=void 0,this._deferreds=[],l(e,this)}function a(e,t){for(;3===e._state;)e=e._value;if(0===e._state)return void e._deferreds.push(t);e._handled=!0,o._immediateFn(function(){var n=1===e._state?t.onFulfilled:t.onRejected;if(null===n)return void(1===e._state?c:s)(t.promise,e._value);var r;try{r=n(e._value)}catch(e){return void s(t.promise,e)}c(t.promise,r)})}function c(e,t){try{if(t===e)throw new TypeError("A promise cannot be resolved with itself.");if(t&&("object"==typeof t||"function"==typeof t)){var n=t.then;if(t instanceof o)return e._state=3,e._value=t,void u(e);if("function"==typeof n)return void l(i(n,t),e)}e._state=1,e._value=t,u(e)}catch(t){s(e,t)}}function s(e,t){e._state=2,e._value=t,u(e)}function u(e){2===e._state&&0===e._deferreds.length&&o._immediateFn(function(){e._handled||o._unhandledRejectionFn(e._value)});for(var t=0,n=e._deferreds.length;t<n;t++)a(e,e._deferreds[t]);e._deferreds=null}function f(e,t,n){this.onFulfilled="function"==typeof e?e:null,this.onRejected="function"==typeof t?t:null,this.promise=n}function l(e,t){var n=!1;try{e(function(e){n||(n=!0,c(t,e))},function(e){n||(n=!0,s(t,e))})}catch(e){if(n)return;n=!0,s(t,e)}}var d=setTimeout;o.prototype.catch=function(e){return this.then(null,e)},o.prototype.then=function(e,t){var n=new this.constructor(r);return a(this,new f(e,t,n)),n},o.all=function(e){var t=Array.prototype.slice.call(e);return new o(function(e,n){function r(o,a){try{if(a&&("object"==typeof a||"function"==typeof a)){var c=a.then;if("function"==typeof c)return void c.call(a,function(e){r(o,e)},n)}t[o]=a,0==--i&&e(t)}catch(e){n(e)}}if(0===t.length)return e([]);for(var i=t.length,o=0;o<t.length;o++)r(o,t[o])})},o.resolve=function(e){return e&&"object"==typeof e&&e.constructor===o?e:new o(function(t){t(e)})},o.reject=function(e){return new o(function(t,n){n(e)})},o.race=function(e){return new o(function(t,n){for(var r=0,i=e.length;r<i;r++)e[r].then(t,n)})},o._immediateFn="function"==typeof t&&function(e){t(e)}||function(e){d(e,0)},o._unhandledRejectionFn=function(e){"undefined"!=typeof console&&console&&console.warn("Possible Unhandled Promise Rejection:",e)},o._setImmediateFn=function(e){o._immediateFn=e},o._setUnhandledRejectionFn=function(e){o._unhandledRejectionFn=e},void 0!==e&&e.exports?e.exports=o:n.Promise||(n.Promise=o)}(this)}).call(t,n(10).setImmediate)},function(e,t,n){(function(e,t){!function(e,n){"use strict";function r(e){"function"!=typeof e&&(e=new Function(""+e));for(var t=new Array(arguments.length-1),n=0;n<t.length;n++)t[n]=arguments[n+1];var r={callback:e,args:t};return u[s]=r,c(s),s++}function i(e){delete u[e]}function o(e){var t=e.callback,r=e.args;switch(r.length){case 0:t();break;case 1:t(r[0]);break;case 2:t(r[0],r[1]);break;case 3:t(r[0],r[1],r[2]);break;default:t.apply(n,r)}}function a(e){if(f)setTimeout(a,0,e);else{var t=u[e];if(t){f=!0;try{o(t)}finally{i(e),f=!1}}}}if(!e.setImmediate){var c,s=1,u={},f=!1,l=e.document,d=Object.getPrototypeOf&&Object.getPrototypeOf(e);d=d&&d.setTimeout?d:e,"[object process]"==={}.toString.call(e.process)?function(){c=function(e){t.nextTick(function(){a(e)})}}():function(){if(e.postMessage&&!e.importScripts){var t=!0,n=e.onmessage;return e.onmessage=function(){t=!1},e.postMessage("","*"),e.onmessage=n,t}}()?function(){var t="setImmediate$"+Math.random()+"$",n=function(n){n.source===e&&"string"==typeof n.data&&0===n.data.indexOf(t)&&a(+n.data.slice(t.length))};e.addEventListener?e.addEventListener("message",n,!1):e.attachEvent("onmessage",n),c=function(n){e.postMessage(t+n,"*")}}():e.MessageChannel?function(){var e=new MessageChannel;e.port1.onmessage=function(e){a(e.data)},c=function(t){e.port2.postMessage(t)}}():l&&"onreadystatechange"in l.createElement("script")?function(){var e=l.documentElement;c=function(t){var n=l.createElement("script");n.onreadystatechange=function(){a(t),n.onreadystatechange=null,e.removeChild(n),n=null},e.appendChild(n)}}():function(){c=function(e){setTimeout(a,0,e)}}(),d.setImmediate=r,d.clearImmediate=i}}("undefined"==typeof self?void 0===e?this:e:self)}).call(t,n(1),n(7))},function(e,t,n){function r(e,t){this._id=e,this._clearFn=t}var i=Function.prototype.apply;t.setTimeout=function(){return new r(i.call(setTimeout,window,arguments),clearTimeout)},t.setInterval=function(){return new r(i.call(setInterval,window,arguments),clearInterval)},t.clearTimeout=t.clearInterval=function(e){e&&e.close()},r.prototype.unref=r.prototype.ref=function(){},r.prototype.close=function(){this._clearFn.call(window,this._id)},t.enroll=function(e,t){clearTimeout(e._idleTimeoutId),e._idleTimeout=t},t.unenroll=function(e){clearTimeout(e._idleTimeoutId),e._idleTimeout=-1},t._unrefActive=t.active=function(e){clearTimeout(e._idleTimeoutId);var t=e._idleTimeout;t>=0&&(e._idleTimeoutId=setTimeout(function(){e._onTimeout&&e._onTimeout()},t))},n(9),t.setImmediate=setImmediate,t.clearImmediate=clearImmediate},function(e,t,n){e.exports=n(2)}]);module.exports=firebase;
 //# sourceMappingURL=app.js.map
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(33).setImmediate, __webpack_require__(33).clearImmediate))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(36).setImmediate, __webpack_require__(36).clearImmediate))
 
 /***/ }),
 /* 10 */
@@ -2302,7 +2302,7 @@ var firebase=function(e){function t(r){if(n[r])return n[r].exports;var i=n[r]={i
 "use strict";
 
 var vnode_1 = __webpack_require__(12);
-var is = __webpack_require__(31);
+var is = __webpack_require__(34);
 function addNS(data, children, sel) {
     data.ns = 'http://www.w3.org/2000/svg';
     if (sel !== 'foreignObject' && children !== undefined) {
@@ -2367,9 +2367,9 @@ exports.default = h;
 "use strict";
 
 
-module.exports = __webpack_require__(24)()
+module.exports = __webpack_require__(27)()
 	? Object.setPrototypeOf
-	: __webpack_require__(25);
+	: __webpack_require__(28);
 
 
 /***/ }),
@@ -2434,9 +2434,9 @@ module.exports = function (x) { return (toString.call(x) === id); };
 "use strict";
 
 
-module.exports = __webpack_require__(70)()
+module.exports = __webpack_require__(73)()
 	? Object.assign
-	: __webpack_require__(71);
+	: __webpack_require__(74);
 
 
 /***/ }),
@@ -2463,12 +2463,12 @@ module.exports = function (x) {
 "use strict";
 
 
-var clear    = __webpack_require__(22)
+var clear    = __webpack_require__(25)
   , assign   = __webpack_require__(15)
   , callable = __webpack_require__(2)
   , value    = __webpack_require__(1)
-  , d        = __webpack_require__(4)
-  , autoBind = __webpack_require__(62)
+  , d        = __webpack_require__(5)
+  , autoBind = __webpack_require__(65)
   , Symbol   = __webpack_require__(8)
 
   , defineProperty = Object.defineProperty
@@ -2559,6 +2559,187 @@ defineProperty(Iterator.prototype, Symbol.toStringTag, d('', 'Iterator'));
 
 "use strict";
 
+var index_1 = __webpack_require__(0);
+var NO = {};
+var SampleCombineListener = (function () {
+    function SampleCombineListener(i, p) {
+        this.i = i;
+        this.p = p;
+        p.ils[i] = this;
+    }
+    SampleCombineListener.prototype._n = function (t) {
+        var p = this.p;
+        if (p.out === NO)
+            return;
+        p.up(t, this.i);
+    };
+    SampleCombineListener.prototype._e = function (err) {
+        this.p._e(err);
+    };
+    SampleCombineListener.prototype._c = function () {
+        this.p.down(this.i, this);
+    };
+    return SampleCombineListener;
+}());
+exports.SampleCombineListener = SampleCombineListener;
+var SampleCombineOperator = (function () {
+    function SampleCombineOperator(ins, streams) {
+        this.type = 'sampleCombine';
+        this.ins = ins;
+        this.others = streams;
+        this.out = NO;
+        this.ils = [];
+        this.Nn = 0;
+        this.vals = [];
+    }
+    SampleCombineOperator.prototype._start = function (out) {
+        this.out = out;
+        var s = this.others;
+        var n = this.Nn = s.length;
+        var vals = this.vals = new Array(n);
+        for (var i = 0; i < n; i++) {
+            vals[i] = NO;
+            s[i]._add(new SampleCombineListener(i, this));
+        }
+        this.ins._add(this);
+    };
+    SampleCombineOperator.prototype._stop = function () {
+        var s = this.others;
+        var n = s.length;
+        var ils = this.ils;
+        this.ins._remove(this);
+        for (var i = 0; i < n; i++) {
+            s[i]._remove(ils[i]);
+        }
+        this.out = NO;
+        this.vals = [];
+        this.ils = [];
+    };
+    SampleCombineOperator.prototype._n = function (t) {
+        var out = this.out;
+        if (out === NO)
+            return;
+        if (this.Nn > 0)
+            return;
+        out._n([t].concat(this.vals));
+    };
+    SampleCombineOperator.prototype._e = function (err) {
+        var out = this.out;
+        if (out === NO)
+            return;
+        out._e(err);
+    };
+    SampleCombineOperator.prototype._c = function () {
+        var out = this.out;
+        if (out === NO)
+            return;
+        out._c();
+    };
+    SampleCombineOperator.prototype.up = function (t, i) {
+        var v = this.vals[i];
+        if (this.Nn > 0 && v === NO) {
+            this.Nn--;
+        }
+        this.vals[i] = t;
+    };
+    SampleCombineOperator.prototype.down = function (i, l) {
+        this.others[i]._remove(l);
+    };
+    return SampleCombineOperator;
+}());
+exports.SampleCombineOperator = SampleCombineOperator;
+var sampleCombine;
+/**
+ *
+ * Combines a source stream with multiple other streams. The result stream
+ * will emit the latest events from all input streams, but only when the
+ * source stream emits.
+ *
+ * If the source, or any input stream, throws an error, the result stream
+ * will propagate the error. If any input streams end, their final emitted
+ * value will remain in the array of any subsequent events from the result
+ * stream.
+ *
+ * The result stream will only complete upon completion of the source stream.
+ *
+ * Marble diagram:
+ *
+ * ```text
+ * --1----2-----3--------4--- (source)
+ * ----a-----b-----c--d------ (other)
+ *      sampleCombine
+ * -------2a----3b-------4d--
+ * ```
+ *
+ * Examples:
+ *
+ * ```js
+ * import sampleCombine from 'xstream/extra/sampleCombine'
+ * import xs from 'xstream'
+ *
+ * const sampler = xs.periodic(1000).take(3)
+ * const other = xs.periodic(100)
+ *
+ * const stream = sampler.compose(sampleCombine(other))
+ *
+ * stream.addListener({
+ *   next: i => console.log(i),
+ *   error: err => console.error(err),
+ *   complete: () => console.log('completed')
+ * })
+ * ```
+ *
+ * ```text
+ * > [0, 8]
+ * > [1, 18]
+ * > [2, 28]
+ * ```
+ *
+ * ```js
+ * import sampleCombine from 'xstream/extra/sampleCombine'
+ * import xs from 'xstream'
+ *
+ * const sampler = xs.periodic(1000).take(3)
+ * const other = xs.periodic(100).take(2)
+ *
+ * const stream = sampler.compose(sampleCombine(other))
+ *
+ * stream.addListener({
+ *   next: i => console.log(i),
+ *   error: err => console.error(err),
+ *   complete: () => console.log('completed')
+ * })
+ * ```
+ *
+ * ```text
+ * > [0, 1]
+ * > [1, 1]
+ * > [2, 1]
+ * ```
+ *
+ * @param {...Stream} streams One or more streams to combine with the sampler
+ * stream.
+ * @return {Stream}
+ */
+sampleCombine = function sampleCombine() {
+    var streams = [];
+    for (var _i = 0; _i < arguments.length; _i++) {
+        streams[_i] = arguments[_i];
+    }
+    return function sampleCombineOperator(sampler) {
+        return new index_1.Stream(new SampleCombineOperator(sampler, streams));
+    };
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.default = sampleCombine;
+//# sourceMappingURL=sampleCombine.js.map
+
+/***/ }),
+/* 19 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
 
 Object.defineProperty(exports, "__esModule", {
   value: true
@@ -2569,9 +2750,9 @@ var _xstream = __webpack_require__(0);
 
 var _xstream2 = _interopRequireDefault(_xstream);
 
-var _adapt = __webpack_require__(3);
+var _adapt = __webpack_require__(4);
 
-var _firebase = __webpack_require__(101);
+var _firebase = __webpack_require__(104);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -2676,7 +2857,6 @@ var makeFirebaseDriver = exports.makeFirebaseDriver = function makeFirebaseDrive
             }
           case "PUSH":
             {
-              console.log(action);
               handleResponse(appDatabase.ref(action.path).push(action.value), action);
               break;
             }
@@ -2691,7 +2871,7 @@ var makeFirebaseDriver = exports.makeFirebaseDriver = function makeFirebaseDrive
               break;
             }
           default:
-            console.error("ACTION TYPE NOT VALID");
+            console.error("Firebase driver: ACTION TYPE NOT VALID");
             break;
         }
       }
@@ -2729,19 +2909,161 @@ var makeFirebaseDriver = exports.makeFirebaseDriver = function makeFirebaseDrive
 };
 
 /***/ }),
-/* 19 */
+/* 20 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var __assign = (this && this.__assign) || Object.assign || function(t) {
+    for (var s, i = 1, n = arguments.length; i < n; i++) {
+        s = arguments[i];
+        for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+            t[p] = s[p];
+    }
+    return t;
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var xstream_1 = __webpack_require__(0);
+var dropRepeats_1 = __webpack_require__(121);
+var adapt_1 = __webpack_require__(4);
+function pick(selector) {
+    if (typeof selector === 'string') {
+        return function pickWithString(sinksArray$) {
+            return adapt_1.adapt(xstream_1.default.fromObservable(sinksArray$)
+                .map(function (sinksArray) { return sinksArray.map(function (sinks) { return sinks[selector]; }); }));
+        };
+    }
+    else {
+        return function pickWithFunction(sinksArray$) {
+            return adapt_1.adapt(xstream_1.default.fromObservable(sinksArray$)
+                .map(function (sinksArray) { return sinksArray.map(selector); }));
+        };
+    }
+}
+exports.pick = pick;
+function mix(aggregator) {
+    return function mixOperator(streamArray$) {
+        return adapt_1.adapt(xstream_1.default.fromObservable(streamArray$)
+            .map(function (streamArray) { return aggregator.apply(void 0, streamArray); })
+            .flatten());
+    };
+}
+exports.mix = mix;
+function makeGetter(scope) {
+    if (typeof scope === 'string' || typeof scope === 'number') {
+        return function lensGet(state) {
+            if (typeof state === 'undefined') {
+                return void 0;
+            }
+            else {
+                return state[scope];
+            }
+        };
+    }
+    else {
+        return scope.get;
+    }
+}
+function makeSetter(scope) {
+    if (typeof scope === 'string' || typeof scope === 'number') {
+        return function lensSet(state, childState) {
+            if (Array.isArray(state)) {
+                return updateArrayEntry(state, scope, childState);
+            }
+            else if (typeof state === 'undefined') {
+                return _a = {}, _a[scope] = childState, _a;
+            }
+            else {
+                return __assign({}, state, (_b = {}, _b[scope] = childState, _b));
+            }
+            var _a, _b;
+        };
+    }
+    else {
+        return scope.set;
+    }
+}
+function updateArrayEntry(array, scope, newVal) {
+    if (newVal === array[scope]) {
+        return array;
+    }
+    var index = parseInt(scope);
+    if (typeof newVal === 'undefined') {
+        return array.filter(function (val, i) { return i !== index; });
+    }
+    return array.map(function (val, i) { return i === index ? newVal : val; });
+}
+function isolateSource(source, scope) {
+    return source.select(scope);
+}
+exports.isolateSource = isolateSource;
+function isolateSink(innerReducer$, scope) {
+    var get = makeGetter(scope);
+    var set = makeSetter(scope);
+    return innerReducer$
+        .map(function (innerReducer) { return function outerReducer(outer) {
+        var prevInner = get(outer);
+        var nextInner = innerReducer(prevInner);
+        if (prevInner === nextInner) {
+            return outer;
+        }
+        else {
+            return set(outer, nextInner);
+        }
+    }; });
+}
+exports.isolateSink = isolateSink;
+var StateSource = (function () {
+    function StateSource(stream, name) {
+        this.isolateSource = isolateSource;
+        this.isolateSink = isolateSink;
+        this._name = name;
+        this.state$ = adapt_1.adapt(stream.compose(dropRepeats_1.default()).remember());
+        if (!name) {
+            return;
+        }
+        this.state$._isCycleSource = name;
+    }
+    StateSource.prototype.select = function (scope) {
+        var get = makeGetter(scope);
+        return new StateSource(this.state$.map(get).filter(function (s) { return typeof s !== 'undefined'; }), null);
+    };
+    return StateSource;
+}());
+exports.StateSource = StateSource;
+function onionify(main, name) {
+    if (name === void 0) { name = 'onion'; }
+    return function mainOnionified(sources) {
+        var reducerMimic$ = xstream_1.default.create();
+        var state$ = reducerMimic$
+            .fold(function (state, reducer) { return reducer(state); }, void 0)
+            .drop(1);
+        sources[name] = new StateSource(state$, name);
+        var sinks = main(sources);
+        if (sinks[name]) {
+            var stream$ = xstream_1.default.fromObservable(sinks[name]);
+            reducerMimic$.imitate(stream$);
+        }
+        return sinks;
+    };
+}
+exports.default = onionify;
+//# sourceMappingURL=index.js.map
+
+/***/ }),
+/* 21 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var adapt_1 = __webpack_require__(3);
-var DocumentDOMSource_1 = __webpack_require__(46);
-var BodyDOMSource_1 = __webpack_require__(45);
-var ElementFinder_1 = __webpack_require__(47);
+var adapt_1 = __webpack_require__(4);
+var DocumentDOMSource_1 = __webpack_require__(41);
+var BodyDOMSource_1 = __webpack_require__(40);
+var ElementFinder_1 = __webpack_require__(42);
 var fromEvent_1 = __webpack_require__(13);
-var isolate_1 = __webpack_require__(52);
-var EventDelegator_1 = __webpack_require__(48);
+var isolate_1 = __webpack_require__(47);
+var EventDelegator_1 = __webpack_require__(43);
 var utils_1 = __webpack_require__(7);
 var eventTypesThatDontBubble = [
     "blur",
@@ -2925,7 +3247,7 @@ exports.MainDOMSource = MainDOMSource;
 //# sourceMappingURL=MainDOMSource.js.map
 
 /***/ }),
-/* 20 */
+/* 22 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2960,7 +3282,7 @@ exports.ScopeChecker = ScopeChecker;
 //# sourceMappingURL=ScopeChecker.js.map
 
 /***/ }),
-/* 21 */
+/* 23 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2997,588 +3319,7 @@ exports.matchesSelector = createMatchesSelector();
 //# sourceMappingURL=matchesSelector.js.map
 
 /***/ }),
-/* 22 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-// Inspired by Google Closure:
-// http://closure-library.googlecode.com/svn/docs/
-// closure_goog_array_array.js.html#goog.array.clear
-
-
-
-var value = __webpack_require__(1);
-
-module.exports = function () {
-	value(this).length = 0;
-	return this;
-};
-
-
-/***/ }),
-/* 23 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var forEach = Array.prototype.forEach, create = Object.create;
-
-var process = function (src, obj) {
-	var key;
-	for (key in src) obj[key] = src[key];
-};
-
-module.exports = function (options/*, …options*/) {
-	var result = create(null);
-	forEach.call(arguments, function (options) {
-		if (options == null) return;
-		process(Object(options), result);
-	});
-	return result;
-};
-
-
-/***/ }),
 /* 24 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var create = Object.create, getPrototypeOf = Object.getPrototypeOf
-  , x = {};
-
-module.exports = function (/*customCreate*/) {
-	var setPrototypeOf = Object.setPrototypeOf
-	  , customCreate = arguments[0] || create;
-	if (typeof setPrototypeOf !== 'function') return false;
-	return getPrototypeOf(setPrototypeOf(customCreate(null), x)) === x;
-};
-
-
-/***/ }),
-/* 25 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-// Big thanks to @WebReflection for sorting this out
-// https://gist.github.com/WebReflection/5593554
-
-
-
-var isObject      = __webpack_require__(76)
-  , value         = __webpack_require__(1)
-
-  , isPrototypeOf = Object.prototype.isPrototypeOf
-  , defineProperty = Object.defineProperty
-  , nullDesc = { configurable: true, enumerable: false, writable: true,
-		value: undefined }
-  , validate;
-
-validate = function (obj, prototype) {
-	value(obj);
-	if ((prototype === null) || isObject(prototype)) return obj;
-	throw new TypeError('Prototype must be null or an object');
-};
-
-module.exports = (function (status) {
-	var fn, set;
-	if (!status) return null;
-	if (status.level === 2) {
-		if (status.set) {
-			set = status.set;
-			fn = function (obj, prototype) {
-				set.call(validate(obj, prototype), prototype);
-				return obj;
-			};
-		} else {
-			fn = function (obj, prototype) {
-				validate(obj, prototype).__proto__ = prototype;
-				return obj;
-			};
-		}
-	} else {
-		fn = function self(obj, prototype) {
-			var isNullBase;
-			validate(obj, prototype);
-			isNullBase = isPrototypeOf.call(self.nullPolyfill, obj);
-			if (isNullBase) delete self.nullPolyfill.__proto__;
-			if (prototype === null) prototype = self.nullPolyfill;
-			obj.__proto__ = prototype;
-			if (isNullBase) defineProperty(self.nullPolyfill, '__proto__', nullDesc);
-			return obj;
-		};
-	}
-	return Object.defineProperty(fn, 'level', { configurable: false,
-		enumerable: false, writable: false, value: status.level });
-}((function () {
-	var x = Object.create(null), y = {}, set
-	  , desc = Object.getOwnPropertyDescriptor(Object.prototype, '__proto__');
-
-	if (desc) {
-		try {
-			set = desc.set; // Opera crashes at this point
-			set.call(x, y);
-		} catch (ignore) { }
-		if (Object.getPrototypeOf(x) === y) return { set: set, level: 2 };
-	}
-
-	x.__proto__ = y;
-	if (Object.getPrototypeOf(x) === y) return { level: 2 };
-
-	x = {};
-	x.__proto__ = y;
-	if (Object.getPrototypeOf(x) === y) return { level: 1 };
-
-	return false;
-}())));
-
-__webpack_require__(73);
-
-
-/***/ }),
-/* 26 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-module.exports = __webpack_require__(82)()
-	? String.prototype.contains
-	: __webpack_require__(83);
-
-
-/***/ }),
-/* 27 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-var isIterable = __webpack_require__(87);
-
-module.exports = function (value) {
-	if (!isIterable(value)) throw new TypeError(value + " is not iterable");
-	return value;
-};
-
-
-/***/ }),
-/* 28 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-module.exports = __webpack_require__(89)() ? Map : __webpack_require__(93);
-
-
-/***/ }),
-/* 29 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-function selectorParser(_a) {
-    var sel = _a.sel;
-    var hashIdx = sel.indexOf('#');
-    var dotIdx = sel.indexOf('.', hashIdx);
-    var hash = hashIdx > 0 ? hashIdx : sel.length;
-    var dot = dotIdx > 0 ? dotIdx : sel.length;
-    var tagName = hashIdx !== -1 || dotIdx !== -1 ?
-        sel.slice(0, Math.min(hash, dot)) :
-        sel;
-    var id = hash < dot ? sel.slice(hash + 1, dot) : void 0;
-    var className = dotIdx > 0 ? sel.slice(dot + 1).replace(/\./g, ' ') : void 0;
-    return {
-        tagName: tagName,
-        id: id,
-        className: className,
-    };
-}
-exports.selectorParser = selectorParser;
-//# sourceMappingURL=selectorParser.js.map
-
-/***/ }),
-/* 30 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-function createElement(tagName) {
-    return document.createElement(tagName);
-}
-function createElementNS(namespaceURI, qualifiedName) {
-    return document.createElementNS(namespaceURI, qualifiedName);
-}
-function createTextNode(text) {
-    return document.createTextNode(text);
-}
-function createComment(text) {
-    return document.createComment(text);
-}
-function insertBefore(parentNode, newNode, referenceNode) {
-    parentNode.insertBefore(newNode, referenceNode);
-}
-function removeChild(node, child) {
-    node.removeChild(child);
-}
-function appendChild(node, child) {
-    node.appendChild(child);
-}
-function parentNode(node) {
-    return node.parentNode;
-}
-function nextSibling(node) {
-    return node.nextSibling;
-}
-function tagName(elm) {
-    return elm.tagName;
-}
-function setTextContent(node, text) {
-    node.textContent = text;
-}
-function getTextContent(node) {
-    return node.textContent;
-}
-function isElement(node) {
-    return node.nodeType === 1;
-}
-function isText(node) {
-    return node.nodeType === 3;
-}
-function isComment(node) {
-    return node.nodeType === 8;
-}
-exports.htmlDomApi = {
-    createElement: createElement,
-    createElementNS: createElementNS,
-    createTextNode: createTextNode,
-    createComment: createComment,
-    insertBefore: insertBefore,
-    removeChild: removeChild,
-    appendChild: appendChild,
-    parentNode: parentNode,
-    nextSibling: nextSibling,
-    tagName: tagName,
-    setTextContent: setTextContent,
-    getTextContent: getTextContent,
-    isElement: isElement,
-    isText: isText,
-    isComment: isComment,
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.default = exports.htmlDomApi;
-//# sourceMappingURL=htmldomapi.js.map
-
-/***/ }),
-/* 31 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-exports.array = Array.isArray;
-function primitive(s) {
-    return typeof s === 'string' || typeof s === 'number';
-}
-exports.primitive = primitive;
-//# sourceMappingURL=is.js.map
-
-/***/ }),
-/* 32 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var h_1 = __webpack_require__(10);
-function copyToThunk(vnode, thunk) {
-    thunk.elm = vnode.elm;
-    vnode.data.fn = thunk.data.fn;
-    vnode.data.args = thunk.data.args;
-    thunk.data = vnode.data;
-    thunk.children = vnode.children;
-    thunk.text = vnode.text;
-    thunk.elm = vnode.elm;
-}
-function init(thunk) {
-    var cur = thunk.data;
-    var vnode = cur.fn.apply(undefined, cur.args);
-    copyToThunk(vnode, thunk);
-}
-function prepatch(oldVnode, thunk) {
-    var i, old = oldVnode.data, cur = thunk.data;
-    var oldArgs = old.args, args = cur.args;
-    if (old.fn !== cur.fn || oldArgs.length !== args.length) {
-        copyToThunk(cur.fn.apply(undefined, args), thunk);
-    }
-    for (i = 0; i < args.length; ++i) {
-        if (oldArgs[i] !== args[i]) {
-            copyToThunk(cur.fn.apply(undefined, args), thunk);
-            return;
-        }
-    }
-    copyToThunk(oldVnode, thunk);
-}
-exports.thunk = function thunk(sel, key, fn, args) {
-    if (args === undefined) {
-        args = fn;
-        fn = key;
-        key = undefined;
-    }
-    return h_1.h(sel, {
-        key: key,
-        hook: { init: init, prepatch: prepatch },
-        fn: fn,
-        args: args
-    });
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.default = exports.thunk;
-//# sourceMappingURL=thunk.js.map
-
-/***/ }),
-/* 33 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var apply = Function.prototype.apply;
-
-// DOM APIs, for completeness
-
-exports.setTimeout = function() {
-  return new Timeout(apply.call(setTimeout, window, arguments), clearTimeout);
-};
-exports.setInterval = function() {
-  return new Timeout(apply.call(setInterval, window, arguments), clearInterval);
-};
-exports.clearTimeout =
-exports.clearInterval = function(timeout) {
-  if (timeout) {
-    timeout.close();
-  }
-};
-
-function Timeout(id, clearFn) {
-  this._id = id;
-  this._clearFn = clearFn;
-}
-Timeout.prototype.unref = Timeout.prototype.ref = function() {};
-Timeout.prototype.close = function() {
-  this._clearFn.call(window, this._id);
-};
-
-// Does not start the time, just sets up the members needed.
-exports.enroll = function(item, msecs) {
-  clearTimeout(item._idleTimeoutId);
-  item._idleTimeout = msecs;
-};
-
-exports.unenroll = function(item) {
-  clearTimeout(item._idleTimeoutId);
-  item._idleTimeout = -1;
-};
-
-exports._unrefActive = exports.active = function(item) {
-  clearTimeout(item._idleTimeoutId);
-
-  var msecs = item._idleTimeout;
-  if (msecs >= 0) {
-    item._idleTimeoutId = setTimeout(function onTimeout() {
-      if (item._onTimeout)
-        item._onTimeout();
-    }, msecs);
-  }
-};
-
-// setimmediate attaches itself to the global object
-__webpack_require__(105);
-exports.setImmediate = setImmediate;
-exports.clearImmediate = clearImmediate;
-
-
-/***/ }),
-/* 34 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var index_1 = __webpack_require__(0);
-var NO = {};
-var SampleCombineListener = (function () {
-    function SampleCombineListener(i, p) {
-        this.i = i;
-        this.p = p;
-        p.ils[i] = this;
-    }
-    SampleCombineListener.prototype._n = function (t) {
-        var p = this.p;
-        if (p.out === NO)
-            return;
-        p.up(t, this.i);
-    };
-    SampleCombineListener.prototype._e = function (err) {
-        this.p._e(err);
-    };
-    SampleCombineListener.prototype._c = function () {
-        this.p.down(this.i, this);
-    };
-    return SampleCombineListener;
-}());
-exports.SampleCombineListener = SampleCombineListener;
-var SampleCombineOperator = (function () {
-    function SampleCombineOperator(ins, streams) {
-        this.type = 'sampleCombine';
-        this.ins = ins;
-        this.others = streams;
-        this.out = NO;
-        this.ils = [];
-        this.Nn = 0;
-        this.vals = [];
-    }
-    SampleCombineOperator.prototype._start = function (out) {
-        this.out = out;
-        var s = this.others;
-        var n = this.Nn = s.length;
-        var vals = this.vals = new Array(n);
-        for (var i = 0; i < n; i++) {
-            vals[i] = NO;
-            s[i]._add(new SampleCombineListener(i, this));
-        }
-        this.ins._add(this);
-    };
-    SampleCombineOperator.prototype._stop = function () {
-        var s = this.others;
-        var n = s.length;
-        var ils = this.ils;
-        this.ins._remove(this);
-        for (var i = 0; i < n; i++) {
-            s[i]._remove(ils[i]);
-        }
-        this.out = NO;
-        this.vals = [];
-        this.ils = [];
-    };
-    SampleCombineOperator.prototype._n = function (t) {
-        var out = this.out;
-        if (out === NO)
-            return;
-        if (this.Nn > 0)
-            return;
-        out._n([t].concat(this.vals));
-    };
-    SampleCombineOperator.prototype._e = function (err) {
-        var out = this.out;
-        if (out === NO)
-            return;
-        out._e(err);
-    };
-    SampleCombineOperator.prototype._c = function () {
-        var out = this.out;
-        if (out === NO)
-            return;
-        out._c();
-    };
-    SampleCombineOperator.prototype.up = function (t, i) {
-        var v = this.vals[i];
-        if (this.Nn > 0 && v === NO) {
-            this.Nn--;
-        }
-        this.vals[i] = t;
-    };
-    SampleCombineOperator.prototype.down = function (i, l) {
-        this.others[i]._remove(l);
-    };
-    return SampleCombineOperator;
-}());
-exports.SampleCombineOperator = SampleCombineOperator;
-var sampleCombine;
-/**
- *
- * Combines a source stream with multiple other streams. The result stream
- * will emit the latest events from all input streams, but only when the
- * source stream emits.
- *
- * If the source, or any input stream, throws an error, the result stream
- * will propagate the error. If any input streams end, their final emitted
- * value will remain in the array of any subsequent events from the result
- * stream.
- *
- * The result stream will only complete upon completion of the source stream.
- *
- * Marble diagram:
- *
- * ```text
- * --1----2-----3--------4--- (source)
- * ----a-----b-----c--d------ (other)
- *      sampleCombine
- * -------2a----3b-------4d--
- * ```
- *
- * Examples:
- *
- * ```js
- * import sampleCombine from 'xstream/extra/sampleCombine'
- * import xs from 'xstream'
- *
- * const sampler = xs.periodic(1000).take(3)
- * const other = xs.periodic(100)
- *
- * const stream = sampler.compose(sampleCombine(other))
- *
- * stream.addListener({
- *   next: i => console.log(i),
- *   error: err => console.error(err),
- *   complete: () => console.log('completed')
- * })
- * ```
- *
- * ```text
- * > [0, 8]
- * > [1, 18]
- * > [2, 28]
- * ```
- *
- * ```js
- * import sampleCombine from 'xstream/extra/sampleCombine'
- * import xs from 'xstream'
- *
- * const sampler = xs.periodic(1000).take(3)
- * const other = xs.periodic(100).take(2)
- *
- * const stream = sampler.compose(sampleCombine(other))
- *
- * stream.addListener({
- *   next: i => console.log(i),
- *   error: err => console.error(err),
- *   complete: () => console.log('completed')
- * })
- * ```
- *
- * ```text
- * > [0, 1]
- * > [1, 1]
- * > [2, 1]
- * ```
- *
- * @param {...Stream} streams One or more streams to combine with the sampler
- * stream.
- * @return {Stream}
- */
-sampleCombine = function sampleCombine() {
-    var streams = [];
-    for (var _i = 0; _i < arguments.length; _i++) {
-        streams[_i] = arguments[_i];
-    }
-    return function sampleCombineOperator(sampler) {
-        return new index_1.Stream(new SampleCombineOperator(sampler, streams));
-    };
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.default = sampleCombine;
-//# sourceMappingURL=sampleCombine.js.map
-
-/***/ }),
-/* 35 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3703,14 +3444,414 @@ exports.default = isolate;
 //# sourceMappingURL=index.js.map
 
 /***/ }),
+/* 25 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+// Inspired by Google Closure:
+// http://closure-library.googlecode.com/svn/docs/
+// closure_goog_array_array.js.html#goog.array.clear
+
+
+
+var value = __webpack_require__(1);
+
+module.exports = function () {
+	value(this).length = 0;
+	return this;
+};
+
+
+/***/ }),
+/* 26 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var forEach = Array.prototype.forEach, create = Object.create;
+
+var process = function (src, obj) {
+	var key;
+	for (key in src) obj[key] = src[key];
+};
+
+module.exports = function (options/*, …options*/) {
+	var result = create(null);
+	forEach.call(arguments, function (options) {
+		if (options == null) return;
+		process(Object(options), result);
+	});
+	return result;
+};
+
+
+/***/ }),
+/* 27 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var create = Object.create, getPrototypeOf = Object.getPrototypeOf
+  , x = {};
+
+module.exports = function (/*customCreate*/) {
+	var setPrototypeOf = Object.setPrototypeOf
+	  , customCreate = arguments[0] || create;
+	if (typeof setPrototypeOf !== 'function') return false;
+	return getPrototypeOf(setPrototypeOf(customCreate(null), x)) === x;
+};
+
+
+/***/ }),
+/* 28 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+// Big thanks to @WebReflection for sorting this out
+// https://gist.github.com/WebReflection/5593554
+
+
+
+var isObject      = __webpack_require__(79)
+  , value         = __webpack_require__(1)
+
+  , isPrototypeOf = Object.prototype.isPrototypeOf
+  , defineProperty = Object.defineProperty
+  , nullDesc = { configurable: true, enumerable: false, writable: true,
+		value: undefined }
+  , validate;
+
+validate = function (obj, prototype) {
+	value(obj);
+	if ((prototype === null) || isObject(prototype)) return obj;
+	throw new TypeError('Prototype must be null or an object');
+};
+
+module.exports = (function (status) {
+	var fn, set;
+	if (!status) return null;
+	if (status.level === 2) {
+		if (status.set) {
+			set = status.set;
+			fn = function (obj, prototype) {
+				set.call(validate(obj, prototype), prototype);
+				return obj;
+			};
+		} else {
+			fn = function (obj, prototype) {
+				validate(obj, prototype).__proto__ = prototype;
+				return obj;
+			};
+		}
+	} else {
+		fn = function self(obj, prototype) {
+			var isNullBase;
+			validate(obj, prototype);
+			isNullBase = isPrototypeOf.call(self.nullPolyfill, obj);
+			if (isNullBase) delete self.nullPolyfill.__proto__;
+			if (prototype === null) prototype = self.nullPolyfill;
+			obj.__proto__ = prototype;
+			if (isNullBase) defineProperty(self.nullPolyfill, '__proto__', nullDesc);
+			return obj;
+		};
+	}
+	return Object.defineProperty(fn, 'level', { configurable: false,
+		enumerable: false, writable: false, value: status.level });
+}((function () {
+	var x = Object.create(null), y = {}, set
+	  , desc = Object.getOwnPropertyDescriptor(Object.prototype, '__proto__');
+
+	if (desc) {
+		try {
+			set = desc.set; // Opera crashes at this point
+			set.call(x, y);
+		} catch (ignore) { }
+		if (Object.getPrototypeOf(x) === y) return { set: set, level: 2 };
+	}
+
+	x.__proto__ = y;
+	if (Object.getPrototypeOf(x) === y) return { level: 2 };
+
+	x = {};
+	x.__proto__ = y;
+	if (Object.getPrototypeOf(x) === y) return { level: 1 };
+
+	return false;
+}())));
+
+__webpack_require__(76);
+
+
+/***/ }),
+/* 29 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+module.exports = __webpack_require__(85)()
+	? String.prototype.contains
+	: __webpack_require__(86);
+
+
+/***/ }),
+/* 30 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var isIterable = __webpack_require__(90);
+
+module.exports = function (value) {
+	if (!isIterable(value)) throw new TypeError(value + " is not iterable");
+	return value;
+};
+
+
+/***/ }),
+/* 31 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+module.exports = __webpack_require__(92)() ? Map : __webpack_require__(96);
+
+
+/***/ }),
+/* 32 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+function selectorParser(_a) {
+    var sel = _a.sel;
+    var hashIdx = sel.indexOf('#');
+    var dotIdx = sel.indexOf('.', hashIdx);
+    var hash = hashIdx > 0 ? hashIdx : sel.length;
+    var dot = dotIdx > 0 ? dotIdx : sel.length;
+    var tagName = hashIdx !== -1 || dotIdx !== -1 ?
+        sel.slice(0, Math.min(hash, dot)) :
+        sel;
+    var id = hash < dot ? sel.slice(hash + 1, dot) : void 0;
+    var className = dotIdx > 0 ? sel.slice(dot + 1).replace(/\./g, ' ') : void 0;
+    return {
+        tagName: tagName,
+        id: id,
+        className: className,
+    };
+}
+exports.selectorParser = selectorParser;
+//# sourceMappingURL=selectorParser.js.map
+
+/***/ }),
+/* 33 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+function createElement(tagName) {
+    return document.createElement(tagName);
+}
+function createElementNS(namespaceURI, qualifiedName) {
+    return document.createElementNS(namespaceURI, qualifiedName);
+}
+function createTextNode(text) {
+    return document.createTextNode(text);
+}
+function createComment(text) {
+    return document.createComment(text);
+}
+function insertBefore(parentNode, newNode, referenceNode) {
+    parentNode.insertBefore(newNode, referenceNode);
+}
+function removeChild(node, child) {
+    node.removeChild(child);
+}
+function appendChild(node, child) {
+    node.appendChild(child);
+}
+function parentNode(node) {
+    return node.parentNode;
+}
+function nextSibling(node) {
+    return node.nextSibling;
+}
+function tagName(elm) {
+    return elm.tagName;
+}
+function setTextContent(node, text) {
+    node.textContent = text;
+}
+function getTextContent(node) {
+    return node.textContent;
+}
+function isElement(node) {
+    return node.nodeType === 1;
+}
+function isText(node) {
+    return node.nodeType === 3;
+}
+function isComment(node) {
+    return node.nodeType === 8;
+}
+exports.htmlDomApi = {
+    createElement: createElement,
+    createElementNS: createElementNS,
+    createTextNode: createTextNode,
+    createComment: createComment,
+    insertBefore: insertBefore,
+    removeChild: removeChild,
+    appendChild: appendChild,
+    parentNode: parentNode,
+    nextSibling: nextSibling,
+    tagName: tagName,
+    setTextContent: setTextContent,
+    getTextContent: getTextContent,
+    isElement: isElement,
+    isText: isText,
+    isComment: isComment,
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.default = exports.htmlDomApi;
+//# sourceMappingURL=htmldomapi.js.map
+
+/***/ }),
+/* 34 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+exports.array = Array.isArray;
+function primitive(s) {
+    return typeof s === 'string' || typeof s === 'number';
+}
+exports.primitive = primitive;
+//# sourceMappingURL=is.js.map
+
+/***/ }),
+/* 35 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+var h_1 = __webpack_require__(10);
+function copyToThunk(vnode, thunk) {
+    thunk.elm = vnode.elm;
+    vnode.data.fn = thunk.data.fn;
+    vnode.data.args = thunk.data.args;
+    thunk.data = vnode.data;
+    thunk.children = vnode.children;
+    thunk.text = vnode.text;
+    thunk.elm = vnode.elm;
+}
+function init(thunk) {
+    var cur = thunk.data;
+    var vnode = cur.fn.apply(undefined, cur.args);
+    copyToThunk(vnode, thunk);
+}
+function prepatch(oldVnode, thunk) {
+    var i, old = oldVnode.data, cur = thunk.data;
+    var oldArgs = old.args, args = cur.args;
+    if (old.fn !== cur.fn || oldArgs.length !== args.length) {
+        copyToThunk(cur.fn.apply(undefined, args), thunk);
+    }
+    for (i = 0; i < args.length; ++i) {
+        if (oldArgs[i] !== args[i]) {
+            copyToThunk(cur.fn.apply(undefined, args), thunk);
+            return;
+        }
+    }
+    copyToThunk(oldVnode, thunk);
+}
+exports.thunk = function thunk(sel, key, fn, args) {
+    if (args === undefined) {
+        args = fn;
+        fn = key;
+        key = undefined;
+    }
+    return h_1.h(sel, {
+        key: key,
+        hook: { init: init, prepatch: prepatch },
+        fn: fn,
+        args: args
+    });
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.default = exports.thunk;
+//# sourceMappingURL=thunk.js.map
+
+/***/ }),
 /* 36 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var apply = Function.prototype.apply;
+
+// DOM APIs, for completeness
+
+exports.setTimeout = function() {
+  return new Timeout(apply.call(setTimeout, window, arguments), clearTimeout);
+};
+exports.setInterval = function() {
+  return new Timeout(apply.call(setInterval, window, arguments), clearInterval);
+};
+exports.clearTimeout =
+exports.clearInterval = function(timeout) {
+  if (timeout) {
+    timeout.close();
+  }
+};
+
+function Timeout(id, clearFn) {
+  this._id = id;
+  this._clearFn = clearFn;
+}
+Timeout.prototype.unref = Timeout.prototype.ref = function() {};
+Timeout.prototype.close = function() {
+  this._clearFn.call(window, this._id);
+};
+
+// Does not start the time, just sets up the members needed.
+exports.enroll = function(item, msecs) {
+  clearTimeout(item._idleTimeoutId);
+  item._idleTimeout = msecs;
+};
+
+exports.unenroll = function(item) {
+  clearTimeout(item._idleTimeoutId);
+  item._idleTimeout = -1;
+};
+
+exports._unrefActive = exports.active = function(item) {
+  clearTimeout(item._idleTimeoutId);
+
+  var msecs = item._idleTimeout;
+  if (msecs >= 0) {
+    item._idleTimeoutId = setTimeout(function onTimeout() {
+      if (item._onTimeout)
+        item._onTimeout();
+    }, msecs);
+  }
+};
+
+// setimmediate attaches itself to the global object
+__webpack_require__(108);
+exports.setImmediate = setImmediate;
+exports.clearImmediate = clearImmediate;
+
+
+/***/ }),
+/* 37 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
 var xstream_1 = __webpack_require__(0);
-var adapt_1 = __webpack_require__(3);
+var adapt_1 = __webpack_require__(4);
 function logToConsoleError(err) {
     var target = err.stack || err;
     if (console && console.error) {
@@ -3894,53 +4035,6 @@ exports.default = run;
 //# sourceMappingURL=index.js.map
 
 /***/ }),
-/* 37 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _xstream = __webpack_require__(0);
-
-var _xstream2 = _interopRequireDefault(_xstream);
-
-var _dom = __webpack_require__(6);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var buttonView = function buttonView(articleValue) {
-  if (!articleValue.userArticle) return "";
-  return (0, _dom.span)([(0, _dom.button)("Edit"), (0, _dom.button)("Delete")]);
-};
-
-var view = function view(state$) {
-  return state$.map(function (state) {
-    return (0, _dom.div)(!state.articles.length ? "No article" : state.articles.map(function (article) {
-      return (0, _dom.div)([(0, _dom.span)(article.value.username), (0, _dom.span)(" said: "), (0, _dom.span)(article.value.content), buttonView(article.value)]);
-    }));
-  });
-};
-
-var reducer = function reducer(state$) {
-  return _xstream2.default.of(function () {
-    return { articles: [] };
-  });
-};
-
-var Articles = function Articles(sources) {
-  return {
-    DOM: view(sources.onion.state$),
-    onion: reducer(sources.onion.state$)
-  };
-};
-
-exports.default = Articles;
-
-/***/ }),
 /* 38 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -3955,163 +4049,92 @@ var _xstream = __webpack_require__(0);
 
 var _xstream2 = _interopRequireDefault(_xstream);
 
-var _dom = __webpack_require__(6);
+var _isolate = __webpack_require__(24);
+
+var _isolate2 = _interopRequireDefault(_isolate);
+
+var _dom = __webpack_require__(3);
+
+var _firebaseSink = __webpack_require__(57);
+
+var _intent = __webpack_require__(58);
+
+var _intent2 = _interopRequireDefault(_intent);
+
+var _index = __webpack_require__(63);
+
+var _index2 = _interopRequireDefault(_index);
+
+var _List = __webpack_require__(56);
+
+var _List2 = _interopRequireDefault(_List);
+
+var _Auth = __webpack_require__(53);
+
+var _Auth2 = _interopRequireDefault(_Auth);
+
+var _Feed = __webpack_require__(54);
+
+var _Feed2 = _interopRequireDefault(_Feed);
+
+var _Formular = __webpack_require__(55);
+
+var _Formular2 = _interopRequireDefault(_Formular);
+
+var _Article = __webpack_require__(52);
+
+var _Article2 = _interopRequireDefault(_Article);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var view = function view(state$) {
-  return state$.map(function (state) {
-    if (state.status === "logged_in") return (0, _dom.p)([(0, _dom.span)("Logged in as " + state.username + ". "), (0, _dom.button)(".logout", "Log out")]);else if (state.status === "awaiting_response") return (0, _dom.p)([(0, _dom.button)({ attrs: { disabled: "true" } }, "authenticating...")]);
-    return (0, _dom.p)([(0, _dom.button)(".login", "Log in")]);
-  });
-};
+function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
 
-var reducer = function reducer(state$) {
-  return _xstream2.default.of(function () {
-    return { auth: {} };
-  });
-};
+var Feedback = (0, _List2.default)(_Feed2.default);
+var Articles = (0, _List2.default)(_Article2.default);
 
-var intent = function intent(sourceDOM) {
+var main = function main(sources) {
+  var auth = (0, _isolate2.default)(_Auth2.default, "auth")(sources);
+  var feedback = (0, _isolate2.default)(Feedback, "feedback")(sources);
+  var formular = (0, _isolate2.default)(_Formular2.default, "formular")(sources);
+  var articles = (0, _isolate2.default)(Articles, "articles")(sources);
+
+  /* CHILDREN */
+  var childrenSinks = [auth, feedback, formular, articles];
+  var childrenDOMs$ = _xstream2.default.combine.apply(_xstream2.default, _toConsumableArray(childrenSinks.map(function (sink) {
+    return sink.DOM;
+  })));
+  var childrenActions$ = _xstream2.default.merge.apply(_xstream2.default, _toConsumableArray(childrenSinks.map(function (sink) {
+    return sink.actions;
+  }).filter(function (a) {
+    return !!a;
+  })));
+  var childrenReducers$ = _xstream2.default.merge.apply(_xstream2.default, _toConsumableArray(childrenSinks.map(function (sink) {
+    return sink.onion;
+  }).filter(function (a) {
+    return !!a;
+  })));
+
+  /* APP */
+  var vdom$ = childrenDOMs$.map(function (doms) {
+    return (0, _dom.div)(doms);
+  });
+  var intent$ = (0, _intent2.default)(sources);
+  var parentReducer$ = (0, _index2.default)(intent$, childrenActions$);
+  var reducer$ = _xstream2.default.merge(parentReducer$, childrenReducers$);
+
+  var firebase$ = (0, _firebaseSink.firebaseSink)(sources.onion.state$, childrenActions$);
+
   return {
-    logout: sourceDOM.select(".logout").events("click"),
-    login: sourceDOM.select(".login").events("click")
+    DOM: vdom$,
+    onion: reducer$,
+    firebase: firebase$
   };
 };
 
-var Auth = function Auth(sources) {
-  return {
-    DOM: view(sources.onion.state$),
-    onion: reducer(sources.onion.state$),
-    actions: intent(sources.DOM)
-  };
-};
-
-exports.default = Auth;
+exports.default = main;
 
 /***/ }),
 /* 39 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _xstream = __webpack_require__(0);
-
-var _xstream2 = _interopRequireDefault(_xstream);
-
-var _dom = __webpack_require__(6);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var view = function view(state$) {
-  return state$.map(function (state) {
-    return (0, _dom.div)([state.msg, " ", (0, _dom.button)(".dismiss", " X ")]);
-  }).fold(function (acc, i) {
-    return acc.concat(i);
-  }, []).map(function (feedbacks) {
-    return (0, _dom.div)(feedbacks);
-  });
-};
-
-var reducer = function reducer(state$) {
-  return _xstream2.default.of(function () {
-    return { feedback: [] };
-  });
-};
-
-var Feedback = function Feedback(sources) {
-  return {
-    DOM: view(sources.onion.state$),
-    onion: reducer(sources.onion.state$)
-  };
-};
-
-exports.default = Feedback;
-
-/***/ }),
-/* 40 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
-
-var _xstream = __webpack_require__(0);
-
-var _xstream2 = _interopRequireDefault(_xstream);
-
-var _sampleCombine = __webpack_require__(34);
-
-var _sampleCombine2 = _interopRequireDefault(_sampleCombine);
-
-var _dom = __webpack_require__(6);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var view = function view(state$) {
-  return state$.map(function (state) {
-    if (state.status === "unlogged") return (0, _dom.p)("Log in to add a new article of your own!");
-    return (0, _dom.form)(".formular", [(0, _dom.p)([(0, _dom.input)(".input", {
-      attrs: {
-        type: "text",
-        placeholder: "write something clever!",
-        disabled: state.status === "submitting"
-      }
-    }), (0, _dom.button)({
-      attrs: {
-        type: "submit",
-        disabled: state.status === "submitting"
-      }
-    }, [state.status === "submitting" ? "Submitting..." : "Submit"])])]);
-  });
-};
-
-var reducer = function reducer(state$) {
-  return _xstream2.default.of(function () {
-    return { formular: {} };
-  });
-};
-
-var intent = function intent(sourcesDOM) {
-  var input$ = sourcesDOM.select(".input").events("input").map(function (e) {
-    return e.target.value;
-  });
-  var submit$ = sourcesDOM.select(".formular").events("submit").map(function (event) {
-    return event.preventDefault();
-  });
-  return {
-    submit: submit$.compose((0, _sampleCombine2.default)(input$)).map(function (_ref) {
-      var _ref2 = _slicedToArray(_ref, 2),
-          submit = _ref2[0],
-          input = _ref2[1];
-
-      return input;
-    })
-  };
-};
-
-var Formular = function Formular(sources) {
-  return {
-    DOM: view(sources.onion.state$),
-    onion: reducer(sources.onion.state$),
-    actions: intent(sources.DOM)
-  };
-};
-
-exports.default = Formular;
-
-/***/ }),
-/* 41 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4128,278 +4151,14 @@ var firebaseConfig = exports.firebaseConfig = {
 };
 
 /***/ }),
-/* 42 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.firebaseSink = undefined;
-
-var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
-
-var _xstream = __webpack_require__(0);
-
-var _xstream2 = _interopRequireDefault(_xstream);
-
-var _sampleCombine = __webpack_require__(34);
-
-var _sampleCombine2 = _interopRequireDefault(_sampleCombine);
-
-var _firebaseDriver = __webpack_require__(18);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var toFormular = function toFormular(formularValue, auth) {
-  return {
-    path: "articles",
-    value: {
-      content: formularValue,
-      username: auth.username,
-      uid: auth.uid
-    }
-  };
-};
-
-var firebaseSink = exports.firebaseSink = function firebaseSink(_ref) {
-  var state$ = _ref.state$,
-      aAuthLogin$ = _ref.aAuthLogin$,
-      aAuthLogout$ = _ref.aAuthLogout$,
-      aFormularSubmit$ = _ref.aFormularSubmit$;
-
-  var stateAuth$ = state$.map(function (state) {
-    return state.auth;
-  });
-  var login$ = aAuthLogin$.map(_firebaseDriver.loginWithFacebook);
-  var logout$ = aAuthLogout$.map(_firebaseDriver.logout);
-  var formularAndAuthOnSubmit$ = aFormularSubmit$.compose((0, _sampleCombine2.default)(stateAuth$)).filter(function (_ref2) {
-    var _ref3 = _slicedToArray(_ref2, 2),
-        formularValue = _ref3[0],
-        auth = _ref3[1];
-
-    return auth.status === "logged_in";
-  });
-  var formular$ = formularAndAuthOnSubmit$.map(function (_ref4) {
-    var _ref5 = _slicedToArray(_ref4, 2),
-        formularValue = _ref5[0],
-        auth = _ref5[1];
-
-    return (0, _firebaseDriver.push)(toFormular(formularValue, auth));
-  });
-  return _xstream2.default.merge(login$, logout$, formular$);
-};
-
-/***/ }),
-/* 43 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.reducer = undefined;
-
-var _xstream = __webpack_require__(0);
-
-var _xstream2 = _interopRequireDefault(_xstream);
-
-var _auth = __webpack_require__(58);
-
-var _formular = __webpack_require__(60);
-
-var _feedback = __webpack_require__(59);
-
-var _articles = __webpack_require__(57);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var reducer = exports.reducer = function reducer(_ref) {
-  var sFireResSuccess$ = _ref.sFireResSuccess$,
-      sFireResError$ = _ref.sFireResError$,
-      sFireAuth$ = _ref.sFireAuth$,
-      sFireArticles$ = _ref.sFireArticles$,
-      aAuthLogin$ = _ref.aAuthLogin$,
-      aFormularSubmit$ = _ref.aFormularSubmit$;
-
-  var authReducer$ = (0, _auth.authReducer)({
-    sFireResError$: sFireResError$,
-    sFireAuth$: sFireAuth$,
-    aAuthLogin$: aAuthLogin$
-  });
-  var feedbackReducer$ = (0, _feedback.feedbackReducer)({
-    sFireResError$: sFireResError$,
-    sFireResSuccess$: sFireResSuccess$,
-    sFireAuth$: sFireAuth$
-  });
-  var formularReducer$ = (0, _formular.formularReducer)({
-    sFireResSuccess$: sFireResSuccess$,
-    sFireAuth$: sFireAuth$,
-    aFormularSubmit$: aFormularSubmit$
-  });
-  var articlesReducer$ = (0, _articles.articlesReducer)({
-    sFireAuth$: sFireAuth$,
-    sFireArticles$: sFireArticles$,
-    aAuthLogin$: aAuthLogin$
-  });
-  return _xstream2.default.merge(authReducer$, feedbackReducer$, formularReducer$, articlesReducer$);
-};
-
-/***/ }),
-/* 44 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-var __assign = (this && this.__assign) || Object.assign || function(t) {
-    for (var s, i = 1, n = arguments.length; i < n; i++) {
-        s = arguments[i];
-        for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
-            t[p] = s[p];
-    }
-    return t;
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-var xstream_1 = __webpack_require__(0);
-var dropRepeats_1 = __webpack_require__(118);
-var adapt_1 = __webpack_require__(3);
-function pick(selector) {
-    if (typeof selector === 'string') {
-        return function pickWithString(sinksArray$) {
-            return adapt_1.adapt(xstream_1.default.fromObservable(sinksArray$)
-                .map(function (sinksArray) { return sinksArray.map(function (sinks) { return sinks[selector]; }); }));
-        };
-    }
-    else {
-        return function pickWithFunction(sinksArray$) {
-            return adapt_1.adapt(xstream_1.default.fromObservable(sinksArray$)
-                .map(function (sinksArray) { return sinksArray.map(selector); }));
-        };
-    }
-}
-exports.pick = pick;
-function mix(aggregator) {
-    return function mixOperator(streamArray$) {
-        return adapt_1.adapt(xstream_1.default.fromObservable(streamArray$)
-            .map(function (streamArray) { return aggregator.apply(void 0, streamArray); })
-            .flatten());
-    };
-}
-exports.mix = mix;
-function makeGetter(scope) {
-    if (typeof scope === 'string' || typeof scope === 'number') {
-        return function lensGet(state) {
-            if (typeof state === 'undefined') {
-                return void 0;
-            }
-            else {
-                return state[scope];
-            }
-        };
-    }
-    else {
-        return scope.get;
-    }
-}
-function makeSetter(scope) {
-    if (typeof scope === 'string' || typeof scope === 'number') {
-        return function lensSet(state, childState) {
-            if (Array.isArray(state)) {
-                return updateArrayEntry(state, scope, childState);
-            }
-            else if (typeof state === 'undefined') {
-                return _a = {}, _a[scope] = childState, _a;
-            }
-            else {
-                return __assign({}, state, (_b = {}, _b[scope] = childState, _b));
-            }
-            var _a, _b;
-        };
-    }
-    else {
-        return scope.set;
-    }
-}
-function updateArrayEntry(array, scope, newVal) {
-    if (newVal === array[scope]) {
-        return array;
-    }
-    var index = parseInt(scope);
-    if (typeof newVal === 'undefined') {
-        return array.filter(function (val, i) { return i !== index; });
-    }
-    return array.map(function (val, i) { return i === index ? newVal : val; });
-}
-function isolateSource(source, scope) {
-    return source.select(scope);
-}
-exports.isolateSource = isolateSource;
-function isolateSink(innerReducer$, scope) {
-    var get = makeGetter(scope);
-    var set = makeSetter(scope);
-    return innerReducer$
-        .map(function (innerReducer) { return function outerReducer(outer) {
-        var prevInner = get(outer);
-        var nextInner = innerReducer(prevInner);
-        if (prevInner === nextInner) {
-            return outer;
-        }
-        else {
-            return set(outer, nextInner);
-        }
-    }; });
-}
-exports.isolateSink = isolateSink;
-var StateSource = (function () {
-    function StateSource(stream, name) {
-        this.isolateSource = isolateSource;
-        this.isolateSink = isolateSink;
-        this._name = name;
-        this.state$ = adapt_1.adapt(stream.compose(dropRepeats_1.default()).remember());
-        if (!name) {
-            return;
-        }
-        this.state$._isCycleSource = name;
-    }
-    StateSource.prototype.select = function (scope) {
-        var get = makeGetter(scope);
-        return new StateSource(this.state$.map(get).filter(function (s) { return typeof s !== 'undefined'; }), null);
-    };
-    return StateSource;
-}());
-exports.StateSource = StateSource;
-function onionify(main, name) {
-    if (name === void 0) { name = 'onion'; }
-    return function mainOnionified(sources) {
-        var reducerMimic$ = xstream_1.default.create();
-        var state$ = reducerMimic$
-            .fold(function (state, reducer) { return reducer(state); }, void 0)
-            .drop(1);
-        sources[name] = new StateSource(state$, name);
-        var sinks = main(sources);
-        if (sinks[name]) {
-            var stream$ = xstream_1.default.fromObservable(sinks[name]);
-            reducerMimic$.imitate(stream$);
-        }
-        return sinks;
-    };
-}
-exports.default = onionify;
-//# sourceMappingURL=index.js.map
-
-/***/ }),
-/* 45 */
+/* 40 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
 var xstream_1 = __webpack_require__(0);
-var adapt_1 = __webpack_require__(3);
+var adapt_1 = __webpack_require__(4);
 var fromEvent_1 = __webpack_require__(13);
 var BodyDOMSource = (function () {
     function BodyDOMSource(_name) {
@@ -4433,14 +4192,14 @@ exports.BodyDOMSource = BodyDOMSource;
 //# sourceMappingURL=BodyDOMSource.js.map
 
 /***/ }),
-/* 46 */
+/* 41 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
 var xstream_1 = __webpack_require__(0);
-var adapt_1 = __webpack_require__(3);
+var adapt_1 = __webpack_require__(4);
 var fromEvent_1 = __webpack_require__(13);
 var DocumentDOMSource = (function () {
     function DocumentDOMSource(_name) {
@@ -4474,15 +4233,15 @@ exports.DocumentDOMSource = DocumentDOMSource;
 //# sourceMappingURL=DocumentDOMSource.js.map
 
 /***/ }),
-/* 47 */
+/* 42 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var ScopeChecker_1 = __webpack_require__(20);
+var ScopeChecker_1 = __webpack_require__(22);
 var utils_1 = __webpack_require__(7);
-var matchesSelector_1 = __webpack_require__(21);
+var matchesSelector_1 = __webpack_require__(23);
 function toElArray(input) {
     return Array.prototype.slice.call(input);
 }
@@ -4513,16 +4272,16 @@ exports.ElementFinder = ElementFinder;
 //# sourceMappingURL=ElementFinder.js.map
 
 /***/ }),
-/* 48 */
+/* 43 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
 var xstream_1 = __webpack_require__(0);
-var ScopeChecker_1 = __webpack_require__(20);
+var ScopeChecker_1 = __webpack_require__(22);
 var utils_1 = __webpack_require__(7);
-var matchesSelector_1 = __webpack_require__(21);
+var matchesSelector_1 = __webpack_require__(23);
 /**
  * Finds (with binary search) index of the destination that id equal to searchId
  * among the destinations in the given array.
@@ -4680,13 +4439,13 @@ exports.EventDelegator = EventDelegator;
 //# sourceMappingURL=EventDelegator.js.map
 
 /***/ }),
-/* 49 */
+/* 44 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var MapPolyfill = __webpack_require__(28);
+var MapPolyfill = __webpack_require__(31);
 var IsolateModule = (function () {
     function IsolateModule() {
         this.elementsByFullScope = new MapPolyfill();
@@ -4798,15 +4557,15 @@ exports.IsolateModule = IsolateModule;
 //# sourceMappingURL=IsolateModule.js.map
 
 /***/ }),
-/* 50 */
+/* 45 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
 var h_1 = __webpack_require__(10);
-var classNameFromVNode_1 = __webpack_require__(106);
-var selectorParser_1 = __webpack_require__(29);
+var classNameFromVNode_1 = __webpack_require__(109);
+var selectorParser_1 = __webpack_require__(32);
 var VNodeWrapper = (function () {
     function VNodeWrapper(rootElement) {
         this.rootElement = rootElement;
@@ -4842,7 +4601,7 @@ exports.VNodeWrapper = VNodeWrapper;
 //# sourceMappingURL=VNodeWrapper.js.map
 
 /***/ }),
-/* 51 */
+/* 46 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4926,7 +4685,7 @@ exports.default = exported;
 //# sourceMappingURL=hyperscript-helpers.js.map
 
 /***/ }),
-/* 52 */
+/* 47 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4989,21 +4748,21 @@ exports.totalIsolateSink = totalIsolateSink;
 //# sourceMappingURL=isolate.js.map
 
 /***/ }),
-/* 53 */
+/* 48 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var snabbdom_1 = __webpack_require__(112);
+var snabbdom_1 = __webpack_require__(115);
 var xstream_1 = __webpack_require__(0);
-var MainDOMSource_1 = __webpack_require__(19);
-var tovnode_1 = __webpack_require__(113);
-var VNodeWrapper_1 = __webpack_require__(50);
+var MainDOMSource_1 = __webpack_require__(21);
+var tovnode_1 = __webpack_require__(116);
+var VNodeWrapper_1 = __webpack_require__(45);
 var utils_1 = __webpack_require__(7);
-var modules_1 = __webpack_require__(55);
-var IsolateModule_1 = __webpack_require__(49);
-var MapPolyfill = __webpack_require__(28);
+var modules_1 = __webpack_require__(50);
+var IsolateModule_1 = __webpack_require__(44);
+var MapPolyfill = __webpack_require__(31);
 function makeDOMDriverInputGuard(modules) {
     if (!Array.isArray(modules)) {
         throw new Error("Optional modules option must be " +
@@ -5070,14 +4829,14 @@ exports.makeDOMDriver = makeDOMDriver;
 //# sourceMappingURL=makeDOMDriver.js.map
 
 /***/ }),
-/* 54 */
+/* 49 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
 var xstream_1 = __webpack_require__(0);
-var adapt_1 = __webpack_require__(3);
+var adapt_1 = __webpack_require__(4);
 var SCOPE_PREFIX = '___';
 var MockedDOMSource = (function () {
     function MockedDOMSource(_mockConfig) {
@@ -5128,25 +4887,336 @@ exports.mockDOMSource = mockDOMSource;
 //# sourceMappingURL=mockDOMSource.js.map
 
 /***/ }),
-/* 55 */
+/* 50 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var class_1 = __webpack_require__(108);
+var class_1 = __webpack_require__(111);
 exports.ClassModule = class_1.default;
-var props_1 = __webpack_require__(110);
+var props_1 = __webpack_require__(113);
 exports.PropsModule = props_1.default;
-var attributes_1 = __webpack_require__(107);
+var attributes_1 = __webpack_require__(110);
 exports.AttrsModule = attributes_1.default;
-var style_1 = __webpack_require__(111);
+var style_1 = __webpack_require__(114);
 exports.StyleModule = style_1.default;
-var dataset_1 = __webpack_require__(109);
+var dataset_1 = __webpack_require__(112);
 exports.DatasetModule = dataset_1.default;
 var modules = [style_1.default, class_1.default, props_1.default, attributes_1.default, dataset_1.default];
 exports.default = modules;
 //# sourceMappingURL=modules.js.map
+
+/***/ }),
+/* 51 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var _run = __webpack_require__(37);
+
+var _dom = __webpack_require__(3);
+
+var _cycleOnionify = __webpack_require__(20);
+
+var _cycleOnionify2 = _interopRequireDefault(_cycleOnionify);
+
+var _main = __webpack_require__(38);
+
+var _main2 = _interopRequireDefault(_main);
+
+var _firebaseDriver = __webpack_require__(19);
+
+var _firebaseConfig = __webpack_require__(39);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var drivers = {
+  DOM: (0, _dom.makeDOMDriver)("#root"),
+  firebase: (0, _firebaseDriver.makeFirebaseDriver)(_firebaseConfig.firebaseConfig)
+};
+
+var wrappedMain = (0, _cycleOnionify2.default)(_main2.default);
+
+(0, _run.run)(wrappedMain, drivers);
+
+/***/ }),
+/* 52 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
+
+var _xstream = __webpack_require__(0);
+
+var _xstream2 = _interopRequireDefault(_xstream);
+
+var _sampleCombine = __webpack_require__(18);
+
+var _sampleCombine2 = _interopRequireDefault(_sampleCombine);
+
+var _dom = __webpack_require__(3);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var formView = function formView(article) {
+  var _article$value = article.value,
+      status = _article$value.status,
+      content = _article$value.content;
+
+  var disabled = status === "submitting";
+  return (0, _dom.div)((0, _dom.form)([(0, _dom.input)(".input", {
+    attrs: { type: "text", value: content, disabled: disabled }
+  }), (0, _dom.button)(".cancel", { attrs: { type: "button" } }, "Cancel"), (0, _dom.button)({ attrs: { type: "submit", disabled: disabled } }, status === "submitting" ? "Submitting..." : "Submit")]));
+};
+
+var articleView = function articleView(article) {
+  return (0, _dom.div)([(0, _dom.span)(article.value.username), (0, _dom.span)(" said: "), (0, _dom.span)(article.value.content), !article.userArticle ? undefined : (0, _dom.span)([(0, _dom.button)(".edit", "Edit"), (0, _dom.button)(".delete", "Delete")])]);
+};
+
+var view = function view(state$) {
+  return state$.map(function (article) {
+    if (article.value.status === "editing") return formView(article);
+    return articleView(article);
+  });
+};
+
+var intent = function intent(sources) {
+  var edit$ = sources.DOM.select(".edit").events("click").mapTo({ type: "ARTICLE_EDIT" });
+  var cancel$ = sources.DOM.select(".cancel").events("click").mapTo({ type: "ARTICLE_CANCEL" });
+  var delete$ = sources.DOM.select(".delete").events("click").mapTo({ type: "ARTICLE_DELETE" });
+  var input$ = sources.DOM.select(".input").events("input").map(function (e) {
+    return e.target.value;
+  });
+  var submit$ = sources.DOM.select("form").events("submit").map(function (event) {
+    return event.preventDefault();
+  });
+  var validSubmit = submit$.compose((0, _sampleCombine2.default)(input$)).map(function (_ref) {
+    var _ref2 = _slicedToArray(_ref, 2),
+        submit = _ref2[0],
+        value = _ref2[1];
+
+    return value;
+  });
+  var submitAction$ = validSubmit.map(function (value) {
+    return {
+      type: "ARTICLE_SUBMIT",
+      value: value
+    };
+  });
+  return _xstream2.default.merge(edit$, cancel$, delete$, submitAction$);
+};
+
+var reducer = function reducer(actions$) {
+  var edit$ = actions$.filter(function (a) {
+    return a.type === "ARTICLE_EDIT";
+  }).mapTo(function (prevState) {
+    return Object.assign({}, prevState, {
+      value: Object.assign({}, prevState.value, { status: "editing" })
+    });
+  });
+  var cancel$ = actions$.filter(function (a) {
+    return a.type === "ARTICLE_CANCEL";
+  }).mapTo(function (prevState) {
+    return Object.assign({}, prevState, {
+      value: Object.assign({}, prevState.value, { status: "read" })
+    });
+  });
+  var submit$ = actions$.filter(function (a) {
+    return a.type === "ARTICLE_SUBMIT";
+  }).mapTo(function (prevState) {
+    return Object.assign({}, prevState, {
+      value: Object.assign({}, prevState.value, { status: "submitting" })
+    });
+  });
+  return _xstream2.default.merge(edit$, cancel$, submit$);
+};
+
+var Article = function Article(sources, i) {
+  var DOM = view(sources.onion.state$);
+  var actions = intent(sources);
+  var reducer$ = reducer(actions);
+  return {
+    DOM: DOM,
+    onion: reducer$
+  };
+};
+
+exports.default = Article;
+
+/***/ }),
+/* 53 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _xstream = __webpack_require__(0);
+
+var _xstream2 = _interopRequireDefault(_xstream);
+
+var _dom = __webpack_require__(3);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var view = function view(state$) {
+  return state$.map(function (state) {
+    if (state.status === "logged") return (0, _dom.p)([(0, _dom.span)("Logged in as " + state.username + ". "), (0, _dom.button)(".logout", "Log out")]);else if (state.status === "awaiting_response") return (0, _dom.p)([(0, _dom.button)({ attrs: { disabled: "true" } }, "authenticating...")]);
+    return (0, _dom.p)([(0, _dom.button)(".login", "Log in")]);
+  });
+};
+
+var intent = function intent(sourceDOM) {
+  var loginAction$ = sourceDOM.select(".login").events("click").mapTo({ type: "LOGIN_FACEBOOK" });
+  var logoutAction$ = sourceDOM.select(".logout").events("click").mapTo({ type: "LOGOUT" });
+  return _xstream2.default.merge(loginAction$, logoutAction$);
+};
+
+var Auth = function Auth(sources) {
+  var actions = intent(sources.DOM);
+  var reducer$ = _xstream2.default.of(function (prevState) {
+    return { status: "anonymous" };
+  });
+  var DOM = view(sources.onion.state$);
+  return {
+    DOM: DOM,
+    onion: reducer$,
+    actions: actions
+  };
+};
+
+exports.default = Auth;
+
+/***/ }),
+/* 54 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _xstream = __webpack_require__(0);
+
+var _xstream2 = _interopRequireDefault(_xstream);
+
+var _dom = __webpack_require__(3);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var view = function view(state$) {
+  return state$.map(function (feed) {
+    return (0, _dom.div)([feed.msg, " ", (0, _dom.button)(".dismiss", " X ")]);
+  });
+};
+
+var reducer = function reducer(sources) {
+  return sources.DOM.select(".dismiss").events("click").mapTo(function () {
+    return undefined;
+  });
+};
+
+var Feed = function Feed(sources) {
+  return {
+    DOM: view(sources.onion.state$),
+    onion: reducer(sources)
+  };
+};
+
+exports.default = Feed;
+
+/***/ }),
+/* 55 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
+
+var _xstream = __webpack_require__(0);
+
+var _xstream2 = _interopRequireDefault(_xstream);
+
+var _sampleCombine = __webpack_require__(18);
+
+var _sampleCombine2 = _interopRequireDefault(_sampleCombine);
+
+var _dom = __webpack_require__(3);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var view = function view(state$) {
+  return state$.map(function (state) {
+    if (state.status === "anonymous") return (0, _dom.p)("Log in to add a new article of your own!");
+    return (0, _dom.form)(".formular", [(0, _dom.p)([(0, _dom.input)(".input", {
+      attrs: {
+        type: "text",
+        placeholder: "write something clever!",
+        disabled: state.status === "submitting"
+      }
+    }), (0, _dom.button)({
+      attrs: {
+        type: "submit",
+        disabled: state.status === "submitting"
+      }
+    }, [state.status === "submitting" ? "Submitting..." : "Submit"])])]);
+  });
+};
+
+var intent = function intent(sourcesDOM) {
+  var input$ = sourcesDOM.select(".input").events("input").map(function (e) {
+    return e.target.value;
+  });
+  var submit$ = sourcesDOM.select(".formular").events("submit").map(function (event) {
+    return event.preventDefault();
+  });
+  var validSubmit = submit$.compose((0, _sampleCombine2.default)(input$)).map(function (_ref) {
+    var _ref2 = _slicedToArray(_ref, 2),
+        submit = _ref2[0],
+        value = _ref2[1];
+
+    return value;
+  });
+  return validSubmit.map(function (value) {
+    return {
+      type: "FORMULAR_SUBMIT",
+      value: value
+    };
+  });
+};
+
+var Formular = function Formular(sources) {
+  var DOM = view(sources.onion.state$);
+  var reducer$ = _xstream2.default.of(function (prevState) {
+    return { status: "anonymous" };
+  });
+  var actions = intent(sources.DOM);
+  return {
+    DOM: DOM,
+    onion: reducer$,
+    actions: actions
+  };
+};
+
+exports.default = Formular;
 
 /***/ }),
 /* 56 */
@@ -5155,45 +5225,157 @@ exports.default = modules;
 "use strict";
 
 
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
 var _xstream = __webpack_require__(0);
 
 var _xstream2 = _interopRequireDefault(_xstream);
 
-var _isolate = __webpack_require__(35);
+var _isolate = __webpack_require__(24);
 
 var _isolate2 = _interopRequireDefault(_isolate);
 
-var _run = __webpack_require__(36);
+var _dom = __webpack_require__(3);
 
-var _dom = __webpack_require__(6);
+var _cycleOnionify = __webpack_require__(20);
 
-var _cycleOnionify = __webpack_require__(44);
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var _cycleOnionify2 = _interopRequireDefault(_cycleOnionify);
+var view = function view(childrenSinks$) {
+  return childrenSinks$.map(function (itemVNodes) {
+    return (0, _dom.div)(itemVNodes);
+  });
+};
 
-var _firebaseDriver = __webpack_require__(18);
+var List = function List(Item) {
+  return function (sources) {
+    var childrenSinks$ = sources.onion.state$.map(function (state) {
+      return state.map(function (item, i) {
+        return (0, _isolate2.default)(Item, i)(sources, i);
+      });
+    });
 
-var _firebaseConfig = __webpack_require__(41);
+    var childrenDoms$ = childrenSinks$.compose((0, _cycleOnionify.pick)("DOM"));
+    var childrenDom$ = childrenDoms$.compose((0, _cycleOnionify.mix)(_xstream2.default.combine));
 
-var _firebaseSink = __webpack_require__(42);
+    var childrenReducers$ = childrenSinks$.compose((0, _cycleOnionify.pick)("onion"));
+    var childrenReducer$ = childrenReducers$.compose((0, _cycleOnionify.mix)(_xstream2.default.merge));
 
-var _reducer = __webpack_require__(43);
+    var DOM = view(childrenDom$);
+    var reducer$ = _xstream2.default.merge(childrenReducer$);
 
-var _Auth = __webpack_require__(38);
+    return {
+      DOM: DOM,
+      onion: reducer$
+    };
+  };
+};
 
-var _Auth2 = _interopRequireDefault(_Auth);
+exports.default = List;
 
-var _Feedback = __webpack_require__(39);
+/***/ }),
+/* 57 */
+/***/ (function(module, exports, __webpack_require__) {
 
-var _Feedback2 = _interopRequireDefault(_Feedback);
+"use strict";
 
-var _Formular = __webpack_require__(40);
 
-var _Formular2 = _interopRequireDefault(_Formular);
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.firebaseSink = undefined;
 
-var _Articles = __webpack_require__(37);
+var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
 
-var _Articles2 = _interopRequireDefault(_Articles);
+var _xstream = __webpack_require__(0);
+
+var _xstream2 = _interopRequireDefault(_xstream);
+
+var _sampleCombine = __webpack_require__(18);
+
+var _sampleCombine2 = _interopRequireDefault(_sampleCombine);
+
+var _firebaseDriver = __webpack_require__(19);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var toFormular = function toFormular(formularValue, auth) {
+  return {
+    path: "articles",
+    value: {
+      content: formularValue,
+      username: auth.username,
+      uid: auth.uid
+    }
+  };
+};
+
+// export const firebaseSink = ({
+//   state$,
+//   aAuthLogin$,
+//   aAuthLogout$,
+//   aFormularSubmit$
+// }) => {
+//   const stateAuth$ = state$.map(state => state.auth);
+//   const login$ = aAuthLogin$.map(loginWithFacebook);
+//   const logout$ = aAuthLogout$.map(logout);
+//   const formularAndAuthOnSubmit$ = aFormularSubmit$
+//     .compose(sampleCombine(stateAuth$))
+//     .filter(([formularValue, auth]) => auth.status === "logged");
+//   const formular$ = formularAndAuthOnSubmit$.map(([formularValue, auth]) =>
+//     push(toFormular(formularValue, auth))
+//   );
+//   return xs.merge(login$, logout$, formular$);
+// };
+
+var firebaseSink = exports.firebaseSink = function firebaseSink(state$, actions$) {
+  var stateAuth$ = state$.map(function (state) {
+    return state.auth;
+  });
+  var login$ = actions$.filter(function (a) {
+    return a.type === "LOGIN_FACEBOOK";
+  }).map(_firebaseDriver.loginWithFacebook);
+  var logout$ = actions$.filter(function (a) {
+    return a.type === "LOGOUT";
+  }).map(_firebaseDriver.logout);
+  var formularSubmit$ = actions$.filter(function (a) {
+    return a.type === "FORMULAR_SUBMIT";
+  }).map(function (a) {
+    return a.value;
+  });
+  var formularAndAuthOnSubmit$ = formularSubmit$.compose((0, _sampleCombine2.default)(stateAuth$)).filter(function (_ref) {
+    var _ref2 = _slicedToArray(_ref, 2),
+        formularValue = _ref2[0],
+        auth = _ref2[1];
+
+    return auth.status === "logged";
+  });
+  var formular$ = formularAndAuthOnSubmit$.map(function (_ref3) {
+    var _ref4 = _slicedToArray(_ref3, 2),
+        formularValue = _ref4[0],
+        auth = _ref4[1];
+
+    return (0, _firebaseDriver.push)(toFormular(formularValue, auth));
+  });
+  return _xstream2.default.merge(login$, logout$, formular$);
+};
+
+/***/ }),
+/* 58 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _xstream = __webpack_require__(0);
+
+var _xstream2 = _interopRequireDefault(_xstream);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -5223,74 +5405,10 @@ var intent = function intent(sources) {
   };
 };
 
-var view = function view(_ref4) {
-  var auth = _ref4.auth,
-      feedback = _ref4.feedback,
-      formular = _ref4.formular,
-      articles = _ref4.articles;
-  return _xstream2.default.combine(auth.DOM, feedback.DOM, formular.DOM, articles.DOM).map(function (doms) {
-    return (0, _dom.div)(doms);
-  });
-};
-
-function main(sources) {
-  /* AUTH */
-  var auth = (0, _isolate2.default)(_Auth2.default, "auth")(sources);
-  var aAuthLogin$ = auth.actions.login;
-  var aAuthLogout$ = auth.actions.logout;
-
-  /* FEEDBACK */
-  var feedback = (0, _isolate2.default)(_Feedback2.default, "feedback")(sources);
-
-  /* FORMULAR */
-  var formular = (0, _isolate2.default)(_Formular2.default, "formular")(sources);
-  var aFormularSubmit$ = formular.actions.submit;
-
-  /* ARTICLES */
-  var articles = (0, _isolate2.default)(_Articles2.default, "articles")(sources);
-
-  /* APP */
-
-  var _intent = intent(sources),
-      sFireResSuccess$ = _intent.sFireResSuccess$,
-      sFireResError$ = _intent.sFireResError$,
-      sFireAuth$ = _intent.sFireAuth$,
-      sFireArticles$ = _intent.sFireArticles$;
-
-  var reducer$ = (0, _reducer.reducer)({
-    sFireResSuccess$: sFireResSuccess$,
-    sFireResError$: sFireResError$,
-    sFireAuth$: sFireAuth$,
-    sFireArticles$: sFireArticles$,
-    aAuthLogin$: aAuthLogin$,
-    aFormularSubmit$: aFormularSubmit$
-  });
-
-  var state$ = sources.onion.state$;
-
-  return {
-    DOM: view({ auth: auth, feedback: feedback, formular: formular, articles: articles }),
-    onion: reducer$,
-    firebase: (0, _firebaseSink.firebaseSink)({
-      state$: state$,
-      aAuthLogin$: aAuthLogin$,
-      aAuthLogout$: aAuthLogout$,
-      aFormularSubmit$: aFormularSubmit$
-    })
-  };
-}
-
-var drivers = {
-  DOM: (0, _dom.makeDOMDriver)("#root"),
-  firebase: (0, _firebaseDriver.makeFirebaseDriver)(_firebaseConfig.firebaseConfig)
-};
-
-var wrappedMain = (0, _cycleOnionify2.default)(main);
-
-(0, _run.run)(wrappedMain, drivers);
+exports.default = intent;
 
 /***/ }),
-/* 57 */
+/* 59 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5301,44 +5419,53 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.articlesReducer = undefined;
 
-var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
-
 var _xstream = __webpack_require__(0);
 
 var _xstream2 = _interopRequireDefault(_xstream);
 
-var _utils = __webpack_require__(61);
+var _utils = __webpack_require__(64);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var articlesReducer = exports.articlesReducer = function articlesReducer(_ref) {
-  var sFireAuth$ = _ref.sFireAuth$,
-      sFireResSuccess$ = _ref.sFireResSuccess$,
-      sFireArticles$ = _ref.sFireArticles$;
+var augmentArticles = function augmentArticles(auth, articlesArr) {
+  return articlesArr.map(function (a) {
+    return Object.assign({}, a, {
+      userArticle: a.value.uid === auth.uid
+    });
+  });
+};
 
-  var combined = _xstream2.default.combine(sFireAuth$, sFireArticles$);
-  return combined.map(function (_ref2) {
-    var _ref3 = _slicedToArray(_ref2, 2),
-        auth = _ref3[0],
-        articles = _ref3[1];
+var toAugmentedArticles = function toAugmentedArticles(_ref) {
+  var auth = _ref.auth,
+      articles = _ref.articles;
+  return augmentArticles(auth, (0, _utils.objectPropsToArray)(articles));
+};
 
-    return function (prevState) {
-      console.log(auth ? auth.uid : "no auth", articles);
-      var articlesArray = (0, _utils.objectPropsToArray)(articles);
-      var augmentedArticles = !auth ? articlesArray : articlesArray.map(function (a) {
-        if (a.value.uid !== auth.uid) return a;
-        return Object.assign({}, a, { value: Object.assign({}, a.value, { userArticle: true }) });
-      });
+var articlesReducer = exports.articlesReducer = function articlesReducer(_ref2) {
+  var sFireAuth$ = _ref2.sFireAuth$,
+      sFireArticles$ = _ref2.sFireArticles$;
 
-      return Object.assign({}, prevState, {
-        articles: { articles: augmentedArticles }
-      });
+  var c_auth_articles = _xstream2.default.combine(sFireAuth$, sFireArticles$);
+  var anonymousArticles$ = c_auth_articles.filter(function (arr) {
+    return !arr[0];
+  }).map(function (arr) {
+    return arr[1];
+  });
+  var loggedArticles$ = c_auth_articles.filter(function (arr) {
+    return !!arr[0];
+  }).map(function (arr) {
+    return { auth: arr[0], articles: arr[1] };
+  });
+  var all = _xstream2.default.merge(anonymousArticles$.map(_utils.objectPropsToArray), loggedArticles$.map(toAugmentedArticles));
+  return all.map(function (articles) {
+    return function (prev) {
+      return Object.assign({}, prev, { articles: articles });
     };
   });
 };
 
 /***/ }),
-/* 58 */
+/* 60 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5371,42 +5498,44 @@ var toAwaiting = function toAwaiting() {
   };
 };
 
-var toLoggedIn = function toLoggedIn(data) {
+var toLogged = function toLogged(data) {
   return {
-    status: "logged_in",
+    status: "logged",
     username: data.providerData[0].displayName,
     uid: data.uid
   };
 };
 
-var authReducer = exports.authReducer = function authReducer(_ref) {
+var authReducer = exports.authReducer = function authReducer(_ref, actions$) {
   var sFireResError$ = _ref.sFireResError$,
-      sFireAuth$ = _ref.sFireAuth$,
-      aAuthLogin$ = _ref.aAuthLogin$;
+      sFireAuth$ = _ref.sFireAuth$;
 
-  var fireAuthLoggedIn$ = sFireAuth$.filter(function (data) {
-    return data;
-  }).map(toLoggedIn);
-  var fireAuthLoggedOut$ = sFireAuth$.filter(function (data) {
-    return !data;
-  }).map(toAnonymous);
-  var login$ = aAuthLogin$.map(toAwaiting);
-  var resLoginError$ = sFireResError$.filter(function (_ref2) {
-    var action = _ref2.action;
-    return action.type === "LOGIN_FACEBOOK";
-  }).map(toAnonymous);
-  var combined = _xstream2.default.merge(fireAuthLoggedIn$, fireAuthLoggedOut$, login$, resLoginError$);
-  return combined.map(function (auth) {
-    return function (prevState) {
-      return Object.assign({}, prevState, {
-        auth: auth
-      });
+  var aLogin$ = actions$.filter(function (a) {
+    return a.type === "LOGIN_FACEBOOK";
+  });
+  var aLogout$ = actions$.filter(function (a) {
+    return a.type === "LOGOUT";
+  });
+  var sFireAuthLogged$ = sFireAuth$.filter(function (d) {
+    return !!d;
+  });
+  var sFireAuthAnonymous$ = sFireAuth$.filter(function (d) {
+    return !d;
+  });
+  var sFireResLoginError$ = sFireResError$.filter(function (_ref2) {
+    var a = _ref2.a;
+    return a.type === "LOGIN_FACEBOOK";
+  });
+  var all = _xstream2.default.merge(aLogin$.map(toAwaiting), aLogout$.map(toAnonymous), sFireAuthLogged$.map(toLogged), sFireAuthAnonymous$.map(toAnonymous), sFireResLoginError$.map(toAnonymous));
+  return all.map(function (auth) {
+    return function (prev) {
+      return Object.assign({}, prev, { auth: auth });
     };
   });
 };
 
 /***/ }),
-/* 59 */
+/* 61 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5422,6 +5551,8 @@ var _xstream = __webpack_require__(0);
 var _xstream2 = _interopRequireDefault(_xstream);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
 
 var toError = function toError(_ref) {
   var err = _ref.err,
@@ -5439,11 +5570,14 @@ var toSuccess = function toSuccess(_ref2) {
   };
 };
 
-var fromSFireAuth = function fromSFireAuth(authData) {
-  if (!authData) return { msg: "Auth: not logged in" };
+var toLoggedIn = function toLoggedIn(authData) {
   return {
     msg: "Auth: logged in as : " + authData.providerData[0].displayName
   };
+};
+
+var toAnonymous = function toAnonymous(authData) {
+  return { msg: "Auth: not logged in" };
 };
 
 var feedbackReducer = exports.feedbackReducer = function feedbackReducer(_ref3) {
@@ -5451,94 +5585,19 @@ var feedbackReducer = exports.feedbackReducer = function feedbackReducer(_ref3) 
       sFireResSuccess$ = _ref3.sFireResSuccess$,
       sFireAuth$ = _ref3.sFireAuth$;
 
-  var error$ = sFireResError$.map(toError);
-  var success$ = sFireResSuccess$.map(toSuccess);
-  var auth$ = sFireAuth$.map(fromSFireAuth);
-  var combined = _xstream2.default.merge(error$, success$, auth$);
-  return combined.map(function (feedback) {
+  var sFireAuthLoggedIn$ = sFireAuth$.filter(function (d) {
+    return !!d;
+  });
+  var sFireAuthLoggedOut$ = sFireAuth$.filter(function (d) {
+    return !d;
+  });
+  var all = _xstream2.default.merge(sFireResError$.map(toError), sFireResSuccess$.map(toSuccess), sFireAuthLoggedIn$.map(toLoggedIn), sFireAuthLoggedOut$.map(toAnonymous));
+  return all.map(function (feed) {
     return function (prevState) {
       return Object.assign({}, prevState, {
-        feedback: feedback
+        feedback: [].concat(_toConsumableArray(prevState.feedback || []), [feed])
       });
     };
-  });
-};
-
-/***/ }),
-/* 60 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.formularReducer = undefined;
-
-var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
-
-var _xstream = __webpack_require__(0);
-
-var _xstream2 = _interopRequireDefault(_xstream);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var toUnlogged = function toUnlogged() {
-  return { status: "unlogged" };
-};
-var toReady = function toReady() {
-  return { status: "ready" };
-};
-var toSubmitting = function toSubmitting() {
-  return { status: "submitting" };
-};
-
-var formularReducer = exports.formularReducer = function formularReducer(_ref) {
-  var sFireAuth$ = _ref.sFireAuth$,
-      sFireResSuccess$ = _ref.sFireResSuccess$,
-      aFormularSubmit$ = _ref.aFormularSubmit$;
-
-  var submitting$ = aFormularSubmit$.map(toSubmitting);
-  var ready$ = sFireResSuccess$.map(toReady);
-  var readyOrSubmitting$ = _xstream2.default.merge(submitting$, ready$).startWith(toReady());
-  return _xstream2.default.combine(sFireAuth$, readyOrSubmitting$).map(function (_ref2) {
-    var _ref3 = _slicedToArray(_ref2, 2),
-        authData = _ref3[0],
-        readyOrSubmitting = _ref3[1];
-
-    if (!authData) return toUnlogged();
-    return readyOrSubmitting;
-  }).map(function (formular) {
-    return function (prevState) {
-      return Object.assign({}, prevState, {
-        formular: formular
-      });
-    };
-  });
-};
-
-/***/ }),
-/* 61 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.objectPropsToArray = undefined;
-
-var _xstream = __webpack_require__(0);
-
-var _xstream2 = _interopRequireDefault(_xstream);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var objectPropsToArray = exports.objectPropsToArray = function objectPropsToArray(obj) {
-  return Object.keys(obj).map(function (key) {
-    return { key: key, value: obj[key] };
   });
 };
 
@@ -5549,10 +5608,120 @@ var objectPropsToArray = exports.objectPropsToArray = function objectPropsToArra
 "use strict";
 
 
-var copy             = __webpack_require__(72)
-  , normalizeOptions = __webpack_require__(23)
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.formularReducer = undefined;
+
+var _xstream = __webpack_require__(0);
+
+var _xstream2 = _interopRequireDefault(_xstream);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var toAnonymous = function toAnonymous() {
+  return { status: "anonymous" };
+};
+var toReady = function toReady() {
+  return { status: "ready" };
+};
+var toSubmitting = function toSubmitting() {
+  return { status: "submitting" };
+};
+
+var formularReducer = exports.formularReducer = function formularReducer(_ref, actions$) {
+  var sFireAuth$ = _ref.sFireAuth$,
+      sFireResSuccess$ = _ref.sFireResSuccess$;
+
+  var sFireAuthLogged$ = sFireAuth$.filter(function (d) {
+    return !!d;
+  });
+  var sFireAuthAnonymous$ = sFireAuth$.filter(function (d) {
+    return !d;
+  });
+  var aSubmit$ = actions$.filter(function (a) {
+    return a.type === "FORMULAR_SUBMIT";
+  });
+  var validASubmit$ = _xstream2.default.combine(sFireAuth$, aSubmit$).filter(function (arr) {
+    return arr[0];
+  }).map(function (arr) {
+    return arr[1];
+  });
+  var validSFireResSuccess$ = _xstream2.default.combine(sFireAuth$, sFireResSuccess$).filter(function (arr) {
+    return arr[0];
+  }).map(function (arr) {
+    return arr[1];
+  });
+  var all = _xstream2.default.merge(sFireAuthAnonymous$.map(toAnonymous), sFireAuthLogged$.map(toReady), validASubmit$.map(toSubmitting), validSFireResSuccess$.map(toReady));
+  return all.map(function (formular) {
+    return function (prev) {
+      return Object.assign({}, prev, { formular: formular });
+    };
+  });
+};
+
+/***/ }),
+/* 63 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _xstream = __webpack_require__(0);
+
+var _xstream2 = _interopRequireDefault(_xstream);
+
+var _auth = __webpack_require__(60);
+
+var _feedback = __webpack_require__(61);
+
+var _formular = __webpack_require__(62);
+
+var _articles = __webpack_require__(59);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var model = function model(intent$, actions$) {
+  var authReducer$ = (0, _auth.authReducer)(intent$, actions$);
+  var feedbackReducer$ = (0, _feedback.feedbackReducer)(intent$);
+  var formularReducer$ = (0, _formular.formularReducer)(intent$, actions$);
+  var articlesReducer$ = (0, _articles.articlesReducer)(intent$);
+  return _xstream2.default.merge(authReducer$, feedbackReducer$, formularReducer$, articlesReducer$);
+};
+
+exports.default = model;
+
+/***/ }),
+/* 64 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+var objectPropsToArray = exports.objectPropsToArray = function objectPropsToArray(obj) {
+  return Object.keys(obj).map(function (key) {
+    return { key: key, value: obj[key] };
+  });
+};
+
+/***/ }),
+/* 65 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+var copy             = __webpack_require__(75)
+  , normalizeOptions = __webpack_require__(26)
   , ensureCallable   = __webpack_require__(2)
-  , map              = __webpack_require__(80)
+  , map              = __webpack_require__(83)
   , callable         = __webpack_require__(2)
   , validValue       = __webpack_require__(1)
 
@@ -5582,13 +5751,13 @@ module.exports = function (props/*, options*/) {
 
 
 /***/ }),
-/* 63 */
+/* 66 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var toPosInt = __webpack_require__(68)
+var toPosInt = __webpack_require__(71)
   , value    = __webpack_require__(1)
 
   , indexOf = Array.prototype.indexOf
@@ -5618,19 +5787,19 @@ module.exports = function (searchElement/*, fromIndex*/) {
 
 
 /***/ }),
-/* 64 */
+/* 67 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-module.exports = __webpack_require__(65)()
+module.exports = __webpack_require__(68)()
 	? Math.sign
-	: __webpack_require__(66);
+	: __webpack_require__(69);
 
 
 /***/ }),
-/* 65 */
+/* 68 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5644,7 +5813,7 @@ module.exports = function () {
 
 
 /***/ }),
-/* 66 */
+/* 69 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5658,13 +5827,13 @@ module.exports = function (value) {
 
 
 /***/ }),
-/* 67 */
+/* 70 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var sign = __webpack_require__(64)
+var sign = __webpack_require__(67)
 
   , abs = Math.abs, floor = Math.floor;
 
@@ -5677,13 +5846,13 @@ module.exports = function (value) {
 
 
 /***/ }),
-/* 68 */
+/* 71 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var toInteger = __webpack_require__(67)
+var toInteger = __webpack_require__(70)
 
   , max = Math.max;
 
@@ -5691,7 +5860,7 @@ module.exports = function (value) { return max(0, toInteger(value)); };
 
 
 /***/ }),
-/* 69 */
+/* 72 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5727,7 +5896,7 @@ module.exports = function (method, defVal) {
 
 
 /***/ }),
-/* 70 */
+/* 73 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5743,13 +5912,13 @@ module.exports = function () {
 
 
 /***/ }),
-/* 71 */
+/* 74 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var keys  = __webpack_require__(77)
+var keys  = __webpack_require__(80)
   , value = __webpack_require__(1)
 
   , max = Math.max;
@@ -5772,7 +5941,7 @@ module.exports = function (dest, src/*, …srcn*/) {
 
 
 /***/ }),
-/* 72 */
+/* 75 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5789,7 +5958,7 @@ module.exports = function (obj) {
 
 
 /***/ }),
-/* 73 */
+/* 76 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5799,8 +5968,8 @@ module.exports = function (obj) {
 
 var create = Object.create, shim;
 
-if (!__webpack_require__(24)()) {
-	shim = __webpack_require__(25);
+if (!__webpack_require__(27)()) {
+	shim = __webpack_require__(28);
 }
 
 module.exports = (function () {
@@ -5832,17 +6001,17 @@ module.exports = (function () {
 
 
 /***/ }),
-/* 74 */
+/* 77 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-module.exports = __webpack_require__(69)('forEach');
+module.exports = __webpack_require__(72)('forEach');
 
 
 /***/ }),
-/* 75 */
+/* 78 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5854,7 +6023,7 @@ module.exports = function (obj) { return typeof obj === 'function'; };
 
 
 /***/ }),
-/* 76 */
+/* 79 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5868,19 +6037,19 @@ module.exports = function (x) {
 
 
 /***/ }),
-/* 77 */
+/* 80 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-module.exports = __webpack_require__(78)()
+module.exports = __webpack_require__(81)()
 	? Object.keys
-	: __webpack_require__(79);
+	: __webpack_require__(82);
 
 
 /***/ }),
-/* 78 */
+/* 81 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5895,7 +6064,7 @@ module.exports = function () {
 
 
 /***/ }),
-/* 79 */
+/* 82 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5909,14 +6078,14 @@ module.exports = function (object) {
 
 
 /***/ }),
-/* 80 */
+/* 83 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 var callable = __webpack_require__(2)
-  , forEach  = __webpack_require__(74)
+  , forEach  = __webpack_require__(77)
 
   , call = Function.prototype.call;
 
@@ -5931,7 +6100,7 @@ module.exports = function (obj, cb/*, thisArg*/) {
 
 
 /***/ }),
-/* 81 */
+/* 84 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5947,7 +6116,7 @@ module.exports = function (arg/*, …args*/) {
 
 
 /***/ }),
-/* 82 */
+/* 85 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5962,7 +6131,7 @@ module.exports = function () {
 
 
 /***/ }),
-/* 83 */
+/* 86 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5976,15 +6145,15 @@ module.exports = function (searchString/*, position*/) {
 
 
 /***/ }),
-/* 84 */
+/* 87 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 var setPrototypeOf = __webpack_require__(11)
-  , contains       = __webpack_require__(26)
-  , d              = __webpack_require__(4)
+  , contains       = __webpack_require__(29)
+  , d              = __webpack_require__(5)
   , Iterator       = __webpack_require__(17)
 
   , defineProperty = Object.defineProperty
@@ -6013,7 +6182,7 @@ ArrayIterator.prototype = Object.create(Iterator.prototype, {
 
 
 /***/ }),
-/* 85 */
+/* 88 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6022,7 +6191,7 @@ ArrayIterator.prototype = Object.create(Iterator.prototype, {
 var isArguments = __webpack_require__(14)
   , callable    = __webpack_require__(2)
   , isString    = __webpack_require__(16)
-  , get         = __webpack_require__(86)
+  , get         = __webpack_require__(89)
 
   , isArray = Array.isArray, call = Function.prototype.call
   , some = Array.prototype.some;
@@ -6066,7 +6235,7 @@ module.exports = function (iterable, cb/*, thisArg*/) {
 
 
 /***/ }),
-/* 86 */
+/* 89 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6074,9 +6243,9 @@ module.exports = function (iterable, cb/*, thisArg*/) {
 
 var isArguments    = __webpack_require__(14)
   , isString       = __webpack_require__(16)
-  , ArrayIterator  = __webpack_require__(84)
-  , StringIterator = __webpack_require__(88)
-  , iterable       = __webpack_require__(27)
+  , ArrayIterator  = __webpack_require__(87)
+  , StringIterator = __webpack_require__(91)
+  , iterable       = __webpack_require__(30)
   , iteratorSymbol = __webpack_require__(8).iterator;
 
 module.exports = function (obj) {
@@ -6088,7 +6257,7 @@ module.exports = function (obj) {
 
 
 /***/ }),
-/* 87 */
+/* 90 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6110,7 +6279,7 @@ module.exports = function (value) {
 
 
 /***/ }),
-/* 88 */
+/* 91 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6120,7 +6289,7 @@ module.exports = function (value) {
 
 
 var setPrototypeOf = __webpack_require__(11)
-  , d              = __webpack_require__(4)
+  , d              = __webpack_require__(5)
   , Iterator       = __webpack_require__(17)
 
   , defineProperty = Object.defineProperty
@@ -6154,7 +6323,7 @@ StringIterator.prototype = Object.create(Iterator.prototype, {
 
 
 /***/ }),
-/* 89 */
+/* 92 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6193,7 +6362,7 @@ module.exports = function () {
 
 
 /***/ }),
-/* 90 */
+/* 93 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6209,28 +6378,28 @@ module.exports = (function () {
 
 
 /***/ }),
-/* 91 */
+/* 94 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-module.exports = __webpack_require__(81)('key',
+module.exports = __webpack_require__(84)('key',
 	'value', 'key+value');
 
 
 /***/ }),
-/* 92 */
+/* 95 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 var setPrototypeOf    = __webpack_require__(11)
-  , d                 = __webpack_require__(4)
+  , d                 = __webpack_require__(5)
   , Iterator          = __webpack_require__(17)
   , toStringTagSymbol = __webpack_require__(8).toStringTag
-  , kinds             = __webpack_require__(91)
+  , kinds             = __webpack_require__(94)
 
   , defineProperties = Object.defineProperties
   , unBind = Iterator.prototype._unBind
@@ -6265,24 +6434,24 @@ Object.defineProperty(MapIterator.prototype, toStringTagSymbol,
 
 
 /***/ }),
-/* 93 */
+/* 96 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var clear          = __webpack_require__(22)
-  , eIndexOf       = __webpack_require__(63)
+var clear          = __webpack_require__(25)
+  , eIndexOf       = __webpack_require__(66)
   , setPrototypeOf = __webpack_require__(11)
   , callable       = __webpack_require__(2)
   , validValue     = __webpack_require__(1)
-  , d              = __webpack_require__(4)
-  , ee             = __webpack_require__(98)
+  , d              = __webpack_require__(5)
+  , ee             = __webpack_require__(101)
   , Symbol         = __webpack_require__(8)
-  , iterator       = __webpack_require__(27)
-  , forOf          = __webpack_require__(85)
-  , Iterator       = __webpack_require__(92)
-  , isNative       = __webpack_require__(90)
+  , iterator       = __webpack_require__(30)
+  , forOf          = __webpack_require__(88)
+  , Iterator       = __webpack_require__(95)
+  , isNative       = __webpack_require__(93)
 
   , call = Function.prototype.call
   , defineProperties = Object.defineProperties, getPrototypeOf = Object.getPrototypeOf
@@ -6376,7 +6545,7 @@ Object.defineProperty(MapPoly.prototype, Symbol.toStringTag, d('c', 'Map'));
 
 
 /***/ }),
-/* 94 */
+/* 97 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6400,7 +6569,7 @@ module.exports = function () {
 
 
 /***/ }),
-/* 95 */
+/* 98 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6416,7 +6585,7 @@ module.exports = function (x) {
 
 
 /***/ }),
-/* 96 */
+/* 99 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -6424,8 +6593,8 @@ module.exports = function (x) {
 
 
 
-var d              = __webpack_require__(4)
-  , validateSymbol = __webpack_require__(97)
+var d              = __webpack_require__(5)
+  , validateSymbol = __webpack_require__(100)
 
   , create = Object.create, defineProperties = Object.defineProperties
   , defineProperty = Object.defineProperty, objPrototype = Object.prototype
@@ -6541,13 +6710,13 @@ defineProperty(HiddenSymbol.prototype, SymbolPolyfill.toPrimitive,
 
 
 /***/ }),
-/* 97 */
+/* 100 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var isSymbol = __webpack_require__(95);
+var isSymbol = __webpack_require__(98);
 
 module.exports = function (value) {
 	if (!isSymbol(value)) throw new TypeError(value + " is not a symbol");
@@ -6556,13 +6725,13 @@ module.exports = function (value) {
 
 
 /***/ }),
-/* 98 */
+/* 101 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var d        = __webpack_require__(4)
+var d        = __webpack_require__(5)
   , callable = __webpack_require__(2)
 
   , apply = Function.prototype.apply, call = Function.prototype.call
@@ -6695,7 +6864,7 @@ exports.methods = methods;
 
 
 /***/ }),
-/* 99 */
+/* 102 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global) {/*! @license Firebase v3.9.0
@@ -6954,10 +7123,10 @@ ak(Rf.prototype,{toJSON:{name:"toJSON",a:[Y(null,!0)]}});
 c){if("create"===a)try{c.auth()}catch(d){}});firebase.INTERNAL.extendNamespace({User:U})}else throw Error("Cannot find the firebase namespace; be sure to include firebase-app.js before this library.");})();}).call(this);
 }).call(typeof global !== undefined ? global : typeof self !== undefined ? self : typeof window !== undefined ? window : {});
 module.exports = firebase.auth;
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(5)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(6)))
 
 /***/ }),
-/* 100 */
+/* 103 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global) {/*! @license Firebase v3.9.0
@@ -7224,10 +7393,10 @@ d;return d.Ya},{Reference:U,Query:X,Database:Pg,enableLogging:Sb,INTERNAL:Z,TEST
 
 }).call(typeof global !== undefined ? global : typeof self !== undefined ? self : typeof window !== undefined ? window : {});
 module.exports = firebase.database;
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(5)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(6)))
 
 /***/ }),
-/* 101 */
+/* 104 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7241,21 +7410,21 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 var firebase = __webpack_require__(9);
-__webpack_require__(99);
+__webpack_require__(102);
 var Storage, XMLHttpRequest;
 
-__webpack_require__(100);
 __webpack_require__(103);
+__webpack_require__(106);
 var AsyncStorage;
 
-__webpack_require__(102);
+__webpack_require__(105);
 exports.default = firebase;
 module.exports = exports['default'];
 //# sourceMappingURL=firebase.js.map
 
 
 /***/ }),
-/* 102 */
+/* 105 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global) {/*! @license Firebase v3.9.0
@@ -7300,10 +7469,10 @@ V.prototype.f=function(){var a=this;if(this.b)return X(this,this.b);this.b=null;
 var U=function(a){"serviceWorker"in navigator&&navigator.serviceWorker.addEventListener("message",function(b){if(b.data&&b.data["firebase-messaging-msg-type"])switch(b=b.data,b["firebase-messaging-msg-type"]){case "push-msg-received":case "notification-clicked":a.j.next(b["firebase-messaging-msg-data"])}},!1)};if(!(firebase&&firebase.INTERNAL&&firebase.INTERNAL.registerService))throw Error("Cannot install Firebase Messaging - be sure to load firebase-app.js first.");firebase.INTERNAL.registerService("messaging",function(a){return self&&"ServiceWorkerGlobalScope"in self?new P(a):new V(a)},{Messaging:V});new firebase.INTERNAL.ErrorFactory("messaging","Messaging",x);new firebase.INTERNAL.ErrorFactory("messaging","Messaging",x);new firebase.INTERNAL.ErrorFactory("messaging","Messaging",x);}).call(this);
 }).call(typeof global !== undefined ? global : typeof self !== undefined ? self : typeof window !== undefined ? window : {});
 module.exports = firebase.messaging;
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(5)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(6)))
 
 /***/ }),
-/* 103 */
+/* 106 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global) {/*! @license Firebase v3.9.0
@@ -7364,10 +7533,10 @@ Z(Q.prototype,"ref",Q.prototype.na);Ib.STATE_CHANGED="state_changed";P.RUNNING="
 (function(){function a(a,b,e){return new Y(a,new Kb,e)}var b={TaskState:P,TaskEvent:Ib,StringFormat:L,Storage:Y,Reference:W};if("undefined"!==typeof firebase)firebase.INTERNAL.registerService("storage",a,b,void 0,!0);else throw Error("Cannot install Firebase Storage - be sure to load firebase-app.js first.");})();}).call(this);
 }).call(typeof global !== undefined ? global : typeof self !== undefined ? self : typeof window !== undefined ? window : {});
 module.exports = firebase.storage;
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(5)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(6)))
 
 /***/ }),
-/* 104 */
+/* 107 */
 /***/ (function(module, exports) {
 
 // shim for using process in browser
@@ -7553,7 +7722,7 @@ process.umask = function() { return 0; };
 
 
 /***/ }),
-/* 105 */
+/* 108 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global, process) {(function (global, undefined) {
@@ -7743,15 +7912,15 @@ process.umask = function() { return 0; };
     attachTo.clearImmediate = clearImmediate;
 }(typeof self === "undefined" ? typeof global === "undefined" ? this : global : self));
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(5), __webpack_require__(104)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(6), __webpack_require__(107)))
 
 /***/ }),
-/* 106 */
+/* 109 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
-var selectorParser_1 = __webpack_require__(29);
+var selectorParser_1 = __webpack_require__(32);
 function classNameFromVNode(vNode) {
     var _a = selectorParser_1.selectorParser(vNode).className, cn = _a === void 0 ? '' : _a;
     if (!vNode.data) {
@@ -7772,7 +7941,7 @@ exports.classNameFromVNode = classNameFromVNode;
 //# sourceMappingURL=classNameFromVNode.js.map
 
 /***/ }),
-/* 107 */
+/* 110 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7829,7 +7998,7 @@ exports.default = exports.attributesModule;
 //# sourceMappingURL=attributes.js.map
 
 /***/ }),
-/* 108 */
+/* 111 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7860,7 +8029,7 @@ exports.default = exports.classModule;
 //# sourceMappingURL=class.js.map
 
 /***/ }),
-/* 109 */
+/* 112 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7902,7 +8071,7 @@ exports.default = exports.datasetModule;
 //# sourceMappingURL=dataset.js.map
 
 /***/ }),
-/* 110 */
+/* 113 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -7934,7 +8103,7 @@ exports.default = exports.propsModule;
 //# sourceMappingURL=props.js.map
 
 /***/ }),
-/* 111 */
+/* 114 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8026,14 +8195,14 @@ exports.default = exports.styleModule;
 //# sourceMappingURL=style.js.map
 
 /***/ }),
-/* 112 */
+/* 115 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 var vnode_1 = __webpack_require__(12);
-var is = __webpack_require__(31);
-var htmldomapi_1 = __webpack_require__(30);
+var is = __webpack_require__(34);
+var htmldomapi_1 = __webpack_require__(33);
 function isUndef(s) { return s === undefined; }
 function isDef(s) { return s !== undefined; }
 var emptyNode = vnode_1.default('', {}, [], undefined, undefined);
@@ -8058,7 +8227,7 @@ function createKeyToOldIdx(children, beginIdx, endIdx) {
 var hooks = ['create', 'update', 'remove', 'destroy', 'pre', 'post'];
 var h_1 = __webpack_require__(10);
 exports.h = h_1.h;
-var thunk_1 = __webpack_require__(32);
+var thunk_1 = __webpack_require__(35);
 exports.thunk = thunk_1.thunk;
 function init(modules, domApi) {
     var i, j, cbs = {};
@@ -8338,13 +8507,13 @@ exports.init = init;
 //# sourceMappingURL=snabbdom.js.map
 
 /***/ }),
-/* 113 */
+/* 116 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 var vnode_1 = __webpack_require__(12);
-var htmldomapi_1 = __webpack_require__(30);
+var htmldomapi_1 = __webpack_require__(33);
 function toVNode(node, domApi) {
     var api = domApi !== undefined ? domApi : htmldomapi_1.default;
     var text;
@@ -8388,14 +8557,14 @@ exports.default = toVNode;
 //# sourceMappingURL=tovnode.js.map
 
 /***/ }),
-/* 114 */
+/* 117 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(115);
+module.exports = __webpack_require__(118);
 
 
 /***/ }),
-/* 115 */
+/* 118 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8405,7 +8574,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _ponyfill = __webpack_require__(116);
+var _ponyfill = __webpack_require__(119);
 
 var _ponyfill2 = _interopRequireDefault(_ponyfill);
 
@@ -8428,10 +8597,10 @@ if (typeof self !== 'undefined') {
 
 var result = (0, _ponyfill2['default'])(root);
 exports['default'] = result;
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(5), __webpack_require__(117)(module)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(6), __webpack_require__(120)(module)))
 
 /***/ }),
-/* 116 */
+/* 119 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -8460,7 +8629,7 @@ function symbolObservablePonyfill(root) {
 };
 
 /***/ }),
-/* 117 */
+/* 120 */
 /***/ (function(module, exports) {
 
 module.exports = function(module) {
@@ -8488,7 +8657,7 @@ module.exports = function(module) {
 
 
 /***/ }),
-/* 118 */
+/* 121 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
