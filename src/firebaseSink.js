@@ -22,7 +22,7 @@ const toFormular = (formularValue, auth) => ({
 //   const logout$ = aAuthLogout$.map(logout);
 //   const formularAndAuthOnSubmit$ = aFormularSubmit$
 //     .compose(sampleCombine(stateAuth$))
-//     .filter(([formularValue, auth]) => auth.status === "logged_in");
+//     .filter(([formularValue, auth]) => auth.status === "logged");
 //   const formular$ = formularAndAuthOnSubmit$.map(([formularValue, auth]) =>
 //     push(toFormular(formularValue, auth))
 //   );
@@ -40,7 +40,7 @@ export const firebaseSink = (state$, actions$) => {
     .map(a => a.value);
   const formularAndAuthOnSubmit$ = formularSubmit$
     .compose(sampleCombine(stateAuth$))
-    .filter(([formularValue, auth]) => auth.status === "logged_in");
+    .filter(([formularValue, auth]) => auth.status === "logged");
   const formular$ = formularAndAuthOnSubmit$.map(([formularValue, auth]) =>
     push(toFormular(formularValue, auth))
   );

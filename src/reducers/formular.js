@@ -5,19 +5,22 @@ const toReady = () => ({ status: "ready" });
 const toSubmitting = () => ({ status: "submitting" });
 
 export const formularReducer = ({ sFireAuth$, sFireResSuccess$ }, actions$) => {
-  const submitting$ = actions$
-    .filter(a => a.type === "FORMULAR_SUBMIT")
-    .map(toSubmitting);
-  const ready$ = sFireResSuccess$.map(toReady);
-  const readyOrSubmitting$ = xs.merge(submitting$, ready$).startWith(toReady());
-  return xs
-    .combine(sFireAuth$, readyOrSubmitting$)
-    .map(([authData, readyOrSubmitting]) => {
-      if (!authData) return toAnonymous();
-      return readyOrSubmitting;
-    })
-    .map(formular => prevState => ({
-      ...prevState,
-      formular
-    }));
+  const sFireAuthLogged$ = sFireAuth$.filter(d => !!d);
+  const sFireAuthAnonymous$ = sFireAuth$.filter(d => !d);
+  const aSubmit$ = actions$.filter(a => a.type === "FORMULAR_SUBMIT");
+  const validASubmit$ = xs
+    .combine(sFireAuth$, aSubmit$)
+    .filter(arr => arr[0])
+    .map(arr => arr[1]);
+  const validSFireResSuccess$ = xs
+    .combine(sFireAuth$, sFireResSuccess$)
+    .filter(arr => arr[0])
+    .map(arr => arr[1]);
+  const all = xs.merge(
+    sFireAuthAnonymous$.map(toAnonymous),
+    sFireAuthLogged$.map(toReady),
+    validASubmit$.map(toSubmitting),
+    validSFireResSuccess$.map(toReady)
+  );
+  return all.map(formular => prev => ({ ...prev, formular }));
 };

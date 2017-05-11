@@ -3,7 +3,7 @@ import { div, p, span, button } from "@cycle/dom";
 
 const view = state$ =>
   state$.map(state => {
-    if (state.status === "logged_in")
+    if (state.status === "logged")
       return p([
         span(`Logged in as ${state.username}. `),
         button(".logout", "Log out")
@@ -17,11 +17,11 @@ const intent = sourceDOM => {
   const loginAction$ = sourceDOM
     .select(".login")
     .events("click")
-    .map(() => ({ type: "LOGIN_FACEBOOK" }));
+    .mapTo({ type: "LOGIN_FACEBOOK" });
   const logoutAction$ = sourceDOM
     .select(".logout")
     .events("click")
-    .map(() => ({ type: "LOGOUT" }));
+    .mapTo({ type: "LOGOUT" });
   return xs.merge(loginAction$, logoutAction$);
 };
 

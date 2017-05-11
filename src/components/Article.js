@@ -3,20 +3,17 @@ import sampleCombine from "xstream/extra/sampleCombine";
 import { div, input, span, button, form } from "@cycle/dom";
 
 const formView = article => {
-  const disabled = article.value.status === "submitting";
+  const { status, content } = article.value;
+  const disabled = status === "submitting";
   return div(
     form([
       input(".input", {
-        attrs: {
-          type: "text",
-          value: article.value.content,
-          disabled
-        }
+        attrs: { type: "text", value: content, disabled }
       }),
       button(".cancel", { attrs: { type: "button" } }, "Cancel"),
       button(
         { attrs: { type: "submit", disabled } },
-        article.value.status === "submitting" ? "Submitting..." : "Submit"
+        status === "submitting" ? "Submitting..." : "Submit"
       )
     ])
   );
@@ -27,7 +24,7 @@ const articleView = article =>
     span(article.value.username),
     span(" said: "),
     span(article.value.content),
-    !article.value.userArticle
+    !article.userArticle
       ? undefined
       : span([button(".edit", "Edit"), button(".delete", "Delete")])
   ]);
@@ -42,21 +39,21 @@ const intent = sources => {
   const edit$ = sources.DOM
     .select(".edit")
     .events("click")
-    .map(() => ({ type: "ARTICLE_EDIT" }));
+    .mapTo({ type: "ARTICLE_EDIT" });
   const cancel$ = sources.DOM
     .select(".cancel")
     .events("click")
-    .map(() => ({ type: "ARTICLE_CANCEL" }));
+    .mapTo({ type: "ARTICLE_CANCEL" });
   const delete$ = sources.DOM
     .select(".delete")
     .events("click")
-    .map(() => ({ type: "ARTICLE_DELETE" }));
+    .mapTo({ type: "ARTICLE_DELETE" });
   const input$ = sources.DOM
     .select(".input")
     .events("input")
     .map(e => e.target.value);
   const submit$ = sources.DOM
-    .select(".formular")
+    .select("form")
     .events("submit")
     .map(event => event.preventDefault());
   const validSubmit = submit$

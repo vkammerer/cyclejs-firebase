@@ -7,11 +7,9 @@ const view = state$ =>
 const reducer = sources =>
   sources.DOM.select(".dismiss").events("click").mapTo(() => undefined);
 
-const Feed = sources => {
-  return {
-    DOM: view(sources.onion.state$),
-    onion: reducer(sources)
-  };
-};
+const Feed = sources => ({
+  DOM: view(sources.onion.state$),
+  onion: reducer(sources)
+});
 
 export default Feed;

@@ -19,17 +19,15 @@ export const feedbackReducer = ({
   sFireResSuccess$,
   sFireAuth$
 }) => {
-  const error$ = sFireResError$.map(toError);
-  const success$ = sFireResSuccess$.map(toSuccess);
-  const fireAuthLoggedIn$ = sFireAuth$.filter(data => data).map(toLoggedIn);
-  const fireAuthLoggedOut$ = sFireAuth$.filter(data => !data).map(toAnonymous);
-  const combined = xs.merge(
-    error$,
-    success$,
-    fireAuthLoggedIn$,
-    fireAuthLoggedOut$
+  const sFireAuthLoggedIn$ = sFireAuth$.filter(d => !!d);
+  const sFireAuthLoggedOut$ = sFireAuth$.filter(d => !d);
+  const all = xs.merge(
+    sFireResError$.map(toError),
+    sFireResSuccess$.map(toSuccess),
+    sFireAuthLoggedIn$.map(toLoggedIn),
+    sFireAuthLoggedOut$.map(toAnonymous)
   );
-  return combined.map(feed => prevState => ({
+  return all.map(feed => prevState => ({
     ...prevState,
     feedback: [...(prevState.feedback || []), feed]
   }));

@@ -1,5 +1,4 @@
 import xs from "xstream";
-import { objectPropsToArray } from "../utils";
 import { authReducer } from "../reducers/auth";
 import { feedbackReducer } from "../reducers/feedback";
 import { formularReducer } from "../reducers/formular";
