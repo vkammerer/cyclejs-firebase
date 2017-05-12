@@ -3,30 +3,29 @@ import sampleCombine from "xstream/extra/sampleCombine";
 import { div, input, span, button, form } from "@cycle/dom";
 
 const formView = article => {
-  const { status, content } = article.value;
+  const { status, content, username } = article.value;
   const disabled = status === "submitting";
-  return div(
-    form([
-      input(".input", {
-        attrs: { type: "text", value: content, disabled }
-      }),
-      button(".cancel", { attrs: { type: "button" } }, "Cancel"),
-      button(
-        { attrs: { type: "submit", disabled } },
-        status === "submitting" ? "Submitting..." : "Submit"
-      )
-    ])
-  );
+  return form(".form", [
+    span(`${username} said: `),
+    input(".input", {
+      attrs: { type: "text", value: content, disabled }
+    }),
+    span(" "),
+    button(".cancel", { attrs: { type: "button" } }, "Cancel"),
+    span(" "),
+    button(
+      { attrs: { type: "submit", disabled } },
+      status === "submitting" ? "Submitting..." : "Submit"
+    )
+  ]);
 };
 
 const articleView = article =>
   div([
-    span(article.value.username),
-    span(" said: "),
-    span(article.value.content),
-    !article.userArticle
+    span(`${article.value.username} said: ${article.value.content} `),
+    article.value.uid !== article.auth.uid
       ? undefined
-      : span([button(".edit", "Edit"), button(".delete", "Delete")])
+      : span([button(".edit", "Edit"), span(" "), button(".delete", "Delete")])
   ]);
 
 const view = state$ =>
@@ -36,6 +35,8 @@ const view = state$ =>
   });
 
 const intent = sources => {
+  const auth$ = sources.onion.state$.map(state => state.auth);
+  const key$ = sources.onion.state$.map(state => state.key);
   const edit$ = sources.DOM
     .select(".edit")
     .events("click")
@@ -47,23 +48,28 @@ const intent = sources => {
   const delete$ = sources.DOM
     .select(".delete")
     .events("click")
-    .mapTo({ type: "ARTICLE_DELETE" });
+    .compose(sampleCombine(key$))
+    .map(([edit, key]) => ({ type: "ARTICLE_DELETE", key }));
   const input$ = sources.DOM
     .select(".input")
     .events("input")
     .map(e => e.target.value);
-  const submit$ = sources.DOM
+  const unvalueSubmit$ = sources.DOM
     .select("form")
     .events("submit")
-    .map(event => event.preventDefault());
-  const validSubmit = submit$
+    .map(e => e.preventDefault());
+  const valueSubmit = unvalueSubmit$
     .compose(sampleCombine(input$))
-    .map(([submit, value]) => value);
-  const submitAction$ = validSubmit.map(value => ({
+    .compose(sampleCombine(auth$))
+    .compose(sampleCombine(key$))
+    .map(([[[submit, value], auth], key]) => ({ value, auth, key }));
+  const submit$ = valueSubmit.map(({ value, auth, key }) => ({
     type: "ARTICLE_SUBMIT",
-    value
+    value,
+    key,
+    auth
   }));
-  return xs.merge(edit$, cancel$, delete$, submitAction$);
+  return xs.merge(edit$, cancel$, delete$, submit$);
 };
 
 const reducer = actions$ => {
@@ -94,6 +100,7 @@ const Article = (sources, i) => {
   const reducer$ = reducer(actions);
   return {
     DOM,
+    actions,
     onion: reducer$
   };
 };

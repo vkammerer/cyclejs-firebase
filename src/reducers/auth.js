@@ -1,18 +1,18 @@
 import xs from "xstream";
 
-const toAnonymous = () => ({
+const anonymous = {
   status: "anonymous",
   username: null,
   uid: null
-});
+};
 
-const toAwaiting = () => ({
+const awaiting = {
   status: "awaiting_response",
   username: null,
   uid: null
-});
+};
 
-const toLogged = data => ({
+export const toLogged = data => ({
   status: "logged",
   username: data.providerData[0].displayName,
   uid: data.uid
@@ -27,11 +27,11 @@ export const authReducer = ({ sFireResError$, sFireAuth$ }, actions$) => {
     ({ a }) => a.type === "LOGIN_FACEBOOK"
   );
   const all = xs.merge(
-    aLogin$.map(toAwaiting),
-    aLogout$.map(toAnonymous),
+    aLogin$.map(awaiting),
+    aLogout$.map(anonymous),
     sFireAuthLogged$.map(toLogged),
-    sFireAuthAnonymous$.map(toAnonymous),
-    sFireResLoginError$.map(toAnonymous)
+    sFireAuthAnonymous$.map(anonymous),
+    sFireResLoginError$.map(anonymous)
   );
   return all.map(auth => prev => ({ ...prev, auth }));
 };

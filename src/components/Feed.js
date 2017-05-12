@@ -9,7 +9,8 @@ const reducer = sources =>
 
 const Feed = sources => ({
   DOM: view(sources.onion.state$),
-  onion: reducer(sources)
+  onion: reducer(sources),
+  actions: xs.of({})
 });
 
 export default Feed;

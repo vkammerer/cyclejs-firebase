@@ -14,6 +14,9 @@ const List = Item => sources => {
   const childrenDoms$ = childrenSinks$.compose(pick("DOM"));
   const childrenDom$ = childrenDoms$.compose(mix(xs.combine));
 
+  const childrenActions$ = childrenSinks$.compose(pick("actions"));
+  const childrenAction$ = childrenActions$.compose(mix(xs.merge));
+
   const childrenReducers$ = childrenSinks$.compose(pick("onion"));
   const childrenReducer$ = childrenReducers$.compose(mix(xs.merge));
 
@@ -22,6 +25,7 @@ const List = Item => sources => {
 
   return {
     DOM,
+    actions: childrenAction$,
     onion: reducer$
   };
 };

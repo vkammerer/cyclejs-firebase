@@ -5,7 +5,7 @@ const view = state$ =>
   state$.map(state => {
     if (state.status === "logged")
       return p([
-        span(`Logged in as ${state.username}. `),
+        span(`Logged as ${state.username}. `),
         button(".logout", "Log out")
       ]);
     else if (state.status === "awaiting_response")

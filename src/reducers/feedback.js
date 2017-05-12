@@ -1,34 +1,31 @@
 import xs from "xstream";
 
-const toError = ({ err, action }) => ({
+const toError = ({ action }) => ({
   msg: `Error: Type of the action: ${action.type}`
 });
 
-const toSuccess = ({ err, action }) => ({
-  msg: `Success: Type of the action: ${action.type}`
-});
+const successfullArticleCreation = {
+  msg: "Article successfully saved!"
+};
 
-const toLoggedIn = authData => ({
-  msg: `Auth: logged in as : ${authData.providerData[0].displayName}`
-});
+const successfullArticleEdition = {
+  msg: "Article successfully updated!"
+};
 
-const toAnonymous = authData => ({ msg: `Auth: not logged in` });
-
-export const feedbackReducer = ({
-  sFireResError$,
-  sFireResSuccess$,
-  sFireAuth$
-}) => {
-  const sFireAuthLoggedIn$ = sFireAuth$.filter(d => !!d);
-  const sFireAuthLoggedOut$ = sFireAuth$.filter(d => !d);
+export const feedbackReducer = ({ sFireResError$, sFireResSuccess$ }) => {
+  const successfullArticleCreation$ = sFireResSuccess$.filter(
+    ({ action }) => action.type === "PUSH"
+  );
+  const successfullArticleEdition$ = sFireResSuccess$.filter(
+    ({ action }) => action.type === "SET"
+  );
   const all = xs.merge(
     sFireResError$.map(toError),
-    sFireResSuccess$.map(toSuccess),
-    sFireAuthLoggedIn$.map(toLoggedIn),
-    sFireAuthLoggedOut$.map(toAnonymous)
+    successfullArticleCreation$.mapTo(successfullArticleCreation),
+    successfullArticleEdition$.mapTo(successfullArticleEdition)
   );
-  return all.map(feed => prevState => ({
-    ...prevState,
-    feedback: [...(prevState.feedback || []), feed]
+  return all.startWith({}).map(feed => prev => ({
+    ...prev,
+    feedback: prev && prev.feedback ? [...prev.feedback, feed] : []
   }));
 };

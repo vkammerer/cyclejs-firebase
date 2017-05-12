@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 51);
+/******/ 	return __webpack_require__(__webpack_require__.s = 52);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -1859,9 +1859,9 @@ module.exports = function (fn) {
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var thunk_1 = __webpack_require__(35);
+var thunk_1 = __webpack_require__(36);
 exports.thunk = thunk_1.thunk;
-var MainDOMSource_1 = __webpack_require__(21);
+var MainDOMSource_1 = __webpack_require__(22);
 exports.MainDOMSource = MainDOMSource_1.MainDOMSource;
 /**
  * A factory for the DOM driver function.
@@ -1905,7 +1905,7 @@ exports.MainDOMSource = MainDOMSource_1.MainDOMSource;
  * VNode as input, and outputs the DOMSource object.
  * @function makeDOMDriver
  */
-var makeDOMDriver_1 = __webpack_require__(48);
+var makeDOMDriver_1 = __webpack_require__(49);
 exports.makeDOMDriver = makeDOMDriver_1.makeDOMDriver;
 /**
  * A factory function to create mocked DOMSource objects, for testing purposes.
@@ -1955,7 +1955,7 @@ exports.makeDOMDriver = makeDOMDriver_1.makeDOMDriver;
  *
  * @function mockDOMSource
  */
-var mockDOMSource_1 = __webpack_require__(49);
+var mockDOMSource_1 = __webpack_require__(50);
 exports.mockDOMSource = mockDOMSource_1.mockDOMSource;
 exports.MockedDOMSource = mockDOMSource_1.MockedDOMSource;
 /**
@@ -2000,7 +2000,7 @@ exports.MockedDOMSource = mockDOMSource_1.MockedDOMSource;
  */
 var h_1 = __webpack_require__(10);
 exports.h = h_1.h;
-var hyperscript_helpers_1 = __webpack_require__(46);
+var hyperscript_helpers_1 = __webpack_require__(47);
 exports.svg = hyperscript_helpers_1.default.svg;
 exports.a = hyperscript_helpers_1.default.a;
 exports.abbr = hyperscript_helpers_1.default.abbr;
@@ -2129,10 +2129,10 @@ exports.adapt = adapt;
 "use strict";
 
 
-var assign        = __webpack_require__(15)
-  , normalizeOpts = __webpack_require__(26)
+var assign        = __webpack_require__(16)
+  , normalizeOpts = __webpack_require__(27)
   , isCallable    = __webpack_require__(78)
-  , contains      = __webpack_require__(29)
+  , contains      = __webpack_require__(30)
 
   , d;
 
@@ -2293,7 +2293,7 @@ Terms: https://firebase.google.com/terms/ */
 var firebase=function(e){function t(r){if(n[r])return n[r].exports;var i=n[r]={i:r,l:!1,exports:{}};return e[r].call(i.exports,i,i.exports,t),i.l=!0,i.exports}var n={};return t.m=e,t.c=n,t.i=function(e){return e},t.d=function(e,n,r){t.o(e,n)||Object.defineProperty(e,n,{configurable:!1,enumerable:!0,get:r})},t.n=function(e){var n=e&&e.__esModule?function(){return e.default}:function(){return e};return t.d(n,"a",n),n},t.o=function(e,t){return Object.prototype.hasOwnProperty.call(e,t)},t.p="",t(t.s=11)}([function(e,t,n){"use strict";(function(e){Object.defineProperty(t,"__esModule",{value:!0});var r=void 0;if(void 0!==e)r=e;else if("undefined"!=typeof self)r=self;else try{r=Function("return this")()}catch(e){throw new Error("polyfill failed because global object is unavailable in this environment")}var i=r.Promise||n(8);t.local={Promise:i,GoogPromise:i}}).call(t,n(1))},function(e,t){var n;n=function(){return this}();try{n=n||Function("return this")()||(0,eval)("this")}catch(e){"object"==typeof window&&(n=window)}e.exports=n},function(e,t,n){"use strict";Object.defineProperty(t,"__esModule",{value:!0});var r=n(5),i=(0,r.createFirebaseNamespace)();t.default=i,e.exports=t.default},function(e,t,n){"use strict";function r(e){return i(void 0,e)}function i(e,t){if(!(t instanceof Object))return t;switch(t.constructor){case Date:return new Date(t.getTime());case Object:void 0===e&&(e={});break;case Array:e=[];break;default:return t}for(var n in t)t.hasOwnProperty(n)&&(e[n]=i(e[n],t[n]));return e}function o(e,t,n){e[t]=n}Object.defineProperty(t,"__esModule",{value:!0}),t.deepCopy=r,t.deepExtend=i,t.patchProperty=o},function(e,t,n){"use strict";function r(e,t){if(!(e instanceof t))throw new TypeError("Cannot call a class as a function")}function i(e){var t=a;return a=e,t}Object.defineProperty(t,"__esModule",{value:!0});var o=function(){function e(e,t){for(var n=0;n<t.length;n++){var r=t[n];r.enumerable=r.enumerable||!1,r.configurable=!0,"value"in r&&(r.writable=!0),Object.defineProperty(e,r.key,r)}}return function(t,n,r){return n&&e(t.prototype,n),r&&e(t,r),t}}();t.patchCapture=i;var a=Error.captureStackTrace,c=function e(t,n){if(r(this,e),this.code=t,this.message=n,a)a(this,s.prototype.create);else{var i=Error.apply(this,arguments);this.name="FirebaseError",Object.defineProperty(this,"stack",{get:function(){return i.stack}})}};c.prototype=Object.create(Error.prototype),c.prototype.constructor=c,c.prototype.name="FirebaseError";var s=t.ErrorFactory=function(){function e(t,n,i){r(this,e),this.service=t,this.serviceName=n,this.errors=i,this.pattern=/\{\$([^}]+)}/g}return o(e,[{key:"create",value:function(e,t){void 0===t&&(t={});var n=this.errors[e],r=this.service+"/"+e,i=void 0;i=void 0===n?"Error":n.replace(this.pattern,function(e,n){var r=t[n];return void 0!==r?r.toString():"<"+n+"?>"}),i=this.serviceName+": "+i+" ("+r+").";var o=new c(r,i);for(var a in t)t.hasOwnProperty(a)&&"_"!==a.slice(-1)&&(o[a]=t[a]);return o}}]),e}()},function(e,t,n){"use strict";function r(e,t){if(!(e instanceof t))throw new TypeError("Cannot call a class as a function")}function i(){function e(e){e=e||d;var t=r[e];return void 0===t&&o("no-app",{name:e}),t}function t(e,t){Object.keys(a).forEach(function(r){var i=n(e,r);null!==i&&h[i]&&h[i](t,e)})}function n(e,t){if("serverAuth"===t)return null;var n=t,r=e.options;return"auth"===t&&(r.serviceAccount||r.credential)&&(n="serverAuth","serverAuth"in a||o("sa-not-supported")),n}var r={},a={},h={},v={__esModule:!0,initializeApp:function(e,n){void 0===n?n=d:"string"==typeof n&&""!==n||o("bad-app-name",{name:n+""}),void 0!==r[n]&&o("duplicate-app",{name:n});var i=new p(e,n,v);return r[n]=i,t(i,"create"),void 0!=i.INTERNAL&&void 0!=i.INTERNAL.getToken||(0,c.deepExtend)(i,{INTERNAL:{getUid:function(){return null},getToken:function(){return l.resolve(null)},addAuthTokenListener:function(){},removeAuthTokenListener:function(){}}}),i},app:e,apps:null,Promise:l,SDK_VERSION:"3.9.0",INTERNAL:{registerService:function(t,n,r,i,s){a[t]&&o("duplicate-service",{name:t}),a[t]=s?n:function(e,t){return n(e,t,d)},i&&(h[t]=i);var u=void 0;return u=function(n){return void 0===n&&(n=e()),"function"!=typeof n[t]&&o("invalid-app-argument",{name:t}),n[t]()},void 0!==r&&(0,c.deepExtend)(u,r),v[t]=u,u},createFirebaseNamespace:i,extendNamespace:function(e){(0,c.deepExtend)(v,e)},createSubscribe:s.createSubscribe,ErrorFactory:u.ErrorFactory,removeApp:function(e){t(r[e],"delete"),delete r[e]},factories:a,useAsService:n,Promise:f.local.GoogPromise,deepExtend:c.deepExtend}};return(0,c.patchProperty)(v,"default",v),Object.defineProperty(v,"apps",{get:function(){return Object.keys(r).map(function(e){return r[e]})}}),(0,c.patchProperty)(e,"App",p),v}function o(e,t){throw v.create(e,t)}Object.defineProperty(t,"__esModule",{value:!0});var a=function(){function e(e,t){for(var n=0;n<t.length;n++){var r=t[n];r.enumerable=r.enumerable||!1,r.configurable=!0,"value"in r&&(r.writable=!0),Object.defineProperty(e,r.key,r)}}return function(t,n,r){return n&&e(t.prototype,n),r&&e(t,r),t}}();t.createFirebaseNamespace=i;var c=n(3),s=n(6),u=n(4),f=n(0),l=f.local.Promise,d="[DEFAULT]",p=function(){function e(t,n,i){var o=this;r(this,e),this.firebase_=i,this.isDeleted_=!1,this.services_={},this.name_=n,this.options_=(0,c.deepCopy)(t);var a="credential"in this.options_,s="serviceAccount"in this.options_;if(a||s){var u=s?"serviceAccount":"credential";"undefined"!=typeof console&&console.log("The '"+u+"' property specified in the first argument to initializeApp() is deprecated and will be removed in the next major version. You should instead use the 'firebase-admin' package. See https://firebase.google.com/docs/admin/setup for details on how to get started.")}Object.keys(i.INTERNAL.factories).forEach(function(e){var t=i.INTERNAL.useAsService(o,e);if(null!==t){var n=o.getService.bind(o,t);(0,c.patchProperty)(o,e,n)}})}return a(e,[{key:"delete",value:function(){var e=this;return new l(function(t){e.checkDestroyed_(),t()}).then(function(){e.firebase_.INTERNAL.removeApp(e.name_);var t=[];return Object.keys(e.services_).forEach(function(n){Object.keys(e.services_[n]).forEach(function(r){t.push(e.services_[n][r])})}),l.all(t.map(function(e){return e.INTERNAL.delete()}))}).then(function(){e.isDeleted_=!0,e.services_={}})}},{key:"getService",value:function(e,t){this.checkDestroyed_(),void 0===this.services_[e]&&(this.services_[e]={});var n=t||d;if(void 0===this.services_[e][n]){var r=this.firebase_.INTERNAL.factories[e](this,this.extendApp.bind(this),t);return this.services_[e][n]=r,r}return this.services_[e][n]}},{key:"extendApp",value:function(e){(0,c.deepExtend)(this,e)}},{key:"checkDestroyed_",value:function(){this.isDeleted_&&o("app-deleted",{name:this.name_})}},{key:"name",get:function(){return this.checkDestroyed_(),this.name_}},{key:"options",get:function(){return this.checkDestroyed_(),this.options_}}]),e}();p.prototype.name&&p.prototype.options||p.prototype.delete||console.log("dc");var h={"no-app":"No Firebase App '{$name}' has been created - call Firebase App.initializeApp()","bad-app-name":"Illegal App name: '{$name}","duplicate-app":"Firebase App named '{$name}' already exists","app-deleted":"Firebase App named '{$name}' already deleted","duplicate-service":"Firebase service named '{$name}' already registered","sa-not-supported":"Initializing the Firebase SDK with a service account is only allowed in a Node.js environment. On client devices, you should instead initialize the SDK with an api key and auth domain","invalid-app-argument":"firebase.{$name}() takes either no argument or a Firebase App instance."},v=new u.ErrorFactory("app","Firebase",h)},function(e,t,n){"use strict";function r(e,t){if(!(e instanceof t))throw new TypeError("Cannot call a class as a function")}function i(e,t){var n=new d(e,t);return n.subscribe.bind(n)}function o(e,t){return function(){for(var n=arguments.length,r=Array(n),i=0;i<n;i++)r[i]=arguments[i];l.resolve(!0).then(function(){e.apply(void 0,r)}).catch(function(e){t&&t(e)})}}function a(e,t){if("object"!==(void 0===e?"undefined":s(e))||null===e)return!1;var n=!0,r=!1,i=void 0;try{for(var o,a=t[Symbol.iterator]();!(n=(o=a.next()).done);n=!0){var c=o.value;if(c in e&&"function"==typeof e[c])return!0}}catch(e){r=!0,i=e}finally{try{!n&&a.return&&a.return()}finally{if(r)throw i}}return!1}function c(){}Object.defineProperty(t,"__esModule",{value:!0});var s="function"==typeof Symbol&&"symbol"==typeof Symbol.iterator?function(e){return typeof e}:function(e){return e&&"function"==typeof Symbol&&e.constructor===Symbol&&e!==Symbol.prototype?"symbol":typeof e},u=function(){function e(e,t){for(var n=0;n<t.length;n++){var r=t[n];r.enumerable=r.enumerable||!1,r.configurable=!0,"value"in r&&(r.writable=!0),Object.defineProperty(e,r.key,r)}}return function(t,n,r){return n&&e(t.prototype,n),r&&e(t,r),t}}();t.createSubscribe=i,t.async=o;var f=n(0),l=f.local.Promise,d=function(){function e(t,n){var i=this;r(this,e),this.observers=[],this.unsubscribes=[],this.observerCount=0,this.task=l.resolve(),this.finalized=!1,this.onNoObservers=n,this.task.then(function(){t(i)}).catch(function(e){i.error(e)})}return u(e,[{key:"next",value:function(e){this.forEachObserver(function(t){t.next(e)})}},{key:"error",value:function(e){this.forEachObserver(function(t){t.error(e)}),this.close(e)}},{key:"complete",value:function(){this.forEachObserver(function(e){e.complete()}),this.close()}},{key:"subscribe",value:function(e,t,n){var r=this,i=void 0;if(void 0===e&&void 0===t&&void 0===n)throw new Error("Missing Observer.");i=a(e,["next","error","complete"])?e:{next:e,error:t,complete:n},void 0===i.next&&(i.next=c),void 0===i.error&&(i.error=c),void 0===i.complete&&(i.complete=c);var o=this.unsubscribeOne.bind(this,this.observers.length);return this.finalized&&this.task.then(function(){try{r.finalError?i.error(r.finalError):i.complete()}catch(e){}}),this.observers.push(i),o}},{key:"unsubscribeOne",value:function(e){void 0!==this.observers&&void 0!==this.observers[e]&&(delete this.observers[e],this.observerCount-=1,0===this.observerCount&&void 0!==this.onNoObservers&&this.onNoObservers(this))}},{key:"forEachObserver",value:function(e){if(!this.finalized)for(var t=0;t<this.observers.length;t++)this.sendOne(t,e)}},{key:"sendOne",value:function(e,t){var n=this;this.task.then(function(){if(void 0!==n.observers&&void 0!==n.observers[e])try{t(n.observers[e])}catch(e){"undefined"!=typeof console&&console.error&&console.error(e)}})}},{key:"close",value:function(e){var t=this;this.finalized||(this.finalized=!0,void 0!==e&&(this.finalError=e),this.task.then(function(){t.observers=void 0,t.onNoObservers=void 0}))}}]),e}()},function(e,t){function n(){throw new Error("setTimeout has not been defined")}function r(){throw new Error("clearTimeout has not been defined")}function i(e){if(f===setTimeout)return setTimeout(e,0);if((f===n||!f)&&setTimeout)return f=setTimeout,setTimeout(e,0);try{return f(e,0)}catch(t){try{return f.call(null,e,0)}catch(t){return f.call(this,e,0)}}}function o(e){if(l===clearTimeout)return clearTimeout(e);if((l===r||!l)&&clearTimeout)return l=clearTimeout,clearTimeout(e);try{return l(e)}catch(t){try{return l.call(null,e)}catch(t){return l.call(this,e)}}}function a(){v&&p&&(v=!1,p.length?h=p.concat(h):m=-1,h.length&&c())}function c(){if(!v){var e=i(a);v=!0;for(var t=h.length;t;){for(p=h,h=[];++m<t;)p&&p[m].run();m=-1,t=h.length}p=null,v=!1,o(e)}}function s(e,t){this.fun=e,this.array=t}function u(){}var f,l,d=e.exports={};!function(){try{f="function"==typeof setTimeout?setTimeout:n}catch(e){f=n}try{l="function"==typeof clearTimeout?clearTimeout:r}catch(e){l=r}}();var p,h=[],v=!1,m=-1;d.nextTick=function(e){var t=new Array(arguments.length-1);if(arguments.length>1)for(var n=1;n<arguments.length;n++)t[n-1]=arguments[n];h.push(new s(e,t)),1!==h.length||v||i(c)},s.prototype.run=function(){this.fun.apply(null,this.array)},d.title="browser",d.browser=!0,d.env={},d.argv=[],d.version="",d.versions={},d.on=u,d.addListener=u,d.once=u,d.off=u,d.removeListener=u,d.removeAllListeners=u,d.emit=u,d.binding=function(e){throw new Error("process.binding is not supported")},d.cwd=function(){return"/"},d.chdir=function(e){throw new Error("process.chdir is not supported")},d.umask=function(){return 0}},function(e,t,n){(function(t){!function(n){function r(){}function i(e,t){return function(){e.apply(t,arguments)}}function o(e){if("object"!=typeof this)throw new TypeError("Promises must be constructed via new");if("function"!=typeof e)throw new TypeError("not a function");this._state=0,this._handled=!1,this._value=void 0,this._deferreds=[],l(e,this)}function a(e,t){for(;3===e._state;)e=e._value;if(0===e._state)return void e._deferreds.push(t);e._handled=!0,o._immediateFn(function(){var n=1===e._state?t.onFulfilled:t.onRejected;if(null===n)return void(1===e._state?c:s)(t.promise,e._value);var r;try{r=n(e._value)}catch(e){return void s(t.promise,e)}c(t.promise,r)})}function c(e,t){try{if(t===e)throw new TypeError("A promise cannot be resolved with itself.");if(t&&("object"==typeof t||"function"==typeof t)){var n=t.then;if(t instanceof o)return e._state=3,e._value=t,void u(e);if("function"==typeof n)return void l(i(n,t),e)}e._state=1,e._value=t,u(e)}catch(t){s(e,t)}}function s(e,t){e._state=2,e._value=t,u(e)}function u(e){2===e._state&&0===e._deferreds.length&&o._immediateFn(function(){e._handled||o._unhandledRejectionFn(e._value)});for(var t=0,n=e._deferreds.length;t<n;t++)a(e,e._deferreds[t]);e._deferreds=null}function f(e,t,n){this.onFulfilled="function"==typeof e?e:null,this.onRejected="function"==typeof t?t:null,this.promise=n}function l(e,t){var n=!1;try{e(function(e){n||(n=!0,c(t,e))},function(e){n||(n=!0,s(t,e))})}catch(e){if(n)return;n=!0,s(t,e)}}var d=setTimeout;o.prototype.catch=function(e){return this.then(null,e)},o.prototype.then=function(e,t){var n=new this.constructor(r);return a(this,new f(e,t,n)),n},o.all=function(e){var t=Array.prototype.slice.call(e);return new o(function(e,n){function r(o,a){try{if(a&&("object"==typeof a||"function"==typeof a)){var c=a.then;if("function"==typeof c)return void c.call(a,function(e){r(o,e)},n)}t[o]=a,0==--i&&e(t)}catch(e){n(e)}}if(0===t.length)return e([]);for(var i=t.length,o=0;o<t.length;o++)r(o,t[o])})},o.resolve=function(e){return e&&"object"==typeof e&&e.constructor===o?e:new o(function(t){t(e)})},o.reject=function(e){return new o(function(t,n){n(e)})},o.race=function(e){return new o(function(t,n){for(var r=0,i=e.length;r<i;r++)e[r].then(t,n)})},o._immediateFn="function"==typeof t&&function(e){t(e)}||function(e){d(e,0)},o._unhandledRejectionFn=function(e){"undefined"!=typeof console&&console&&console.warn("Possible Unhandled Promise Rejection:",e)},o._setImmediateFn=function(e){o._immediateFn=e},o._setUnhandledRejectionFn=function(e){o._unhandledRejectionFn=e},void 0!==e&&e.exports?e.exports=o:n.Promise||(n.Promise=o)}(this)}).call(t,n(10).setImmediate)},function(e,t,n){(function(e,t){!function(e,n){"use strict";function r(e){"function"!=typeof e&&(e=new Function(""+e));for(var t=new Array(arguments.length-1),n=0;n<t.length;n++)t[n]=arguments[n+1];var r={callback:e,args:t};return u[s]=r,c(s),s++}function i(e){delete u[e]}function o(e){var t=e.callback,r=e.args;switch(r.length){case 0:t();break;case 1:t(r[0]);break;case 2:t(r[0],r[1]);break;case 3:t(r[0],r[1],r[2]);break;default:t.apply(n,r)}}function a(e){if(f)setTimeout(a,0,e);else{var t=u[e];if(t){f=!0;try{o(t)}finally{i(e),f=!1}}}}if(!e.setImmediate){var c,s=1,u={},f=!1,l=e.document,d=Object.getPrototypeOf&&Object.getPrototypeOf(e);d=d&&d.setTimeout?d:e,"[object process]"==={}.toString.call(e.process)?function(){c=function(e){t.nextTick(function(){a(e)})}}():function(){if(e.postMessage&&!e.importScripts){var t=!0,n=e.onmessage;return e.onmessage=function(){t=!1},e.postMessage("","*"),e.onmessage=n,t}}()?function(){var t="setImmediate$"+Math.random()+"$",n=function(n){n.source===e&&"string"==typeof n.data&&0===n.data.indexOf(t)&&a(+n.data.slice(t.length))};e.addEventListener?e.addEventListener("message",n,!1):e.attachEvent("onmessage",n),c=function(n){e.postMessage(t+n,"*")}}():e.MessageChannel?function(){var e=new MessageChannel;e.port1.onmessage=function(e){a(e.data)},c=function(t){e.port2.postMessage(t)}}():l&&"onreadystatechange"in l.createElement("script")?function(){var e=l.documentElement;c=function(t){var n=l.createElement("script");n.onreadystatechange=function(){a(t),n.onreadystatechange=null,e.removeChild(n),n=null},e.appendChild(n)}}():function(){c=function(e){setTimeout(a,0,e)}}(),d.setImmediate=r,d.clearImmediate=i}}("undefined"==typeof self?void 0===e?this:e:self)}).call(t,n(1),n(7))},function(e,t,n){function r(e,t){this._id=e,this._clearFn=t}var i=Function.prototype.apply;t.setTimeout=function(){return new r(i.call(setTimeout,window,arguments),clearTimeout)},t.setInterval=function(){return new r(i.call(setInterval,window,arguments),clearInterval)},t.clearTimeout=t.clearInterval=function(e){e&&e.close()},r.prototype.unref=r.prototype.ref=function(){},r.prototype.close=function(){this._clearFn.call(window,this._id)},t.enroll=function(e,t){clearTimeout(e._idleTimeoutId),e._idleTimeout=t},t.unenroll=function(e){clearTimeout(e._idleTimeoutId),e._idleTimeout=-1},t._unrefActive=t.active=function(e){clearTimeout(e._idleTimeoutId);var t=e._idleTimeout;t>=0&&(e._idleTimeoutId=setTimeout(function(){e._onTimeout&&e._onTimeout()},t))},n(9),t.setImmediate=setImmediate,t.clearImmediate=clearImmediate},function(e,t,n){e.exports=n(2)}]);module.exports=firebase;
 //# sourceMappingURL=app.js.map
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(36).setImmediate, __webpack_require__(36).clearImmediate))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(37).setImmediate, __webpack_require__(37).clearImmediate))
 
 /***/ }),
 /* 10 */
@@ -2302,7 +2302,7 @@ var firebase=function(e){function t(r){if(n[r])return n[r].exports;var i=n[r]={i
 "use strict";
 
 var vnode_1 = __webpack_require__(12);
-var is = __webpack_require__(34);
+var is = __webpack_require__(35);
 function addNS(data, children, sel) {
     data.ns = 'http://www.w3.org/2000/svg';
     if (sel !== 'foreignObject' && children !== undefined) {
@@ -2367,9 +2367,9 @@ exports.default = h;
 "use strict";
 
 
-module.exports = __webpack_require__(27)()
+module.exports = __webpack_require__(28)()
 	? Object.setPrototypeOf
-	: __webpack_require__(28);
+	: __webpack_require__(29);
 
 
 /***/ }),
@@ -2420,6 +2420,72 @@ exports.fromEvent = fromEvent;
 "use strict";
 
 
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+exports.authReducer = exports.toLogged = undefined;
+
+var _xstream = __webpack_require__(0);
+
+var _xstream2 = _interopRequireDefault(_xstream);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var anonymous = {
+  status: "anonymous",
+  username: null,
+  uid: null
+};
+
+var awaiting = {
+  status: "awaiting_response",
+  username: null,
+  uid: null
+};
+
+var toLogged = exports.toLogged = function toLogged(data) {
+  return {
+    status: "logged",
+    username: data.providerData[0].displayName,
+    uid: data.uid
+  };
+};
+
+var authReducer = exports.authReducer = function authReducer(_ref, actions$) {
+  var sFireResError$ = _ref.sFireResError$,
+      sFireAuth$ = _ref.sFireAuth$;
+
+  var aLogin$ = actions$.filter(function (a) {
+    return a.type === "LOGIN_FACEBOOK";
+  });
+  var aLogout$ = actions$.filter(function (a) {
+    return a.type === "LOGOUT";
+  });
+  var sFireAuthLogged$ = sFireAuth$.filter(function (d) {
+    return !!d;
+  });
+  var sFireAuthAnonymous$ = sFireAuth$.filter(function (d) {
+    return !d;
+  });
+  var sFireResLoginError$ = sFireResError$.filter(function (_ref2) {
+    var a = _ref2.a;
+    return a.type === "LOGIN_FACEBOOK";
+  });
+  var all = _xstream2.default.merge(aLogin$.map(awaiting), aLogout$.map(anonymous), sFireAuthLogged$.map(toLogged), sFireAuthAnonymous$.map(anonymous), sFireResLoginError$.map(anonymous));
+  return all.map(function (auth) {
+    return function (prev) {
+      return Object.assign({}, prev, { auth: auth });
+    };
+  });
+};
+
+/***/ }),
+/* 15 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
 var toString = Object.prototype.toString
 
   , id = toString.call((function () { return arguments; }()));
@@ -2428,7 +2494,7 @@ module.exports = function (x) { return (toString.call(x) === id); };
 
 
 /***/ }),
-/* 15 */
+/* 16 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2440,7 +2506,7 @@ module.exports = __webpack_require__(73)()
 
 
 /***/ }),
-/* 16 */
+/* 17 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2457,14 +2523,14 @@ module.exports = function (x) {
 
 
 /***/ }),
-/* 17 */
+/* 18 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var clear    = __webpack_require__(25)
-  , assign   = __webpack_require__(15)
+var clear    = __webpack_require__(26)
+  , assign   = __webpack_require__(16)
   , callable = __webpack_require__(2)
   , value    = __webpack_require__(1)
   , d        = __webpack_require__(5)
@@ -2554,7 +2620,7 @@ defineProperty(Iterator.prototype, Symbol.toStringTag, d('', 'Iterator'));
 
 
 /***/ }),
-/* 18 */
+/* 19 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2735,7 +2801,7 @@ exports.default = sampleCombine;
 //# sourceMappingURL=sampleCombine.js.map
 
 /***/ }),
-/* 19 */
+/* 20 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -2909,7 +2975,7 @@ var makeFirebaseDriver = exports.makeFirebaseDriver = function makeFirebaseDrive
 };
 
 /***/ }),
-/* 20 */
+/* 21 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3051,19 +3117,19 @@ exports.default = onionify;
 //# sourceMappingURL=index.js.map
 
 /***/ }),
-/* 21 */
+/* 22 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
 var adapt_1 = __webpack_require__(4);
-var DocumentDOMSource_1 = __webpack_require__(41);
-var BodyDOMSource_1 = __webpack_require__(40);
-var ElementFinder_1 = __webpack_require__(42);
+var DocumentDOMSource_1 = __webpack_require__(42);
+var BodyDOMSource_1 = __webpack_require__(41);
+var ElementFinder_1 = __webpack_require__(43);
 var fromEvent_1 = __webpack_require__(13);
-var isolate_1 = __webpack_require__(47);
-var EventDelegator_1 = __webpack_require__(43);
+var isolate_1 = __webpack_require__(48);
+var EventDelegator_1 = __webpack_require__(44);
 var utils_1 = __webpack_require__(7);
 var eventTypesThatDontBubble = [
     "blur",
@@ -3247,7 +3313,7 @@ exports.MainDOMSource = MainDOMSource;
 //# sourceMappingURL=MainDOMSource.js.map
 
 /***/ }),
-/* 22 */
+/* 23 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3282,7 +3348,7 @@ exports.ScopeChecker = ScopeChecker;
 //# sourceMappingURL=ScopeChecker.js.map
 
 /***/ }),
-/* 23 */
+/* 24 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3319,7 +3385,7 @@ exports.matchesSelector = createMatchesSelector();
 //# sourceMappingURL=matchesSelector.js.map
 
 /***/ }),
-/* 24 */
+/* 25 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3444,7 +3510,7 @@ exports.default = isolate;
 //# sourceMappingURL=index.js.map
 
 /***/ }),
-/* 25 */
+/* 26 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3463,7 +3529,7 @@ module.exports = function () {
 
 
 /***/ }),
-/* 26 */
+/* 27 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3487,7 +3553,7 @@ module.exports = function (options/*, …options*/) {
 
 
 /***/ }),
-/* 27 */
+/* 28 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3505,7 +3571,7 @@ module.exports = function (/*customCreate*/) {
 
 
 /***/ }),
-/* 28 */
+/* 29 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3585,7 +3651,7 @@ __webpack_require__(76);
 
 
 /***/ }),
-/* 29 */
+/* 30 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3597,7 +3663,7 @@ module.exports = __webpack_require__(85)()
 
 
 /***/ }),
-/* 30 */
+/* 31 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3612,7 +3678,7 @@ module.exports = function (value) {
 
 
 /***/ }),
-/* 31 */
+/* 32 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3622,7 +3688,7 @@ module.exports = __webpack_require__(92)() ? Map : __webpack_require__(96);
 
 
 /***/ }),
-/* 32 */
+/* 33 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3648,7 +3714,7 @@ exports.selectorParser = selectorParser;
 //# sourceMappingURL=selectorParser.js.map
 
 /***/ }),
-/* 33 */
+/* 34 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3720,7 +3786,7 @@ exports.default = exports.htmlDomApi;
 //# sourceMappingURL=htmldomapi.js.map
 
 /***/ }),
-/* 34 */
+/* 35 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3733,7 +3799,7 @@ exports.primitive = primitive;
 //# sourceMappingURL=is.js.map
 
 /***/ }),
-/* 35 */
+/* 36 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -3785,7 +3851,7 @@ exports.default = exports.thunk;
 //# sourceMappingURL=thunk.js.map
 
 /***/ }),
-/* 36 */
+/* 37 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var apply = Function.prototype.apply;
@@ -3844,7 +3910,7 @@ exports.clearImmediate = clearImmediate;
 
 
 /***/ }),
-/* 37 */
+/* 38 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4035,7 +4101,7 @@ exports.default = run;
 //# sourceMappingURL=index.js.map
 
 /***/ }),
-/* 38 */
+/* 39 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4049,15 +4115,15 @@ var _xstream = __webpack_require__(0);
 
 var _xstream2 = _interopRequireDefault(_xstream);
 
-var _isolate = __webpack_require__(24);
+var _isolate = __webpack_require__(25);
 
 var _isolate2 = _interopRequireDefault(_isolate);
 
 var _dom = __webpack_require__(3);
 
-var _firebaseSink = __webpack_require__(57);
+var _firebaseSink = __webpack_require__(58);
 
-var _intent = __webpack_require__(58);
+var _intent = __webpack_require__(59);
 
 var _intent2 = _interopRequireDefault(_intent);
 
@@ -4065,23 +4131,23 @@ var _index = __webpack_require__(63);
 
 var _index2 = _interopRequireDefault(_index);
 
-var _List = __webpack_require__(56);
+var _List = __webpack_require__(57);
 
 var _List2 = _interopRequireDefault(_List);
 
-var _Auth = __webpack_require__(53);
+var _Auth = __webpack_require__(54);
 
 var _Auth2 = _interopRequireDefault(_Auth);
 
-var _Feed = __webpack_require__(54);
+var _Feed = __webpack_require__(55);
 
 var _Feed2 = _interopRequireDefault(_Feed);
 
-var _Formular = __webpack_require__(55);
+var _Formular = __webpack_require__(56);
 
 var _Formular2 = _interopRequireDefault(_Formular);
 
-var _Article = __webpack_require__(52);
+var _Article = __webpack_require__(53);
 
 var _Article2 = _interopRequireDefault(_Article);
 
@@ -4115,14 +4181,14 @@ var main = function main(sources) {
   })));
 
   /* APP */
+  var superSources$ = (0, _intent2.default)(sources);
+  var parentReducer$ = (0, _index2.default)(superSources$, childrenActions$);
+
   var vdom$ = childrenDOMs$.map(function (doms) {
     return (0, _dom.div)(doms);
   });
-  var intent$ = (0, _intent2.default)(sources);
-  var parentReducer$ = (0, _index2.default)(intent$, childrenActions$);
   var reducer$ = _xstream2.default.merge(parentReducer$, childrenReducers$);
-
-  var firebase$ = (0, _firebaseSink.firebaseSink)(sources.onion.state$, childrenActions$);
+  var firebase$ = (0, _firebaseSink.firebaseSink)(childrenActions$);
 
   return {
     DOM: vdom$,
@@ -4134,7 +4200,7 @@ var main = function main(sources) {
 exports.default = main;
 
 /***/ }),
-/* 39 */
+/* 40 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4151,7 +4217,7 @@ var firebaseConfig = exports.firebaseConfig = {
 };
 
 /***/ }),
-/* 40 */
+/* 41 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4192,7 +4258,7 @@ exports.BodyDOMSource = BodyDOMSource;
 //# sourceMappingURL=BodyDOMSource.js.map
 
 /***/ }),
-/* 41 */
+/* 42 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4233,15 +4299,15 @@ exports.DocumentDOMSource = DocumentDOMSource;
 //# sourceMappingURL=DocumentDOMSource.js.map
 
 /***/ }),
-/* 42 */
+/* 43 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var ScopeChecker_1 = __webpack_require__(22);
+var ScopeChecker_1 = __webpack_require__(23);
 var utils_1 = __webpack_require__(7);
-var matchesSelector_1 = __webpack_require__(23);
+var matchesSelector_1 = __webpack_require__(24);
 function toElArray(input) {
     return Array.prototype.slice.call(input);
 }
@@ -4272,16 +4338,16 @@ exports.ElementFinder = ElementFinder;
 //# sourceMappingURL=ElementFinder.js.map
 
 /***/ }),
-/* 43 */
+/* 44 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
 var xstream_1 = __webpack_require__(0);
-var ScopeChecker_1 = __webpack_require__(22);
+var ScopeChecker_1 = __webpack_require__(23);
 var utils_1 = __webpack_require__(7);
-var matchesSelector_1 = __webpack_require__(23);
+var matchesSelector_1 = __webpack_require__(24);
 /**
  * Finds (with binary search) index of the destination that id equal to searchId
  * among the destinations in the given array.
@@ -4439,13 +4505,13 @@ exports.EventDelegator = EventDelegator;
 //# sourceMappingURL=EventDelegator.js.map
 
 /***/ }),
-/* 44 */
+/* 45 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 Object.defineProperty(exports, "__esModule", { value: true });
-var MapPolyfill = __webpack_require__(31);
+var MapPolyfill = __webpack_require__(32);
 var IsolateModule = (function () {
     function IsolateModule() {
         this.elementsByFullScope = new MapPolyfill();
@@ -4557,7 +4623,7 @@ exports.IsolateModule = IsolateModule;
 //# sourceMappingURL=IsolateModule.js.map
 
 /***/ }),
-/* 45 */
+/* 46 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4565,7 +4631,7 @@ exports.IsolateModule = IsolateModule;
 Object.defineProperty(exports, "__esModule", { value: true });
 var h_1 = __webpack_require__(10);
 var classNameFromVNode_1 = __webpack_require__(109);
-var selectorParser_1 = __webpack_require__(32);
+var selectorParser_1 = __webpack_require__(33);
 var VNodeWrapper = (function () {
     function VNodeWrapper(rootElement) {
         this.rootElement = rootElement;
@@ -4601,7 +4667,7 @@ exports.VNodeWrapper = VNodeWrapper;
 //# sourceMappingURL=VNodeWrapper.js.map
 
 /***/ }),
-/* 46 */
+/* 47 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4685,7 +4751,7 @@ exports.default = exported;
 //# sourceMappingURL=hyperscript-helpers.js.map
 
 /***/ }),
-/* 47 */
+/* 48 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4748,7 +4814,7 @@ exports.totalIsolateSink = totalIsolateSink;
 //# sourceMappingURL=isolate.js.map
 
 /***/ }),
-/* 48 */
+/* 49 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4756,13 +4822,13 @@ exports.totalIsolateSink = totalIsolateSink;
 Object.defineProperty(exports, "__esModule", { value: true });
 var snabbdom_1 = __webpack_require__(115);
 var xstream_1 = __webpack_require__(0);
-var MainDOMSource_1 = __webpack_require__(21);
+var MainDOMSource_1 = __webpack_require__(22);
 var tovnode_1 = __webpack_require__(116);
-var VNodeWrapper_1 = __webpack_require__(45);
+var VNodeWrapper_1 = __webpack_require__(46);
 var utils_1 = __webpack_require__(7);
-var modules_1 = __webpack_require__(50);
-var IsolateModule_1 = __webpack_require__(44);
-var MapPolyfill = __webpack_require__(31);
+var modules_1 = __webpack_require__(51);
+var IsolateModule_1 = __webpack_require__(45);
+var MapPolyfill = __webpack_require__(32);
 function makeDOMDriverInputGuard(modules) {
     if (!Array.isArray(modules)) {
         throw new Error("Optional modules option must be " +
@@ -4829,7 +4895,7 @@ exports.makeDOMDriver = makeDOMDriver;
 //# sourceMappingURL=makeDOMDriver.js.map
 
 /***/ }),
-/* 49 */
+/* 50 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4887,7 +4953,7 @@ exports.mockDOMSource = mockDOMSource;
 //# sourceMappingURL=mockDOMSource.js.map
 
 /***/ }),
-/* 50 */
+/* 51 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4908,27 +4974,27 @@ exports.default = modules;
 //# sourceMappingURL=modules.js.map
 
 /***/ }),
-/* 51 */
+/* 52 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var _run = __webpack_require__(37);
+var _run = __webpack_require__(38);
 
 var _dom = __webpack_require__(3);
 
-var _cycleOnionify = __webpack_require__(20);
+var _cycleOnionify = __webpack_require__(21);
 
 var _cycleOnionify2 = _interopRequireDefault(_cycleOnionify);
 
-var _main = __webpack_require__(38);
+var _main = __webpack_require__(39);
 
 var _main2 = _interopRequireDefault(_main);
 
-var _firebaseDriver = __webpack_require__(19);
+var _firebaseDriver = __webpack_require__(20);
 
-var _firebaseConfig = __webpack_require__(39);
+var _firebaseConfig = __webpack_require__(40);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -4942,7 +5008,7 @@ var wrappedMain = (0, _cycleOnionify2.default)(_main2.default);
 (0, _run.run)(wrappedMain, drivers);
 
 /***/ }),
-/* 52 */
+/* 53 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -4958,7 +5024,7 @@ var _xstream = __webpack_require__(0);
 
 var _xstream2 = _interopRequireDefault(_xstream);
 
-var _sampleCombine = __webpack_require__(18);
+var _sampleCombine = __webpack_require__(19);
 
 var _sampleCombine2 = _interopRequireDefault(_sampleCombine);
 
@@ -4969,16 +5035,17 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var formView = function formView(article) {
   var _article$value = article.value,
       status = _article$value.status,
-      content = _article$value.content;
+      content = _article$value.content,
+      username = _article$value.username;
 
   var disabled = status === "submitting";
-  return (0, _dom.div)((0, _dom.form)([(0, _dom.input)(".input", {
+  return (0, _dom.form)(".form", [(0, _dom.span)(username + " said: "), (0, _dom.input)(".input", {
     attrs: { type: "text", value: content, disabled: disabled }
-  }), (0, _dom.button)(".cancel", { attrs: { type: "button" } }, "Cancel"), (0, _dom.button)({ attrs: { type: "submit", disabled: disabled } }, status === "submitting" ? "Submitting..." : "Submit")]));
+  }), (0, _dom.span)(" "), (0, _dom.button)(".cancel", { attrs: { type: "button" } }, "Cancel"), (0, _dom.span)(" "), (0, _dom.button)({ attrs: { type: "submit", disabled: disabled } }, status === "submitting" ? "Submitting..." : "Submit")]);
 };
 
 var articleView = function articleView(article) {
-  return (0, _dom.div)([(0, _dom.span)(article.value.username), (0, _dom.span)(" said: "), (0, _dom.span)(article.value.content), !article.userArticle ? undefined : (0, _dom.span)([(0, _dom.button)(".edit", "Edit"), (0, _dom.button)(".delete", "Delete")])]);
+  return (0, _dom.div)([(0, _dom.span)(article.value.username + " said: " + article.value.content + " "), article.value.uid !== article.auth.uid ? undefined : (0, _dom.span)([(0, _dom.button)(".edit", "Edit"), (0, _dom.span)(" "), (0, _dom.button)(".delete", "Delete")])]);
 };
 
 var view = function view(state$) {
@@ -4989,29 +5056,50 @@ var view = function view(state$) {
 };
 
 var intent = function intent(sources) {
+  var auth$ = sources.onion.state$.map(function (state) {
+    return state.auth;
+  });
+  var key$ = sources.onion.state$.map(function (state) {
+    return state.key;
+  });
   var edit$ = sources.DOM.select(".edit").events("click").mapTo({ type: "ARTICLE_EDIT" });
   var cancel$ = sources.DOM.select(".cancel").events("click").mapTo({ type: "ARTICLE_CANCEL" });
-  var delete$ = sources.DOM.select(".delete").events("click").mapTo({ type: "ARTICLE_DELETE" });
+  var delete$ = sources.DOM.select(".delete").events("click").compose((0, _sampleCombine2.default)(key$)).map(function (_ref) {
+    var _ref2 = _slicedToArray(_ref, 2),
+        edit = _ref2[0],
+        key = _ref2[1];
+
+    return { type: "ARTICLE_DELETE", key: key };
+  });
   var input$ = sources.DOM.select(".input").events("input").map(function (e) {
     return e.target.value;
   });
-  var submit$ = sources.DOM.select("form").events("submit").map(function (event) {
-    return event.preventDefault();
+  var unvalueSubmit$ = sources.DOM.select("form").events("submit").map(function (e) {
+    return e.preventDefault();
   });
-  var validSubmit = submit$.compose((0, _sampleCombine2.default)(input$)).map(function (_ref) {
-    var _ref2 = _slicedToArray(_ref, 2),
-        submit = _ref2[0],
-        value = _ref2[1];
+  var valueSubmit = unvalueSubmit$.compose((0, _sampleCombine2.default)(input$)).compose((0, _sampleCombine2.default)(auth$)).compose((0, _sampleCombine2.default)(key$)).map(function (_ref3) {
+    var _ref4 = _slicedToArray(_ref3, 2),
+        _ref4$ = _slicedToArray(_ref4[0], 2),
+        _ref4$$ = _slicedToArray(_ref4$[0], 2),
+        submit = _ref4$$[0],
+        value = _ref4$$[1],
+        auth = _ref4$[1],
+        key = _ref4[1];
 
-    return value;
+    return { value: value, auth: auth, key: key };
   });
-  var submitAction$ = validSubmit.map(function (value) {
+  var submit$ = valueSubmit.map(function (_ref5) {
+    var value = _ref5.value,
+        auth = _ref5.auth,
+        key = _ref5.key;
     return {
       type: "ARTICLE_SUBMIT",
-      value: value
+      value: value,
+      key: key,
+      auth: auth
     };
   });
-  return _xstream2.default.merge(edit$, cancel$, delete$, submitAction$);
+  return _xstream2.default.merge(edit$, cancel$, delete$, submit$);
 };
 
 var reducer = function reducer(actions$) {
@@ -5045,6 +5133,7 @@ var Article = function Article(sources, i) {
   var reducer$ = reducer(actions);
   return {
     DOM: DOM,
+    actions: actions,
     onion: reducer$
   };
 };
@@ -5052,7 +5141,7 @@ var Article = function Article(sources, i) {
 exports.default = Article;
 
 /***/ }),
-/* 53 */
+/* 54 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5072,7 +5161,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var view = function view(state$) {
   return state$.map(function (state) {
-    if (state.status === "logged") return (0, _dom.p)([(0, _dom.span)("Logged in as " + state.username + ". "), (0, _dom.button)(".logout", "Log out")]);else if (state.status === "awaiting_response") return (0, _dom.p)([(0, _dom.button)({ attrs: { disabled: "true" } }, "authenticating...")]);
+    if (state.status === "logged") return (0, _dom.p)([(0, _dom.span)("Logged as " + state.username + ". "), (0, _dom.button)(".logout", "Log out")]);else if (state.status === "awaiting_response") return (0, _dom.p)([(0, _dom.button)({ attrs: { disabled: "true" } }, "authenticating...")]);
     return (0, _dom.p)([(0, _dom.button)(".login", "Log in")]);
   });
 };
@@ -5099,7 +5188,7 @@ var Auth = function Auth(sources) {
 exports.default = Auth;
 
 /***/ }),
-/* 54 */
+/* 55 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5132,14 +5221,15 @@ var reducer = function reducer(sources) {
 var Feed = function Feed(sources) {
   return {
     DOM: view(sources.onion.state$),
-    onion: reducer(sources)
+    onion: reducer(sources),
+    actions: _xstream2.default.of({})
   };
 };
 
 exports.default = Feed;
 
 /***/ }),
-/* 55 */
+/* 56 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5155,7 +5245,7 @@ var _xstream = __webpack_require__(0);
 
 var _xstream2 = _interopRequireDefault(_xstream);
 
-var _sampleCombine = __webpack_require__(18);
+var _sampleCombine = __webpack_require__(19);
 
 var _sampleCombine2 = _interopRequireDefault(_sampleCombine);
 
@@ -5172,7 +5262,7 @@ var view = function view(state$) {
         placeholder: "write something clever!",
         disabled: state.status === "submitting"
       }
-    }), (0, _dom.button)({
+    }), (0, _dom.span)(" "), (0, _dom.button)({
       attrs: {
         type: "submit",
         disabled: state.status === "submitting"
@@ -5181,24 +5271,32 @@ var view = function view(state$) {
   });
 };
 
-var intent = function intent(sourcesDOM) {
-  var input$ = sourcesDOM.select(".input").events("input").map(function (e) {
+var intent = function intent(sources) {
+  var auth$ = sources.onion.state$.map(function (state) {
+    return state.auth;
+  });
+  var input$ = sources.DOM.select(".input").events("input").map(function (e) {
     return e.target.value;
   });
-  var submit$ = sourcesDOM.select(".formular").events("submit").map(function (event) {
+  var submit$ = sources.DOM.select(".formular").events("submit").map(function (event) {
     return event.preventDefault();
   });
-  var validSubmit = submit$.compose((0, _sampleCombine2.default)(input$)).map(function (_ref) {
+  var valueSubmit = submit$.compose((0, _sampleCombine2.default)(input$)).compose((0, _sampleCombine2.default)(auth$)).map(function (_ref) {
     var _ref2 = _slicedToArray(_ref, 2),
-        submit = _ref2[0],
-        value = _ref2[1];
+        _ref2$ = _slicedToArray(_ref2[0], 2),
+        submit = _ref2$[0],
+        value = _ref2$[1],
+        auth = _ref2[1];
 
-    return value;
+    return { value: value, auth: auth };
   });
-  return validSubmit.map(function (value) {
+  return valueSubmit.map(function (_ref3) {
+    var value = _ref3.value,
+        auth = _ref3.auth;
     return {
       type: "FORMULAR_SUBMIT",
-      value: value
+      value: value,
+      auth: auth
     };
   });
 };
@@ -5208,7 +5306,7 @@ var Formular = function Formular(sources) {
   var reducer$ = _xstream2.default.of(function (prevState) {
     return { status: "anonymous" };
   });
-  var actions = intent(sources.DOM);
+  var actions = intent(sources);
   return {
     DOM: DOM,
     onion: reducer$,
@@ -5219,7 +5317,7 @@ var Formular = function Formular(sources) {
 exports.default = Formular;
 
 /***/ }),
-/* 56 */
+/* 57 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5233,13 +5331,13 @@ var _xstream = __webpack_require__(0);
 
 var _xstream2 = _interopRequireDefault(_xstream);
 
-var _isolate = __webpack_require__(24);
+var _isolate = __webpack_require__(25);
 
 var _isolate2 = _interopRequireDefault(_isolate);
 
 var _dom = __webpack_require__(3);
 
-var _cycleOnionify = __webpack_require__(20);
+var _cycleOnionify = __webpack_require__(21);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -5260,6 +5358,9 @@ var List = function List(Item) {
     var childrenDoms$ = childrenSinks$.compose((0, _cycleOnionify.pick)("DOM"));
     var childrenDom$ = childrenDoms$.compose((0, _cycleOnionify.mix)(_xstream2.default.combine));
 
+    var childrenActions$ = childrenSinks$.compose((0, _cycleOnionify.pick)("actions"));
+    var childrenAction$ = childrenActions$.compose((0, _cycleOnionify.mix)(_xstream2.default.merge));
+
     var childrenReducers$ = childrenSinks$.compose((0, _cycleOnionify.pick)("onion"));
     var childrenReducer$ = childrenReducers$.compose((0, _cycleOnionify.mix)(_xstream2.default.merge));
 
@@ -5268,6 +5369,7 @@ var List = function List(Item) {
 
     return {
       DOM: DOM,
+      actions: childrenAction$,
       onion: reducer$
     };
   };
@@ -5276,7 +5378,7 @@ var List = function List(Item) {
 exports.default = List;
 
 /***/ }),
-/* 57 */
+/* 58 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5287,83 +5389,77 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.firebaseSink = undefined;
 
-var _slicedToArray = function () { function sliceIterator(arr, i) { var _arr = []; var _n = true; var _d = false; var _e = undefined; try { for (var _i = arr[Symbol.iterator](), _s; !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"]) _i["return"](); } finally { if (_d) throw _e; } } return _arr; } return function (arr, i) { if (Array.isArray(arr)) { return arr; } else if (Symbol.iterator in Object(arr)) { return sliceIterator(arr, i); } else { throw new TypeError("Invalid attempt to destructure non-iterable instance"); } }; }();
-
 var _xstream = __webpack_require__(0);
 
 var _xstream2 = _interopRequireDefault(_xstream);
 
-var _sampleCombine = __webpack_require__(18);
+var _sampleCombine = __webpack_require__(19);
 
 var _sampleCombine2 = _interopRequireDefault(_sampleCombine);
 
-var _firebaseDriver = __webpack_require__(19);
+var _firebaseDriver = __webpack_require__(20);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var toFormular = function toFormular(formularValue, auth) {
+var toFirebaseArticleCreation = function toFirebaseArticleCreation(value, auth) {
   return {
     path: "articles",
     value: {
-      content: formularValue,
+      content: value,
       username: auth.username,
       uid: auth.uid
     }
   };
 };
 
-// export const firebaseSink = ({
-//   state$,
-//   aAuthLogin$,
-//   aAuthLogout$,
-//   aFormularSubmit$
-// }) => {
-//   const stateAuth$ = state$.map(state => state.auth);
-//   const login$ = aAuthLogin$.map(loginWithFacebook);
-//   const logout$ = aAuthLogout$.map(logout);
-//   const formularAndAuthOnSubmit$ = aFormularSubmit$
-//     .compose(sampleCombine(stateAuth$))
-//     .filter(([formularValue, auth]) => auth.status === "logged");
-//   const formular$ = formularAndAuthOnSubmit$.map(([formularValue, auth]) =>
-//     push(toFormular(formularValue, auth))
-//   );
-//   return xs.merge(login$, logout$, formular$);
-// };
+var toFirebaseArticleUpdate = function toFirebaseArticleUpdate(value, key, auth) {
+  return {
+    path: "articles/" + key,
+    value: {
+      content: value,
+      username: auth.username,
+      uid: auth.uid
+    }
+  };
+};
 
-var firebaseSink = exports.firebaseSink = function firebaseSink(state$, actions$) {
-  var stateAuth$ = state$.map(function (state) {
-    return state.auth;
-  });
+var createArticle = function createArticle(_ref) {
+  var value = _ref.value,
+      auth = _ref.auth;
+  return (0, _firebaseDriver.push)(toFirebaseArticleCreation(value, auth));
+};
+var updateArticle = function updateArticle(_ref2) {
+  var value = _ref2.value,
+      key = _ref2.key,
+      auth = _ref2.auth;
+  return (0, _firebaseDriver.set)(toFirebaseArticleUpdate(value, key, auth));
+};
+var deleteArticle = function deleteArticle(_ref3) {
+  var key = _ref3.key;
+  return (0, _firebaseDriver.remove)("articles/" + key);
+};
+
+var firebaseSink = exports.firebaseSink = function firebaseSink(actions$) {
   var login$ = actions$.filter(function (a) {
     return a.type === "LOGIN_FACEBOOK";
-  }).map(_firebaseDriver.loginWithFacebook);
+  });
   var logout$ = actions$.filter(function (a) {
     return a.type === "LOGOUT";
-  }).map(_firebaseDriver.logout);
-  var formularSubmit$ = actions$.filter(function (a) {
+  });
+  var formular$ = actions$.filter(function (a) {
     return a.type === "FORMULAR_SUBMIT";
-  }).map(function (a) {
-    return a.value;
   });
-  var formularAndAuthOnSubmit$ = formularSubmit$.compose((0, _sampleCombine2.default)(stateAuth$)).filter(function (_ref) {
-    var _ref2 = _slicedToArray(_ref, 2),
-        formularValue = _ref2[0],
-        auth = _ref2[1];
-
-    return auth.status === "logged";
+  var article$ = actions$.filter(function (a) {
+    return a.type === "ARTICLE_SUBMIT";
   });
-  var formular$ = formularAndAuthOnSubmit$.map(function (_ref3) {
-    var _ref4 = _slicedToArray(_ref3, 2),
-        formularValue = _ref4[0],
-        auth = _ref4[1];
-
-    return (0, _firebaseDriver.push)(toFormular(formularValue, auth));
+  var delete$ = actions$.filter(function (a) {
+    return a.type === "ARTICLE_DELETE";
   });
-  return _xstream2.default.merge(login$, logout$, formular$);
+  return _xstream2.default.merge(login$.map(_firebaseDriver.loginWithFacebook), logout$.map(_firebaseDriver.logout), formular$.map(createArticle), article$.map(updateArticle), delete$.map(deleteArticle));
 };
 
 /***/ }),
-/* 58 */
+/* 59 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5408,7 +5504,7 @@ var intent = function intent(sources) {
 exports.default = intent;
 
 /***/ }),
-/* 59 */
+/* 60 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -5425,20 +5521,16 @@ var _xstream2 = _interopRequireDefault(_xstream);
 
 var _utils = __webpack_require__(64);
 
+var _auth = __webpack_require__(14);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var augmentArticles = function augmentArticles(auth, articlesArr) {
-  return articlesArr.map(function (a) {
-    return Object.assign({}, a, {
-      userArticle: a.value.uid === auth.uid
-    });
-  });
-};
-
-var toAugmentedArticles = function toAugmentedArticles(_ref) {
+var augmentArticles = function augmentArticles(_ref) {
   var auth = _ref.auth,
       articles = _ref.articles;
-  return augmentArticles(auth, (0, _utils.objectPropsToArray)(articles));
+  return (0, _utils.objectPropsToArray)(articles).map(function (a) {
+    return Object.assign({}, a, { auth: (0, _auth.toLogged)(auth) });
+  });
 };
 
 var articlesReducer = exports.articlesReducer = function articlesReducer(_ref2) {
@@ -5456,80 +5548,10 @@ var articlesReducer = exports.articlesReducer = function articlesReducer(_ref2) 
   }).map(function (arr) {
     return { auth: arr[0], articles: arr[1] };
   });
-  var all = _xstream2.default.merge(anonymousArticles$.map(_utils.objectPropsToArray), loggedArticles$.map(toAugmentedArticles));
-  return all.map(function (articles) {
+  var all = _xstream2.default.merge(anonymousArticles$.map(_utils.objectPropsToArray), loggedArticles$.map(augmentArticles));
+  return all.startWith([]).map(function (articles) {
     return function (prev) {
       return Object.assign({}, prev, { articles: articles });
-    };
-  });
-};
-
-/***/ }),
-/* 60 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-exports.authReducer = undefined;
-
-var _xstream = __webpack_require__(0);
-
-var _xstream2 = _interopRequireDefault(_xstream);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var toAnonymous = function toAnonymous() {
-  return {
-    status: "anonymous",
-    username: null,
-    uid: null
-  };
-};
-
-var toAwaiting = function toAwaiting() {
-  return {
-    status: "awaiting_response",
-    username: null,
-    uid: null
-  };
-};
-
-var toLogged = function toLogged(data) {
-  return {
-    status: "logged",
-    username: data.providerData[0].displayName,
-    uid: data.uid
-  };
-};
-
-var authReducer = exports.authReducer = function authReducer(_ref, actions$) {
-  var sFireResError$ = _ref.sFireResError$,
-      sFireAuth$ = _ref.sFireAuth$;
-
-  var aLogin$ = actions$.filter(function (a) {
-    return a.type === "LOGIN_FACEBOOK";
-  });
-  var aLogout$ = actions$.filter(function (a) {
-    return a.type === "LOGOUT";
-  });
-  var sFireAuthLogged$ = sFireAuth$.filter(function (d) {
-    return !!d;
-  });
-  var sFireAuthAnonymous$ = sFireAuth$.filter(function (d) {
-    return !d;
-  });
-  var sFireResLoginError$ = sFireResError$.filter(function (_ref2) {
-    var a = _ref2.a;
-    return a.type === "LOGIN_FACEBOOK";
-  });
-  var all = _xstream2.default.merge(aLogin$.map(toAwaiting), aLogout$.map(toAnonymous), sFireAuthLogged$.map(toLogged), sFireAuthAnonymous$.map(toAnonymous), sFireResLoginError$.map(toAnonymous));
-  return all.map(function (auth) {
-    return function (prev) {
-      return Object.assign({}, prev, { auth: auth });
     };
   });
 };
@@ -5555,47 +5577,37 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 function _toConsumableArray(arr) { if (Array.isArray(arr)) { for (var i = 0, arr2 = Array(arr.length); i < arr.length; i++) { arr2[i] = arr[i]; } return arr2; } else { return Array.from(arr); } }
 
 var toError = function toError(_ref) {
-  var err = _ref.err,
-      action = _ref.action;
+  var action = _ref.action;
   return {
     msg: "Error: Type of the action: " + action.type
   };
 };
 
-var toSuccess = function toSuccess(_ref2) {
-  var err = _ref2.err,
-      action = _ref2.action;
-  return {
-    msg: "Success: Type of the action: " + action.type
-  };
+var successfullArticleCreation = {
+  msg: "Article successfully saved!"
 };
 
-var toLoggedIn = function toLoggedIn(authData) {
-  return {
-    msg: "Auth: logged in as : " + authData.providerData[0].displayName
-  };
+var successfullArticleEdition = {
+  msg: "Article successfully updated!"
 };
 
-var toAnonymous = function toAnonymous(authData) {
-  return { msg: "Auth: not logged in" };
-};
+var feedbackReducer = exports.feedbackReducer = function feedbackReducer(_ref2) {
+  var sFireResError$ = _ref2.sFireResError$,
+      sFireResSuccess$ = _ref2.sFireResSuccess$;
 
-var feedbackReducer = exports.feedbackReducer = function feedbackReducer(_ref3) {
-  var sFireResError$ = _ref3.sFireResError$,
-      sFireResSuccess$ = _ref3.sFireResSuccess$,
-      sFireAuth$ = _ref3.sFireAuth$;
-
-  var sFireAuthLoggedIn$ = sFireAuth$.filter(function (d) {
-    return !!d;
+  var successfullArticleCreation$ = sFireResSuccess$.filter(function (_ref3) {
+    var action = _ref3.action;
+    return action.type === "PUSH";
   });
-  var sFireAuthLoggedOut$ = sFireAuth$.filter(function (d) {
-    return !d;
+  var successfullArticleEdition$ = sFireResSuccess$.filter(function (_ref4) {
+    var action = _ref4.action;
+    return action.type === "SET";
   });
-  var all = _xstream2.default.merge(sFireResError$.map(toError), sFireResSuccess$.map(toSuccess), sFireAuthLoggedIn$.map(toLoggedIn), sFireAuthLoggedOut$.map(toAnonymous));
-  return all.map(function (feed) {
-    return function (prevState) {
-      return Object.assign({}, prevState, {
-        feedback: [].concat(_toConsumableArray(prevState.feedback || []), [feed])
+  var all = _xstream2.default.merge(sFireResError$.map(toError), successfullArticleCreation$.mapTo(successfullArticleCreation), successfullArticleEdition$.mapTo(successfullArticleEdition));
+  return all.startWith({}).map(function (feed) {
+    return function (prev) {
+      return Object.assign({}, prev, {
+        feedback: prev && prev.feedback ? [].concat(_toConsumableArray(prev.feedback), [feed]) : []
       });
     };
   });
@@ -5617,16 +5629,16 @@ var _xstream = __webpack_require__(0);
 
 var _xstream2 = _interopRequireDefault(_xstream);
 
+var _auth = __webpack_require__(14);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-var toAnonymous = function toAnonymous() {
-  return { status: "anonymous" };
+var anonymous = { status: "anonymous" };
+var toReady = function toReady(auth) {
+  return { status: "ready", auth: (0, _auth.toLogged)(auth) };
 };
-var toReady = function toReady() {
-  return { status: "ready" };
-};
-var toSubmitting = function toSubmitting() {
-  return { status: "submitting" };
+var toSubmitting = function toSubmitting(auth) {
+  return { status: "submitting", auth: (0, _auth.toLogged)(auth) };
 };
 
 var formularReducer = exports.formularReducer = function formularReducer(_ref, actions$) {
@@ -5642,17 +5654,17 @@ var formularReducer = exports.formularReducer = function formularReducer(_ref, a
   var aSubmit$ = actions$.filter(function (a) {
     return a.type === "FORMULAR_SUBMIT";
   });
-  var validASubmit$ = _xstream2.default.combine(sFireAuth$, aSubmit$).filter(function (arr) {
+  var validASubmit$ = _xstream2.default.combine(sFireAuth$, aSubmit$).map(function (arr) {
     return arr[0];
-  }).map(function (arr) {
-    return arr[1];
+  }).filter(function (d) {
+    return !!d;
   });
-  var validSFireResSuccess$ = _xstream2.default.combine(sFireAuth$, sFireResSuccess$).filter(function (arr) {
+  var validSFireResSuccess$ = _xstream2.default.combine(sFireAuth$, sFireResSuccess$).map(function (arr) {
     return arr[0];
-  }).map(function (arr) {
-    return arr[1];
+  }).filter(function (d) {
+    return !!d;
   });
-  var all = _xstream2.default.merge(sFireAuthAnonymous$.map(toAnonymous), sFireAuthLogged$.map(toReady), validASubmit$.map(toSubmitting), validSFireResSuccess$.map(toReady));
+  var all = _xstream2.default.merge(sFireAuthAnonymous$.mapTo(anonymous), sFireAuthLogged$.map(toReady), validASubmit$.map(toSubmitting), validSFireResSuccess$.map(toReady));
   return all.map(function (formular) {
     return function (prev) {
       return Object.assign({}, prev, { formular: formular });
@@ -5675,13 +5687,13 @@ var _xstream = __webpack_require__(0);
 
 var _xstream2 = _interopRequireDefault(_xstream);
 
-var _auth = __webpack_require__(60);
+var _auth = __webpack_require__(14);
 
 var _feedback = __webpack_require__(61);
 
 var _formular = __webpack_require__(62);
 
-var _articles = __webpack_require__(59);
+var _articles = __webpack_require__(60);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -5719,7 +5731,7 @@ var objectPropsToArray = exports.objectPropsToArray = function objectPropsToArra
 
 
 var copy             = __webpack_require__(75)
-  , normalizeOptions = __webpack_require__(26)
+  , normalizeOptions = __webpack_require__(27)
   , ensureCallable   = __webpack_require__(2)
   , map              = __webpack_require__(83)
   , callable         = __webpack_require__(2)
@@ -5947,7 +5959,7 @@ module.exports = function (dest, src/*, …srcn*/) {
 "use strict";
 
 
-var assign = __webpack_require__(15)
+var assign = __webpack_require__(16)
   , value  = __webpack_require__(1);
 
 module.exports = function (obj) {
@@ -5968,8 +5980,8 @@ module.exports = function (obj) {
 
 var create = Object.create, shim;
 
-if (!__webpack_require__(27)()) {
-	shim = __webpack_require__(28);
+if (!__webpack_require__(28)()) {
+	shim = __webpack_require__(29);
 }
 
 module.exports = (function () {
@@ -6152,9 +6164,9 @@ module.exports = function (searchString/*, position*/) {
 
 
 var setPrototypeOf = __webpack_require__(11)
-  , contains       = __webpack_require__(29)
+  , contains       = __webpack_require__(30)
   , d              = __webpack_require__(5)
-  , Iterator       = __webpack_require__(17)
+  , Iterator       = __webpack_require__(18)
 
   , defineProperty = Object.defineProperty
   , ArrayIterator;
@@ -6188,9 +6200,9 @@ ArrayIterator.prototype = Object.create(Iterator.prototype, {
 "use strict";
 
 
-var isArguments = __webpack_require__(14)
+var isArguments = __webpack_require__(15)
   , callable    = __webpack_require__(2)
-  , isString    = __webpack_require__(16)
+  , isString    = __webpack_require__(17)
   , get         = __webpack_require__(89)
 
   , isArray = Array.isArray, call = Function.prototype.call
@@ -6241,11 +6253,11 @@ module.exports = function (iterable, cb/*, thisArg*/) {
 "use strict";
 
 
-var isArguments    = __webpack_require__(14)
-  , isString       = __webpack_require__(16)
+var isArguments    = __webpack_require__(15)
+  , isString       = __webpack_require__(17)
   , ArrayIterator  = __webpack_require__(87)
   , StringIterator = __webpack_require__(91)
-  , iterable       = __webpack_require__(30)
+  , iterable       = __webpack_require__(31)
   , iteratorSymbol = __webpack_require__(8).iterator;
 
 module.exports = function (obj) {
@@ -6263,8 +6275,8 @@ module.exports = function (obj) {
 "use strict";
 
 
-var isArguments    = __webpack_require__(14)
-  , isString       = __webpack_require__(16)
+var isArguments    = __webpack_require__(15)
+  , isString       = __webpack_require__(17)
   , iteratorSymbol = __webpack_require__(8).iterator
 
   , isArray = Array.isArray;
@@ -6290,7 +6302,7 @@ module.exports = function (value) {
 
 var setPrototypeOf = __webpack_require__(11)
   , d              = __webpack_require__(5)
-  , Iterator       = __webpack_require__(17)
+  , Iterator       = __webpack_require__(18)
 
   , defineProperty = Object.defineProperty
   , StringIterator;
@@ -6397,7 +6409,7 @@ module.exports = __webpack_require__(84)('key',
 
 var setPrototypeOf    = __webpack_require__(11)
   , d                 = __webpack_require__(5)
-  , Iterator          = __webpack_require__(17)
+  , Iterator          = __webpack_require__(18)
   , toStringTagSymbol = __webpack_require__(8).toStringTag
   , kinds             = __webpack_require__(94)
 
@@ -6440,7 +6452,7 @@ Object.defineProperty(MapIterator.prototype, toStringTagSymbol,
 "use strict";
 
 
-var clear          = __webpack_require__(25)
+var clear          = __webpack_require__(26)
   , eIndexOf       = __webpack_require__(66)
   , setPrototypeOf = __webpack_require__(11)
   , callable       = __webpack_require__(2)
@@ -6448,7 +6460,7 @@ var clear          = __webpack_require__(25)
   , d              = __webpack_require__(5)
   , ee             = __webpack_require__(101)
   , Symbol         = __webpack_require__(8)
-  , iterator       = __webpack_require__(30)
+  , iterator       = __webpack_require__(31)
   , forOf          = __webpack_require__(88)
   , Iterator       = __webpack_require__(95)
   , isNative       = __webpack_require__(93)
@@ -7920,7 +7932,7 @@ process.umask = function() { return 0; };
 
 "use strict";
 
-var selectorParser_1 = __webpack_require__(32);
+var selectorParser_1 = __webpack_require__(33);
 function classNameFromVNode(vNode) {
     var _a = selectorParser_1.selectorParser(vNode).className, cn = _a === void 0 ? '' : _a;
     if (!vNode.data) {
@@ -8201,8 +8213,8 @@ exports.default = exports.styleModule;
 "use strict";
 
 var vnode_1 = __webpack_require__(12);
-var is = __webpack_require__(34);
-var htmldomapi_1 = __webpack_require__(33);
+var is = __webpack_require__(35);
+var htmldomapi_1 = __webpack_require__(34);
 function isUndef(s) { return s === undefined; }
 function isDef(s) { return s !== undefined; }
 var emptyNode = vnode_1.default('', {}, [], undefined, undefined);
@@ -8227,7 +8239,7 @@ function createKeyToOldIdx(children, beginIdx, endIdx) {
 var hooks = ['create', 'update', 'remove', 'destroy', 'pre', 'post'];
 var h_1 = __webpack_require__(10);
 exports.h = h_1.h;
-var thunk_1 = __webpack_require__(35);
+var thunk_1 = __webpack_require__(36);
 exports.thunk = thunk_1.thunk;
 function init(modules, domApi) {
     var i, j, cbs = {};
@@ -8513,7 +8525,7 @@ exports.init = init;
 "use strict";
 
 var vnode_1 = __webpack_require__(12);
-var htmldomapi_1 = __webpack_require__(33);
+var htmldomapi_1 = __webpack_require__(34);
 function toVNode(node, domApi) {
     var api = domApi !== undefined ? domApi : htmldomapi_1.default;
     var text;

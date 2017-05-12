@@ -30,12 +30,12 @@ const main = sources => {
   );
 
   /* APP */
-  const vdom$ = childrenDOMs$.map(doms => div(doms));
-  const intent$ = intent(sources);
-  const parentReducer$ = reducer(intent$, childrenActions$);
-  const reducer$ = xs.merge(parentReducer$, childrenReducers$);
+  const superSources$ = intent(sources);
+  const parentReducer$ = reducer(superSources$, childrenActions$);
 
-  const firebase$ = firebaseSink(sources.onion.state$, childrenActions$);
+  const vdom$ = childrenDOMs$.map(doms => div(doms));
+  const reducer$ = xs.merge(parentReducer$, childrenReducers$);
+  const firebase$ = firebaseSink(childrenActions$);
 
   return {
     DOM: vdom$,

@@ -1,14 +1,9 @@
 import xs from "xstream";
 import { objectPropsToArray } from "../utils";
+import { toLogged } from "./auth";
 
-const augmentArticles = (auth, articlesArr) =>
-  articlesArr.map(a => ({
-    ...a,
-    userArticle: a.value.uid === auth.uid
-  }));
-
-const toAugmentedArticles = ({ auth, articles }) =>
-  augmentArticles(auth, objectPropsToArray(articles));
+const augmentArticles = ({ auth, articles }) =>
+  objectPropsToArray(articles).map(a => ({ ...a, auth: toLogged(auth) }));
 
 export const articlesReducer = ({ sFireAuth$, sFireArticles$ }) => {
   const c_auth_articles = xs.combine(sFireAuth$, sFireArticles$);
@@ -20,7 +15,7 @@ export const articlesReducer = ({ sFireAuth$, sFireArticles$ }) => {
     .map(arr => ({ auth: arr[0], articles: arr[1] }));
   const all = xs.merge(
     anonymousArticles$.map(objectPropsToArray),
-    loggedArticles$.map(toAugmentedArticles)
+    loggedArticles$.map(augmentArticles)
   );
-  return all.map(articles => prev => ({ ...prev, articles }));
+  return all.startWith([]).map(articles => prev => ({ ...prev, articles }));
 };

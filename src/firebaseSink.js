@@ -1,48 +1,42 @@
 import xs from "xstream";
 import sampleCombine from "xstream/extra/sampleCombine";
-import { loginWithFacebook, logout, push } from "./firebaseDriver";
+import { loginWithFacebook, logout, push, set, remove } from "./firebaseDriver";
 
-const toFormular = (formularValue, auth) => ({
+const toFirebaseArticleCreation = (value, auth) => ({
   path: "articles",
   value: {
-    content: formularValue,
+    content: value,
     username: auth.username,
     uid: auth.uid
   }
 });
 
-// export const firebaseSink = ({
-//   state$,
-//   aAuthLogin$,
-//   aAuthLogout$,
-//   aFormularSubmit$
-// }) => {
-//   const stateAuth$ = state$.map(state => state.auth);
-//   const login$ = aAuthLogin$.map(loginWithFacebook);
-//   const logout$ = aAuthLogout$.map(logout);
-//   const formularAndAuthOnSubmit$ = aFormularSubmit$
-//     .compose(sampleCombine(stateAuth$))
-//     .filter(([formularValue, auth]) => auth.status === "logged");
-//   const formular$ = formularAndAuthOnSubmit$.map(([formularValue, auth]) =>
-//     push(toFormular(formularValue, auth))
-//   );
-//   return xs.merge(login$, logout$, formular$);
-// };
+const toFirebaseArticleUpdate = (value, key, auth) => ({
+  path: `articles/${key}`,
+  value: {
+    content: value,
+    username: auth.username,
+    uid: auth.uid
+  }
+});
 
-export const firebaseSink = (state$, actions$) => {
-  const stateAuth$ = state$.map(state => state.auth);
-  const login$ = actions$
-    .filter(a => a.type === "LOGIN_FACEBOOK")
-    .map(loginWithFacebook);
-  const logout$ = actions$.filter(a => a.type === "LOGOUT").map(logout);
-  const formularSubmit$ = actions$
-    .filter(a => a.type === "FORMULAR_SUBMIT")
-    .map(a => a.value);
-  const formularAndAuthOnSubmit$ = formularSubmit$
-    .compose(sampleCombine(stateAuth$))
-    .filter(([formularValue, auth]) => auth.status === "logged");
-  const formular$ = formularAndAuthOnSubmit$.map(([formularValue, auth]) =>
-    push(toFormular(formularValue, auth))
+const createArticle = ({ value, auth }) =>
+  push(toFirebaseArticleCreation(value, auth));
+const updateArticle = ({ value, key, auth }) =>
+  set(toFirebaseArticleUpdate(value, key, auth));
+const deleteArticle = ({ key }) => remove(`articles/${key}`);
+
+export const firebaseSink = actions$ => {
+  const login$ = actions$.filter(a => a.type === "LOGIN_FACEBOOK");
+  const logout$ = actions$.filter(a => a.type === "LOGOUT");
+  const formular$ = actions$.filter(a => a.type === "FORMULAR_SUBMIT");
+  const article$ = actions$.filter(a => a.type === "ARTICLE_SUBMIT");
+  const delete$ = actions$.filter(a => a.type === "ARTICLE_DELETE");
+  return xs.merge(
+    login$.map(loginWithFacebook),
+    logout$.map(logout),
+    formular$.map(createArticle),
+    article$.map(updateArticle),
+    delete$.map(deleteArticle)
   );
-  return xs.merge(login$, logout$, formular$);
 };
