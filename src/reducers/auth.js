@@ -27,11 +27,11 @@ export const authReducer = ({ sFireResError$, sFireAuth$ }, actions$) => {
     ({ a }) => a.type === "LOGIN_FACEBOOK"
   );
   const all = xs.merge(
-    aLogin$.map(awaiting),
-    aLogout$.map(anonymous),
+    aLogin$.mapTo(awaiting),
+    aLogout$.mapTo(anonymous),
     sFireAuthLogged$.map(toLogged),
     sFireAuthAnonymous$.mapTo(anonymous),
-    sFireResLoginError$.map(anonymous)
+    sFireResLoginError$.mapTo(anonymous)
   );
   return all.map(auth => prev => ({ ...prev, auth }));
 };

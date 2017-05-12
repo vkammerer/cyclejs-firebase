@@ -2471,7 +2471,7 @@ var authReducer = exports.authReducer = function authReducer(_ref, actions$) {
     var a = _ref2.a;
     return a.type === "LOGIN_FACEBOOK";
   });
-  var all = _xstream2.default.merge(aLogin$.map(awaiting), aLogout$.map(anonymous), sFireAuthLogged$.map(toLogged), sFireAuthAnonymous$.mapTo(anonymous), sFireResLoginError$.map(anonymous));
+  var all = _xstream2.default.merge(aLogin$.mapTo(awaiting), aLogout$.mapTo(anonymous), sFireAuthLogged$.map(toLogged), sFireAuthAnonymous$.mapTo(anonymous), sFireResLoginError$.mapTo(anonymous));
   return all.map(function (auth) {
     return function (prev) {
       return Object.assign({}, prev, { auth: auth });
