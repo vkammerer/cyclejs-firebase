@@ -2471,7 +2471,7 @@ var authReducer = exports.authReducer = function authReducer(_ref, actions$) {
     var a = _ref2.a;
     return a.type === "LOGIN_FACEBOOK";
   });
-  var all = _xstream2.default.merge(aLogin$.map(awaiting), aLogout$.map(anonymous), sFireAuthLogged$.map(toLogged), sFireAuthAnonymous$.map(anonymous), sFireResLoginError$.map(anonymous));
+  var all = _xstream2.default.merge(aLogin$.map(awaiting), aLogout$.map(anonymous), sFireAuthLogged$.map(toLogged), sFireAuthAnonymous$.mapTo(anonymous), sFireResLoginError$.map(anonymous));
   return all.map(function (auth) {
     return function (prev) {
       return Object.assign({}, prev, { auth: auth });
@@ -5045,7 +5045,7 @@ var formView = function formView(article) {
 };
 
 var articleView = function articleView(article) {
-  return (0, _dom.div)([(0, _dom.span)(article.value.username + " said: " + article.value.content + " "), article.value.uid !== article.auth.uid ? undefined : (0, _dom.span)([(0, _dom.button)(".edit", "Edit"), (0, _dom.span)(" "), (0, _dom.button)(".delete", "Delete")])]);
+  return (0, _dom.div)([(0, _dom.span)(article.value.username + " said: " + article.value.content + " "), !article.auth || article.auth.uid !== article.value.uid ? undefined : (0, _dom.span)([(0, _dom.button)(".edit", "Edit"), (0, _dom.span)(" "), (0, _dom.button)(".delete", "Delete")])]);
 };
 
 var view = function view(state$) {

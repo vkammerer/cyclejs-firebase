@@ -23,7 +23,7 @@ const formView = article => {
 const articleView = article =>
   div([
     span(`${article.value.username} said: ${article.value.content} `),
-    article.value.uid !== article.auth.uid
+    !article.auth || article.auth.uid !== article.value.uid
       ? undefined
       : span([button(".edit", "Edit"), span(" "), button(".delete", "Delete")])
   ]);

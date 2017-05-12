@@ -30,7 +30,7 @@ export const authReducer = ({ sFireResError$, sFireAuth$ }, actions$) => {
     aLogin$.map(awaiting),
     aLogout$.map(anonymous),
     sFireAuthLogged$.map(toLogged),
-    sFireAuthAnonymous$.map(anonymous),
+    sFireAuthAnonymous$.mapTo(anonymous),
     sFireResLoginError$.map(anonymous)
   );
   return all.map(auth => prev => ({ ...prev, auth }));
