@@ -24,7 +24,7 @@ export const authReducer = ({ sFireResError$, sFireAuth$ }, actions$) => {
   const sFireAuthLogged$ = sFireAuth$.filter(d => !!d);
   const sFireAuthAnonymous$ = sFireAuth$.filter(d => !d);
   const sFireResLoginError$ = sFireResError$.filter(
-    ({ a }) => a.type === "LOGIN_FACEBOOK"
+    ({ action }) => action.type === "LOGIN_FACEBOOK"
   );
   const all = xs.merge(
     aLogin$.mapTo(awaiting),

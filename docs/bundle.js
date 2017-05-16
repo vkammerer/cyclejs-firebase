@@ -2468,8 +2468,8 @@ var authReducer = exports.authReducer = function authReducer(_ref, actions$) {
     return !d;
   });
   var sFireResLoginError$ = sFireResError$.filter(function (_ref2) {
-    var a = _ref2.a;
-    return a.type === "LOGIN_FACEBOOK";
+    var action = _ref2.action;
+    return action.type === "LOGIN_FACEBOOK";
   });
   var all = _xstream2.default.merge(aLogin$.mapTo(awaiting), aLogout$.mapTo(anonymous), sFireAuthLogged$.map(toLogged), sFireAuthAnonymous$.mapTo(anonymous), sFireResLoginError$.mapTo(anonymous));
   return all.map(function (auth) {
