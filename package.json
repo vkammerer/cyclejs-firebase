@@ -10,7 +10,7 @@
     "prod": "cross-env NODE_ENV=production node_modules/.bin/webpack --output-filename docs/bundle.js"
   },
   "devDependencies": {
-    "@cycle/dom": "^17.1.0",
+    "@cycle/dom": "^17.3.0",
     "@cycle/isolate": "^2.1.0",
     "@cycle/run": "^3.1.0",
     "babel-core": "^6.24.1",
